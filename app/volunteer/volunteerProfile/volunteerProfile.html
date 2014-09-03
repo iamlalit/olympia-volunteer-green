@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html ng-app="jobDetailsController">
+<head>
+    <meta charset="utf-8">
+    <title>OLYMPIA</title>
+    
+    <link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/organization/postJob/postJob.css"/>
+    <link href="../../css/global.css" rel="stylesheet">
+    <link href="../../css/organization/viewApp/viewApp.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <link href="../../css/volunteer/jobDetails/jobDetails.css" rel="stylesheet">
+    <link href="../../css/slider/slider.css" rel="stylesheet" />
+    <link href="../../css/volunteer/volunteerProfile/volunteerProfile.css" rel="stylesheet">
+</head>
+
+<body ng-controller="jobDetails">
+    <!-- Page Header Section Start-->
+    <header>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="../../img/logo.png"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!-- Volunteer Menu Start-->
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="../searchJob/searchJob.html" class='menu-interval'>Search Job</a></li>
+                        <li><a href="../jobApplication/jobApplication.html" class='menu-interval'>Job Applications</a></li>
+                        <li><a href="#" class='menu-interval'>Recommendations</a></li>
+                        <li><a href="../../message/message.html?owner=volunteer" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- Volunteer Menu end here-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                        <li class='dropdown pull-right'>
+                            <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation"><a role="menuitem" href="../createProfileForm/createProfile.html"><i class='glyphicon glyphicon-user'></i> My Profile</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" href="../../myAccount/myAccount.html?owner=volunteer"><i class='glyphicon glyphicon-user'></i> My Account</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" href="../../changePassword/changePassword.html?owner=volunteer"><i class='glyphicon glyphicon-cog'></i> Change Password</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" href="../../notificationSettings/notificationSettings.html?owner=volunteer"><i class='fa fa-bell'></i> Notification Settings</a></li>
+                            </ul>
+                        </li>
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                        <li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = true; organization = false">
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                            <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive1 = 'make-it-white'">
+                                <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''" href="../../organization/search/searchVol.html" id="tab-header-1" ng-class="addActive2"><img src="../../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''" href="../../volunteer/searchJob/searchJob.html" ng-class="addActive1"><img src="../../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" id="separate-highlight"> 
+                                    <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=volunteer" ng-if="client == true">sander_mrbrown</a></span>
+                                    <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=volunteer" ng-if="organization == true">sander_mrbrown</a></span>
+                                    <span><a role="menuitem"  href="../../login/login.html">Logout</a></span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </header>
+    <div class="container">
+        <div class="row margin-rl-0 margin-top-10">
+            <div class="col-sm-1">
+                <i class="glyphicon glyphicon-user font-size-4"></i>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h4 class="inline-block padding-left-5 bold" ng-bind="volunteerName">Sandy Noteborn</h4>
+                </div>
+                <div>
+                    <span class="padding-left-5">{{volunteerCity}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-rl-0">
+            <div class="col-sm-8 padding-rl-0">
+                <div class="row margin-rl-0">
+                    <div class="col-sm-12 padding-rl-0 margin-top-10 margin-bottom-10">
+                        <div class="row margin-rl-0 margin-top--3">
+                            <span class="small-pill margin-left-10" ng-repeat="volunteerSkill in volunteerSkills" ng-bind="volunteerSkill"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-border1" ng-init="showMoreLess = false">
+                    <h4 class="margin-top-0 margin-bottom-0 bold">About Volunteer</h4>
+                    <p>I am four-year student in Biology working towards a Master's degree. I have fundamental basis in Ecology, Plant physiology and development and i have ever done several research projects in laboratories working on Evolutionary Biology.</p>
+                    <p>I am really interested in environment protection and wild life conservation. I have also a French Activity leader Certificate and I am a coordinator in summer camps. I really like to spend time with children.
+                        <span ng-click="showMoreLess = !showMoreLess" ng-show="showMoreLess == false"><a href="">more&gt;&gt;</a></span>
+                    </p>
+                    
+                    <p ng-show="showMoreLess == true">I have a good command of English. I'm an eco-friendly person conerned about the environmental issues. I'm a loving caring person. I'm serious about evrything. I'm looking for an oppurtunity to help othersin a different way and experience a colourful life.
+                        <span ng-click="showMoreLess = !showMoreLess" ng-show="showMoreLess == true"><a href="">less&lt;&lt;</a></span>
+                    </p>
+
+                    <hr class="user-hr">
+
+                    <h4 class="margin-top-0 margin-bottom-0 bold">Employment/Volunteering job history</h4>
+                    
+                    <div ng-repeat="job in listOfJobs track by $index">
+                        <div class='padding-rl-0'>
+                            <span class="margin-right-15"><a href="" ng-bind="job.name"></a></span>
+                        </div>
+                        <p class="margin-bottom-0"><label class="margin-bottom-0">Organization - </label>&nbsp;<span ng-bind="job.organization"></span></p>
+                        <p class="margin-bottom-0"><label class="margin-bottom-0">From - </label>&nbsp;<span ng-bind="job.startDate"></span>&nbsp;&nbsp;<label class="margin-bottom-0">To - </label>&nbsp;<span ng-bind="job.endDate"></span></p>
+                        <p class="margin-bottom-0"><label class="margin-bottom-0">Description - </label>&nbsp;<span ng-bind="job.description"></span></p>
+                        <div class="image-scroller" ng-if="$index==0">
+                            <div class="icon-left">
+                                <i class="fa fa-angle-left" id="left"></i>
+                            </div>
+                            <div id="slides">
+                                <img src="../../img/scrolling1.jpg" width="200" height="140" alt="smile" id="image0"/>
+                                <img src="../../img/scrolling2.jpg" width="200" height="140" alt="smile" id="image1"/>
+                                <img src="../../img/scrolling3.png" width="200" height="140" alt="smile" id="image2"/> 
+                                <img src="../../img/scrolling1.jpg" width="200" height="140" alt="smile" id="image3"/> 
+                                <img src="../../img/scrolling2.jpg" width="200" height="140" alt="smile" id="image4"/> 
+                            </div>
+                            <div class="icon-right">
+                                <i class="fa fa-angle-right" id="right"></i>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="$index !== lengthOfJobs-1">
+                            <div class="col-sm-12 padding-right-5">
+                                <div class="hr1"></div>
+                            </div>  
+                        </div>
+                    </div>
+
+                    <hr class="user-hr" style="margin-top:20px">
+
+                    <h4 class="margin-top-0 margin-bottom-0 bold">Schools</h4>
+                    
+                    <div ng-repeat="school in listOfSchools track by $index">
+                        <div class='padding-rl-0'>
+                            <span class="margin-right-15"><a href="" ng-bind="school.name"></a></span>
+                        </div>
+                        <p class="margin-bottom-0"><label class="margin-bottom-0">Degree - </label>&nbsp;<span ng-bind="school.degree"></span></p>
+                        <p class="margin-bottom-0"><label class="margin-bottom-0">Area Of Study - </label>&nbsp;<span ng-bind="school.areaOfStudy"></span></p>
+                        <p class="margin-bottom-0"><label class="margin-bottom-0">From - </label>&nbsp;<span ng-bind="school.startDate"></span>&nbsp;&nbsp;<label class="margin-bottom-0">To - </label>&nbsp;<span ng-bind="school.endDate"></span></p>
+                        <div class="row" ng-if="$index !== lengthOfSchools-1">
+                            <div class="col-sm-12 padding-right-5">
+                                <div class="hr1"></div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 padding-right-0">
+                <div class="margin-bottom-10">
+                    <button class="btn btn-success apply-button" type="button" ng-click="contactVolunteer()">Contact Volunteer</button>
+                </div>
+                <div class="main-border1">
+                    <div class="row margin-rl-0">
+                        <div class="col-sm-4 padding-rl-0">
+                            <h5 class="bold">Follow me on:</h5>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="social-network-icon-wrap" style="padding-right:30px">
+                                <a href="#" class="social-network-icons">
+                                    <span class="footer-circle footer-circle-twitter pull-right">
+                                        <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                                    </span>
+                                </a>
+                                <a href="#" class="footer-select social-network-icons">
+                                    <span class="footer-circle footer-circle-linkedin pull-right">
+                                        <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                                    </span>
+                                </a>
+                                <a href="#" class="social-network-icons">
+                                    <span class="footer-circle footer-circle-facebook pull-right">
+                                        <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-rl-0 margin-top--3">
+                        <div class="col-sm-4 padding-rl-0">
+                            <label>Birthday:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <span>July 23</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 padding-rl-0">
+                        <label>Phone number:</label>
+                        <span>+44-9765456711</span>
+                    </div>
+                    <div class="row margin-bottom-0">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="main-border1">
+                    <label class="margin-bottom-0">Volunteer work interests:</label>
+                    <div class="row margin-rl-0 margin-bottom-15 margin-top--3">
+                        <span class="small-pill" ng-repeat="volWork in contactVolWork" ng-bind="volWork"></span>
+                    </div>
+                    <label class="margin-bottom-0">Diploma/Certificates:</label>
+                    <div class="row margin-rl-0 margin-bottom-15 margin-top--3">
+                        <span class="small-pill" ng-repeat="diploma in contactVolDiploma" ng-bind="diploma"></span>
+                    </div>
+                    <label class="margin-bottom-0">Working time preferences:</label>
+                    <div class="row margin-rl-0 margin-bottom-15 margin-top--3">
+                        <span class="small-pill" ng-repeat="volTime in contactVolTime" ng-bind="volTime"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap" style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+     
+    <script src="../../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../lib/angular/angular.min.js"></script>
+    <script src="../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="controller.js"></script>
+    <script src="../../js/imageSlider/imageSlider.js"></script>    
+</body>
+</html>

@@ -1,0 +1,402 @@
+﻿<!doctype html>
+<html lang="en" ng-app="messageApp">
+<head>
+    <meta charset="utf-8">
+    <title>Olympia</title>
+    <link href="../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- font for main content -->
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400italic,400,700italic,700" />
+    <link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.css" rel="stylesheet">
+    <link href="../css/organization/postJob/postjob.css" rel="stylesheet" />
+    <link href="../css/organization/viewApp/viewApp.css" rel="stylesheet" />
+    <link href="../css/global.css" rel="stylesheet" />
+    <link href="../css/message/message.css" rel="stylesheet" />
+</head>
+<body ng-controller='messageController'>
+    <!-- Page Header Section Start-->
+    <header>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="../img/logo.png"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!-- Volunteer Menu Start-->
+                    <ul class="nav navbar-nav" ng-if="typeOfOwner == 'volunteer'">
+                        <li><a href="../Volunteer/searchJob/searchJob.html" class='menu-interval'>Search Job</a></li>
+                        <li><a href="../Volunteer/jobApplication/jobApplication.html" class='menu-interval'>Job Applications</a></li>
+                        <li><a href="#" class='menu-interval'>Recommendations</a></li>
+                        <li class="active"><a href="#" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- Volunteer Menu end here-->
+                    <!-- organization Menu start-->
+                    <ul class="nav navbar-nav" ng-if="typeOfOwner == 'organization'">
+                        <li ><a href="../organization/search/searchVol.html" class='menu-interval'>Search Volunteer</a></li>
+                        <li><a href="../organization/postJob/postJob.html"  class='menu-interval'>Post a Job</a></li>
+                        <li><a href="../organization/jobPost/jobPost.html" class='menu-interval'>Job Postings</a></li>
+                        <li class="active"><a href="#" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- organization ends here start-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                        <li class='dropdown pull-right'>
+                            <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation">
+                                    <a role="menuitem" href="../volunteer/createProfileForm/createProfile.html" ng-if="typeOfOwner == 'volunteer'"><i class='glyphicon glyphicon-user'></i> My Profile</a>
+                                    <a role="menuitem" href="../organization/organizationProfile/organizationProfile.html" ng-if="typeOfOwner == 'organization'"><i class='glyphicon glyphicon-user'></i> My Profile</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../myAccount/myAccount.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='fa fa-wrench'></i> My Account</a>
+                                    <a role="menuitem" href="../myAccount/myAccount.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='fa fa-wrench'></i> My Account</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../changePassword/changePassword.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='glyphicon glyphicon-cog'></i> Change Password</a>
+                                    <a role="menuitem" href="../changePassword/changePassword.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='glyphicon glyphicon-cog'></i> Change Password</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../notificationSettings/notificationSettings.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='fa fa-bell'></i> Notification Settings</a>
+                                    <a role="menuitem" href="../notificationSettings/notificationSettings.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='fa fa-bell'></i> Notification Settings</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                        <li class="dropdown pull-right" style="margin-top:5px;" id="username">
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="typeOfOwner == 'organization'">Organization &nbsp;<b class="caret green"></b></a>
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="typeOfOwner == 'volunteer'">Volunteer &nbsp;<b class="caret green"></b></a>
+                            <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                                <li role="presentation" ><a role="menuitem" href="../organization/search/searchVol.html" id="tab-header-1" ng-class="{'make-it-white':typeOfOwner == 'organization'}"><img src="../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" ><a role="menuitem" href="../volunteer/searchJob/searchJob.html"  ng-class="{'make-it-white':typeOfOwner == 'volunteer'}"><img src="../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" id="separate-highlight"> 
+                                    <span><a role="menuitem" href="../myAccount/myAccount.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'">sander_mrbrown</a></span>
+                                    <span><a role="menuitem" href="../myAccount/myAccount.html?owner=organization" ng-if="typeOfOwner == 'organization'">sander_mrbrown</a></span>
+                                    <span><a role="menuitem"  href="../login/login.html">Logout</a></span>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </header>
+    <!-- Page Header Section End-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 margin-top-10">
+                <div class="row-fluid">
+                    <div class="col-lg-12 margin-bottom-15 padding-right-0">
+                        <a href="" class="btn btn-success col-lg-12" ng-click="toggle(3);$parent.showMessage = false">New Message</a>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="col-lg-12 padding-right-0">
+                        <ul class="message-sidebar">
+                            <li ng-repeat="row in messageSidebar"><a href="#" class="margin-top-10" name="row.name" ng-class="{selected: currentnode==$index}" ng-bind="row.name" ng-click="toggle($index);$parent.showMessage = true;"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 margin-top-10" ng-init="toggle(0);showMessage = true" ng-show="showMessage">
+                <div class="row-fluid">
+                    <div class="col-lg-4 margin-bottom-15 padding-right-0">
+                        <div class="input-search-wrap">
+                            <input type="text" placeholder="search" />
+                            <span class="glyphicon glyphicon-search">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        &nbsp;
+                    </div>
+                </div>
+                <!--Compose a mail start-->
+                <div class="row-fluid" ng-show="compose == true">
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Send to{{compose}}</label>
+                            <input type="email" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Subject</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Message</label>
+                            <textarea rows="7" cols="30" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group upload">
+                            <label for="exampleInputFile"><i class="glyphicon glyphicon-plus"></i>Attach a file</label>
+                        </div>
+                        <div class="form-group upload margin-top-20">
+                            <button type="submit" class="btn btn-success">Send</button><button type="submit" class="btn btn-cancel">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">&nbsp;</div>
+                </div>
+                <!--Compose a mail end-->
+                <!--Inbox start-->
+                <div class="row-fluid" ng-show="inbox==true">
+                    <div class="col-lg-12 margin-bottom-15 padding-right-0">
+                        <div class="message-wrapper">
+                            <div class="message-wrapper-heading row-fluid">
+                                <div class="col-lg-2 padding-right-0">
+                                    <input type="checkbox" ng-model="checkall" ng-change="checkAll()"/>
+                                </div>
+                                <div class="col-lg-10 align-left padding-rl-0">
+                                    <a href="#" class="btn btn-mark" ng-class="{selected: message.checkall==true}">Mark as read</a>
+                                    <a href="#" class="btn btn-mark" ng-class="{selected: message.checkall==true}">Mark as unread</a>
+                                    <a href="#" class="btn btn-mark" ng-class="{selected: message.checkall==true}" ng-click="moveMessage()"><i class="fa fa-archive"></i>Archive</a>
+                                </div>
+                            </div>
+                            <div class="message-wrapper-body">
+                                <div class="row-fluid" ng-repeat="message in messageInbox">
+                                    <div class="col-lg-2 padding-right-0">
+                                        <input type="checkbox" ng-model="message.checked" />
+                                        <span class="user-block margin-left-10" ng-click="passMessage(message);$parent.showMessage = !showMessage;toggle(3)">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        </span>
+                                    </div>
+                                    <div ng-click="passMessage(message);$parent.showMessage = false;toggle(3)">
+                                        <div class="col-lg-2 align-left padding-rl-0">
+                                            <label class="sender-name" ng-bind="message.name"></label>
+                                            <label class="sender-date" ng-bind="message.date"></label>
+                                        </div>
+                                        <div class="col-lg-8 align-left padding-rl-0">
+                                            <label class="message-title blue"  ng-bind="message.title"></label>
+                                            <label class="message-body"  ng-bind="message.content"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Inbox end-->
+                <!--Send start-->
+                <div class="row-fluid" ng-show="send==true">
+                    <div class="col-lg-12 margin-bottom-15 padding-right-0">
+                        <div class="message-wrapper">
+                            <div class="message-wrapper-heading row-fluid">
+                                <div class="col-lg-2 padding-right-0">
+                                    <input type="checkbox" value="" ng-model="message.checkall" />
+                                </div>
+                                <div class="col-lg-10 align-left padding-rl-0">
+                                    <a href="#" class="btn btn-mark" ng-class="{selected: message.checkall==true}">Mark as read</a>
+                                    <a href="#" class="btn btn-mark" ng-class="{selected: message.checkall==true}">Mark as unread</a>
+                                </div>
+                            </div>
+                            <div class="message-wrapper-body">
+                                <div class="row-fluid" ng-repeat="message in messageSent">
+                                    <div class="col-lg-2 padding-right-0">
+                                        <input type="checkbox" value="" />
+                                        <span class="user-block margin-left-10"  ng-click="passMessage(message);$parent.showMessage = false;toggle(3)">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-2 align-left padding-rl-0"  ng-click="passMessage(message);$parent.showMessage = false;toggle(3)">
+                                        <label class="sender-name" ng-bind="message.name"></label>
+                                        <label class="sender-date" ng-bind="message.date"></label>
+                                    </div>
+                                    <div class="col-lg-8 align-left padding-rl-0"  ng-click="passMessage(message);$parent.showMessage = false;toggle(3)">
+                                        <label class="message-title blue"  ng-bind="message.title"></label>
+                                        <label class="message-body"  ng-bind="message.content"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Send end-->
+                <!--Archieve start-->
+                <div class="row-fluid" ng-show="archive==true && lengthOfArchive == 0">
+                    <div class="col-lg-12 margin-bottom-15 padding-right-0">
+                        <h1 class="no-message">
+                            You have no archived messages
+                        </h1>
+                    </div>
+                </div>
+                <!--Archieve end-->
+                <div class="row-fluid" ng-show="archive==true && lengthOfArchive != 0">
+                    <div class="col-lg-12 margin-bottom-15 padding-right-0">
+                        <div class="message-wrapper">
+                            <div class="message-wrapper-heading row-fluid">
+                                <div class="col-lg-2 padding-right-0">
+                                    <input type="checkbox" ng-model="message.checkall"/>
+                                </div>
+                                <div class="col-lg-10 align-left padding-rl-0">
+                                    <a href="#" class="btn btn-mark" ng-class="{selected: message.checkall==true}">Mark as read</a>
+                                    <a href="#" class="btn btn-mark" ng-class="{selected: message.checkall==true}">Mark as unread</a>
+                                </div>
+                            </div>
+                            <div class="message-wrapper-body">
+                                <div class="row-fluid" ng-repeat="message in messageArchive">
+                                    <div class="col-lg-2 padding-right-0">
+                                        <input type="checkbox" ng-model="message.checked" />
+                                        <span class="user-block margin-left-10"  ng-click="passMessage(message);$parent.showMessage = false;toggle(3)">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-2 align-left padding-rl-0"  ng-click="passMessage(message);$parent.showMessage = false;toggle(3)">
+                                        <label class="sender-name" ng-bind="message.name"></label>
+                                        <label class="sender-date" ng-bind="message.date"></label>
+                                    </div>
+                                    <div class="col-lg-8 align-left padding-rl-0"  ng-click="passMessage(message);$parent.showMessage = false;toggle(3)">
+                                        <label class="message-title blue"  ng-bind="message.title"></label>
+                                        <label class="message-body"  ng-bind="message.content"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 margin-top-10" ng-show="!showMessage">
+                <div class="row margin-rl-0">
+                    <div class="col-lg-4 padding-right-0 margin-bottom-15">
+                        <div class="input-search-wrap">
+                            <input type="text" placeholder="search" />
+                            <span class="glyphicon glyphicon-search">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row margin-rl-0">
+                    <div class="col-lg-9 padding-right-0">
+                        <div class="message-wrapper">
+                            <div class="message-wrapper-body row-fluid">
+                                <h4 ng-bind="passedMessaged.title" class="col-sm-12 padding-right-0"></h4>
+                                <hr class="create-hr margin-top-0 col-sm-12 padding-rl-0">
+                                <div class="col-lg-3 padding-right-0">
+                                    <label class="sender-name bold" ng-bind="passedMessaged.name"></label><br>
+                                    <span class="sender-date" ng-bind="passedMessaged.date"></span>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p ng-bind="passedMessaged.content"></p>
+                                </div>
+                            </div>
+                            <hr class="create-hr margin-top-0 col-sm-12 padding-rl-0">
+                            <label class="padding-left-15 col-sm-12">Reply to All</label>      
+                            <div class="padding-left-15">
+                                <textarea class="text-area" cols="90" rows="8"></textarea>
+                            </div>
+                            <div class="form-group upload padding-left-15 padding-top-10">
+                                <label for="exampleInputFile"><i class="glyphicon glyphicon-plus"></i>Attach a file</label>
+                            </div>
+                            <div class="form-group upload margin-top-20 padding-left-15">
+                                <button type="submit" class="btn btn-success">Send</button>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 pull-right" ng-show="!showMessage">
+                        <span class="user-block">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        <label class="sender-name bold" ng-bind="passedMessaged.name"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap" style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../lib/angular/angular.min.js"></script>
+    <script src="../lib/ng-table/ng-table.min.js"></script>
+    <script src="messageController.js"></script>
+
+
+</body>
+</html>

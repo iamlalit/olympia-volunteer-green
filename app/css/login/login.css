@@ -1,0 +1,65 @@
+﻿/* Login Screen */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  background:#ebebeb;
+}
+.container-fluid{
+    padding-left:0;
+    padding-right:0;
+}
+/* Header */
+.navbar-default{
+    height:200px;
+}
+
+/* Login wrapper */
+.sign-wrapper{
+    background:#fff;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    padding:54px;
+    border:1px solid #ccc;
+    border-bottom:3px solid #999;
+    margin-top:-110px;
+    z-index:9999;
+    position:relative;
+}
+.sign-wrapper .col-lg-5 {
+    float:none
+}
+.sign-wrapper h2{
+    font-size:26px;
+    margin-top:0;
+    margin-bottom:25px;
+}
+.sign-wrapper .checkbox{
+    padding-left:0;
+}
+.sign-wrapper .checkbox .btn{
+
+}
+.sign-wrapper .checkbox label{
+    float:right;
+    margin-right:23%;
+    margin-top:5px;
+}
+.sign-wrapper .forgt-pass a{
+    margin-top:20px;
+    display:block;
+}
+
+/*Footer*/
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #666666;
+}
+footer p.footer-copyrights{
+    color:#fff;
+}

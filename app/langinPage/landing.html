@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html ng-app="landingController">
+<head>
+    <title>Create an Account</title>
+    <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/font-awesome.css" rel="stylesheet" />
+    <link href="../css/global.css" rel="stylesheet" />
+    <!-- fornt for heading -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- font for main content -->
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400italic,400,700italic,700" />
+    <link href="../css/organization/postJob/postjob.css" rel="stylesheet" />
+    <link href="../css/organization/viewApp/viewApp.css" rel="stylesheet" />
+    <link href="../css/global.css" rel="stylesheet" />
+    <link href="../css/landing/landing.css" rel="stylesheet" />
+</head>
+<body ng-controller="landingPage">
+    <!-- Page Header Section Start-->
+    <header>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="../img/logo.png"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!-- Organisation Menu Start-->
+                    <ul class="nav navbar-nav" ng-if="organisationMenu">
+                        <li class="active"><a href="#" class='menu-interval'>Search Volunteer</a></li>
+                        <li><a href="../organization/postJob/postjob.html" class='menu-interval'>Post a Job</a></li>
+                        <li><a href="../organization/jobPost/jobPost.html" class='menu-interval'>Job Postings</a></li>
+                        <li><a href="../../message/message.html?owner=organization" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- Organisation Menu End here -->
+                    <!-- Volunteer Menu Start-->
+                    <ul class="nav navbar-nav" ng-if="volunteerMenu">
+                        <li class="active"><a href="../volunteer/searchJob/searchJob.html" class='menu-interval'>Search Job</a></li>
+                        <li><a href="../volunteer/jobApplication/jobApplication.html" class='menu-interval'>Job Applications</a></li>
+                        <li><a href="#" class='menu-interval'>Recommendations</a></li>
+                        <li><a href="../../message/message.html?owner=volunteer" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- Volunteer Menu end here-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                        <li class='dropdown pull-right'>
+                            <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation">
+                                    <a role="menuitem" href="../volunteer/createProfileForm/createProfile.html" ng-if="typeOfOwner == 'volunteer'"><i class='glyphicon glyphicon-user'></i> My Profile</a>
+                                    <a role="menuitem" href="../organization/organizationProfile/organizationProfile.html" ng-if="typeOfOwner == 'organization'"><i class='glyphicon glyphicon-user'></i> My Profile</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../myAccount/myAccount.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='fa fa-wrench'></i> My Account</a>
+                                    <a role="menuitem" href="../myAccount/myAccount.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='fa fa-wrench'></i> My Account</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../changePassword/changePassword.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='glyphicon glyphicon-cog'></i> Change Password</a>
+                                    <a role="menuitem" href="../changePassword/changePassword.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='glyphicon glyphicon-cog'></i> Change Password</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../notificationSettings/notificationSettings.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='fa fa-bell'></i> Notification Settings</a>
+                                    <a role="menuitem" href="../notificationSettings/notificationSettings.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='fa fa-bell'></i> Notification Settings</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                        <li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = true; organization = false">
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                            <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                                <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''" href="#" id="tab-header-1" ng-class="addActive2"><img src="../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''" href="#" ng-class="addActive1"><img src="../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" id="separate-highlight"> 
+                                    <span><a role="menuitem"  href="#" ng-if="client == true">Volunteer</a></span>
+                                    <span><a role="menuitem"  href="#" ng-if="organization == true">Organization</a></span>
+                                    <span><a role="menuitem"  href="../login/login.html">Logout</a></span>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </header>
+    <!-- Page Header Section End-->
+    <div class="container" ng-if="volunteerMenu">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="profile-heading">Create your Profile</h2>
+                <p>
+                    A great profile is your key to getting hired. Highlights your strengths with an accurate description of your skills, work history, and education.
+                    Our staff will review for quality, so take time to fill your profile out completely and professional.
+                    <span><a href="#">Learn more about profiles</a></span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 center-block">
+                <div class="form-group complete-profile">
+                    <button onclick="window.location.href='../volunteer/CreateProfileForm/createProfile.html'" class="btn btn-success btn-site">Complete my Profile</button>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="add-text">Looking for inspiration? Check out these successful volunteer profiles:</p>
+            </div>
+        </div>
+        <div class="row" style="margin-left:0px;">
+            <div style="padding-left:0px;display: inline" ng-repeat="profile in profileModel" ng-mouseenter="makeItBlue='rectangle-blue'; makeBlue='color-Blue'" ng-mouseleave="makeItBlue=''; makeBlue='';">
+                <div class="main-border" ng-class="makeItBlue">
+                    <i class="glyphicon glyphicon-user font-size-2"></i>
+                    <label ng-bind="profile.name" style="vertical-align:text-bottom;margin-left:10px" ng-class="makeBlue"></label>
+                    <p ng-bind="profile.skill"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" ng-if="organisationMenu">
+        <div class="row">
+            <div class="col-lg-6 center-block">
+                <h1 class="coming-soon">Coming Soon</h1>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap" style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/angular/angular.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="landingController.js"></script>
+</body>
+</html>

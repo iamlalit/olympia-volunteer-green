@@ -1,0 +1,581 @@
+﻿<!DOCTYPE html>
+<html ng-app="landingController">
+<head>
+    <meta charset="utf-8">
+    <title>OLYMPIA</title>
+    
+    <link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="../../css/olympia-icons.css"/>
+    <link rel="stylesheet" href="../../css/bootstrap-tagsinput/bootstrap-tagsinput.css"/>
+    <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="../../css/font-awesome.css" rel="stylesheet"/>
+    <link href="../../css/organization/postJob/postJob.css" rel="stylesheet"/>
+    <link href="../../css/global.css" rel="stylesheet">
+    <link href="../../css/organization/viewApp/viewApp.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <link href="../../css/organization/organizationProfile/organizationProfile.css" rel="stylesheet" />
+</head>
+
+<body ng-controller="landingPage">
+    <!-- Page Header Section Start-->
+    <header>
+        <div class=''>
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><img src="../../img/logo.png"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="../search/searchVol.html" class='menu-interval'>Search Volunteer</a></li>
+                <li ><a href="../postJob/postjob.html"  class='menu-interval'>Post a Job</a></li>
+                <li><a href="#" class='menu-interval'>Job Postings</a></li>
+                <li><a href="../../message/message.html?owner=organization" class='menu-interval'>Messages</a></li>
+              </ul>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                <li class='dropdown pull-right'>
+                    <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a role="menuitem" href="#"><i class='glyphicon glyphicon-user'></i> My Profile</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../myAccount/myAccount.html?owner=organization"><i class='fa fa-wrench'></i> My Account</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../changePassword/changePassword.html?owner=organization"><i class='glyphicon glyphicon-cog'></i> Change Password</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../notificationSettings/notificationSettings.html?owner=organization"><i class='fa fa-bell'></i> Notification Settings</a></li>
+                    </ul>
+                </li>
+                <li class='pull-right' ><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                <li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = false; organization = true">
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                    <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                        <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''"  href="../../organization/search/searchVol.html" id="tab-header-1" ng-class="addActive2"><img src="../../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''" href="../../volunteer/searchJob/searchJob.html" ng-class="addActive1"><img src="../../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" id="separate-highlight"> 
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="client == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="organization == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../login/login.html">Logout</a></span>
+                        </li>
+
+                    </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="alert alert-danger col-sm-10" id="errorMsg">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h2 class="text-center margin-top-0">Please fix the following issues</h2>
+                <ul id="errorList" class="errorList" style="margin-bottom:35px"></ul>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="panel-title">
+                <span>My Organization Profile</span>
+            </div>
+        </div>
+        <div class="row pill margin-top-20 ishidden">
+             <h5 class="font-size-16"><strong>Contact Information</strong></h5>
+        </div>
+        <form name="organizationProfile" id="organizationProfile">
+            <div class="row margin-top-20">
+                <label>Organization name</label>
+            </div>
+            <div class="row">
+                <input type="text" class="col-sm-6" id="organizationName">
+            </div>
+            <div class="row margin-top-20">
+                <label>Organization nick name</label>
+            </div>
+            <div class="row">
+                <input type="text" class="col-sm-6" id="organizationNickName">
+            </div>
+            <div class="row margin-top-20">
+                <label>Organization Logo</label><span id="optional-text"> (optional)</span>
+            </div>
+            <div class="row">
+                <div class="col-sm-1">
+                    <i class="glyphicon glyphicon-user font-size-4"></i>
+                </div>
+            </div>
+            <div class="row margin-top-5">
+                <div class="circle-green pointer">
+                    <i class="fa fa-plus icon-white-plus" title="Add a image"> </i>
+                </div>
+                <span title="Add a logo"><a href="#">Add a logo now</a></span>
+            </div>
+            <div class="row margin-top-20">
+                <label>Organization Email</label><span id="optional-text"> (optional)</span>
+            </div>
+            <div class="row">
+                <input type="text" class="col-sm-6" id="organizationEmail" placeholder="e.g. abc@email.com">
+            </div>
+            <div class="row margin-top-20">
+                <label>Organization Phone</label><span id="optional-text"> (optional)</span>
+            </div>
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="row">
+                        <label class="col-sm-4 padding-top-7">+</label>
+                        <input type="text" class="col-sm-6" id="organizationPhone">
+                    </div>
+                </div>
+                <input type="text" class="col-sm-5">
+            </div>
+            <div class="row margin-top-20">
+                <label>Organization Website</label><span id="optional-text"> (optional)</span>
+            </div>
+            <div class="row">
+                <input type="text" class="col-sm-6" placeholder="e.g. www.abc.com">
+            </div>
+            <div class="row pill margin-top-20">
+                <h5 class="font-size-16"><strong>Customise your profile</strong></h5>
+            </div>
+            <div class="row">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>
+            <div class="row margin-top-10" ng-init="showOtherDetails=true">
+                <div class="col-sm-11 padding-rl-0">
+                    <div class='col-sm-1 padding-rl-0  font-size-4 '>
+                        <span class="fa fa-gears vertical-align-top"></span>                  
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="font-size-15">Organization Details</label>
+                    </div>
+                    <div class='col-sm-11' >
+                        <span>
+                            Specify other details about your organization.
+                        </span>
+                        <div class='row'>
+                            <div class='margin-top-10'>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="button" ng-click="showOtherDetails = !showOtherDetails" ng-show="showOtherDetails">Add Details</button>
+                        <button class="btn btn-danger" type="button"  ng-click="showOtherDetails = !showOtherDetails" ng-hide="showOtherDetails">Hide Details</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!showOtherDetails">
+                <div class="row margin-top-20">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-11">
+                        <label class="bold inline-block col-sm-8 padding-rl-0">Organization Mission</label>
+                        <textarea class="text-area col-sm-8" cols="102" rows="10" maxlength="5000" id="organization.mission"></textarea>
+                        <p class="pull-right col-sm-6" id="optional-text">5000 characters left</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-11">
+                        <label class="bold inline-block col-sm-8 padding-rl-0">Type of Organization</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-5">
+                        <div class="checkbox margin-top-0">
+                            <label>
+                              <input type="checkbox" id="too1" value="Non-profit or Community Organization"> Non-profit or Community Organization
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="too2" value="Government Agency"> Government Agency
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="too3" value="Social Enterprise"> Social Enterprise
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="checkbox margin-top-0">
+                            <label>
+                              <input type="checkbox" id="too4" value="Recruitment Firm"> Recruitment Firm time
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="too5" value="Consultant/Vendor to non-profit"> Consultant/Vendor to non-profit
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-11">
+                        <label>Area of Focus</label>
+                        <div  id='form-component-arrangement-input' style="margin-bottom:-10px;">
+                            <input type="text" id="areaofFocusVolunteer" placeholder="Add area of focus" />
+                        </div>
+                        <div class="col-sm-6" >
+                            <span style="margin-left:-13px;"><a href="#" onclick="updateValueAOFText()" title="Click to Zoom" data-toggle="modal" data-target="#areaOfFocus">Add volunteer work area of focus</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row pill margin-top-20 ishidden">
+                <h5 class="font-size-16"><strong>Organization Locations</strong></h5>
+            </div>
+            <div class="row">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>
+            <div class="row margin-top-10" ng-init="showLocation=true">
+                <div class="col-sm-11 padding-rl-0">
+                    <div class='col-sm-1 padding-rl-0  font-size-4 '>
+                        <span class="fa fa-home vertical-align-top"></span>                  
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="font-size-15">Organization Location</label>
+                    </div>
+                    <div class='col-sm-11' >
+                        <span>
+                            Specify location of your organization.
+                        </span>
+                        <div class='row'>
+                            <div class='margin-top-10'>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="button" ng-click="showLocation = !showLocation" ng-show="showLocation">Add Location</button>
+                        <button class="btn btn-danger" type="button"  ng-click="showLocation = !showLocation" ng-hide="showLocation">Hide Location</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!showLocation">
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div id="address">
+                        <div class='border-address col-sm-7' id="address-block">
+                            <label>Time Zone</label>
+                            <br>
+                            <select>
+                                <option value='Ipsum'>UTC (Coordinated Universal Time)</option>
+                                <option value='Consectetur'>GMT (Greenwich Mean Time)</option>
+                            </select>
+                            <br>
+                            <label >Address</label>
+                            <br>
+                            <input type='text' class='form-control' id='form-control-weight' for='address' id='form-text-control'>
+                            <br>
+                            <label >City</label>
+                            <input type='text' class='form-control' id='form-control-weight' for='city' id='form-text-control'>
+                            <br>
+                            <label >Country</label>
+                            <br>
+                            <select>
+                                <option value='Ipsum'>Afghanistan</option>
+                                <option value='Consectetur'>Akrotiri</option>
+                                <option value='Ipsum'>Albania</option>
+                                <option value='Consectetur'>Algeria</option>
+                                <option value='Ipsum'>Angola</option>
+                                <option value='Consectetur'>Antarctica</option>
+                                <option value='Ipsum'>Antigua and Barbuda</option>
+                                <option value='Consectetur'>Argentina</option>
+                                <option value='Ipsum'>Australia</option>
+                                <option value='Consectetur'>Austria</option>
+                                <option value='Ipsum'>Bahamas, The</option>
+                                <option value='Consectetur'>Bangladesh</option>
+                                <option value='Ipsum'>Bassas da India</option>
+                                <option value='Consectetur'>Belarus</option>
+                                <option value='Ipsum'>Belgium</option>
+                                <option value='Consectetur'>Bermuda</option>
+                                <option value='Ipsum'>Bhutan</option>
+                                <option value='Consectetur'>Brazil</option>
+                                <option value='Ipsum'>British Indian Ocean Territory</option>
+                                <option value='Consectetur'>British Virgin Islands</option>
+                                <option value='Ipsum'>Bulgaria</option>
+                                <option value='Consectetur'>Burma</option>
+                                <option value='Ipsum'>Burundi</option>
+                                <option value='Consectetur'>Cambodia</option>
+                                <option value='Ipsum'>Cameroon</option>
+                                <option value='Consectetur'>Canada</option>
+                                <option value='Ipsum'>China</option>
+                                <option value='Consectetur'>Cocos (Keeling) Islands</option>
+                                <option value='Ipsum'>Colombia</option>
+                                <option value='Consectetur'>Comoros</option>
+                                <option value='Ipsum'>Congo, Democratic Republic of the</option>
+                                <option value='Consectetur'>Congo, Republic of the</option>
+                                <option value='Ipsum'>Cook Islands</option>
+                                <option value='Consectetur'>Cuba</option>
+                                <option value='Ipsum'>Cyprus</option>
+                                <option value='Consectetur'>Denmark</option>
+                                <option value='Ipsum'>Dominican Republic</option>
+                                <option value='Consectetur'>Ecuador</option>
+                                <option value='Ipsum'>Egypt</option>
+                                <option value='Consectetur'>Ethiopia</option>
+                                <option value='Ipsum'>Finland</option>
+                                <option value='Consectetur'>France</option>
+                                <option value='Ipsum'>Georgia</option>
+                                <option value='Consectetur'>Germany</option>
+                                <option value='Ipsum'>Greece</option>
+                                <option value='Consectetur'>Greenland</option>
+                                <option value='Ipsum'>Guinea</option>
+                                <option value='Consectetur'>Holy See (Vatican City)</option>
+                                <option value='Ipsum'>Hong Kong</option>
+                                <option value='Consectetur'>Iceland</option>
+                                <option value='Ipsum'>India</option>
+                                <option value='Consectetur'>Indonesia</option>
+                                <option value='Ipsum'>Iran</option>
+                                <option value='Consectetur'>Iraq</option>
+                                <option value='Ipsum'>Ireland</option>
+                                <option value='Consectetur'>Israel</option>
+                                <option value='Ipsum'>Italy</option>
+                                <option value='Consectetur'>Jamaica</option>
+                                <option value='Ipsum'>Japan</option>
+                                <option value='Consectetur'>Jersey</option>
+                                <option value='Ipsum'>Kazakhstan</option>
+                                <option value='Consectetur'>Kenya</option>
+                                <option value='Ipsum'>Korea</option>
+                                <option value='Consectetur'>Kuwait</option>
+                                <option value='Ipsum'>Laos</option>
+                                <option value='Consectetur'>Lebanon</option>
+                                <option value='Ipsum'>Liberia</option>
+                                <option value='Consectetur'>Macau</option>
+                                <option value='Ipsum'>Malaysia</option>
+                                <option value='Consectetur'>Maldives</option>
+                                <option value='Ipsum'>Mauritius</option>
+                                <option value='Consectetur'>Mexico</option>
+                                <option value='Ipsum'>Mozambique</option>
+                                <option value='Consectetur'>Namibia</option>
+                                <option value='Ipsum'>Nepal</option>
+                                <option value='Consectetur' selected="selected">Netherlands</option>
+                                <option value='Ipsum'>New Zealand</option>
+                                <option value='Consectetur'>Norway</option>
+                                <option value='Ipsum'>Oman</option>
+                                <option value='Consectetur'>Pakistan</option>
+                                <option value='Ipsum'>Peru</option>
+                                <option value='Consectetur'>Philippines</option>
+                                <option value='Ipsum'>Poland</option>
+                                <option value='Consectetur'>Portugal</option>
+                                <option value='Ipsum'>Qatar</option>
+                                <option value='Consectetur'>Romania</option>
+                                <option value='Ipsum'>Russia</option>
+                                <option value='Consectetur'>Saudi Arabia</option>
+                                <option value='Ipsum'>Sierra Leone</option>
+                                <option value='Consectetur'>Singapore</option>
+                                <option value='Ipsum'>Solomon Islands</option>
+                                <option value='Consectetur'>Somalia</option>
+
+                                <option value='Ipsum'>South Africa</option>
+                                <option value='Consectetur'>Spain</option>
+                                <option value='Ipsum'>Sri Lanka</option>
+                                <option value='Consectetur'>Sweden</option>
+                                <option value='Ipsum'>Switzerland</option>
+                                <option value='Consectetur'>Syria</option>
+                                <option value='Ipsum'>Taiwan</option>
+                                <option value='Consectetur'>Thailand</option>
+                                <option value='Ipsum'>Turkey</option>
+                                <option value='Consectetur'>Uganda</option>
+                                <option value='Ipsum'>Ukraine</option>
+                                <option value='Consectetur'>United Arab Emirates</option>
+                                <option value='Ipsum'>United Kingdom</option>
+                                <option value='Consectetur'>United States</option>
+                                <option value='Ipsum'>Venezuela</option>
+                                <option value='Consectetur'>Vietnam</option>
+                                <option value='Ipsum'>Yemen</option>
+                                <option value='Consectetur'>Zambia</option>
+                                <option value='Ipsum'>Zimbabwe</option>
+                            </select>
+                            <br>
+                            <label >Zipcode</label>
+                            <br>
+                            <input type='text' class='form-control' id='form-control-weight' for='inserting address' id='form-text-control' placeholder='Zipcode'>
+                            <br>
+                            <span ><a style='text-align:right; cursor: pointer;' onclick="addNewAddress()">+Add another address</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- buttons at the bottom -->
+            <div class='row margin-top-30'>
+                <div class='col-sm-4'>
+                </div>
+                <div class='col-sm-4'>
+                    <button class='btn btn-success' type="submit" style='padding:5px 15px 5px 15px; font-size:15px;'>Save Profile</button>
+                    <button class='btn btn-danger' type="button" style='padding:5px 15px 5px 15px; font-size:15px;'>Cancel</button>
+                </div>
+            </div>
+            
+        </form>                
+    </div>
+
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap" style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add area of work done Modal -->
+    <div class="modal fade" id="areaOfFocus" tabindex="-1" role="dialog" aria-labelledby="areaOfFocus" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Volunteer work area of focus. </h2>
+                </div>
+                <form role="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus1" value="Immigration"> Immigration
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus2" value="Education"> Education
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus3" value="Job and Workplace"> Job and Workplace
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus4" value="Conflict resolution"> Conflict resolution
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus5" value="Consumer protection"> Consumer protection
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus6" value="Crime & Safety"> Crime & Safety
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus7" value="Civic engagement"> Civic engagement
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="areaOfFocus8" value="Risk Management"> Risk Management
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                            </div>
+                            <div class="col-sm-6">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueAOFCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->    
+    <script src="../../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../lib/angular/angular.min.js"></script>
+    <!--tag inputs -->
+    <script src="../../lib/bootstrap.taginput.js"></script>
+    <script src="../../lib/bootstrap3-typeahead.js"></script>
+    <script src="../../js/app.js"></script>
+    <script src="control.js"></script>
+    <script src="controller.js"></script>
+    <script src="../../lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+</body>
+</html>

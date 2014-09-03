@@ -1,0 +1,597 @@
+﻿<!doctype html>
+<html lang="en" ng-app="viewAppcontroller">
+<head>
+    <meta charset="utf-8">
+    <title>OLYMPIA</title>
+    <link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../../lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/organization/postjob/postjob.css"/>
+    <link href="../../css/organization/viewApp/viewApp.css" rel="stylesheet">
+    <link href="../../css/global.css" rel="stylesheet">
+    
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+</head>
+<body ng-controller="viewAppCtrl">
+    <!-- Page Header Section Start-->
+    <header>
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><img src="../../img/logo.png"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li ><a href="../search/searchVol.html" class='menu-interval'>Search Volunteer</a></li>
+                <li ><a href="../postJob/postjob.html" class='menu-interval'>Post a Job</a></li>
+                <li class="active"><a href="#" class='menu-interval'>Job Postings</a></li>
+                <li><a href="../../message/message.html?owner=organization" class='menu-interval'>Messages</a></li>
+              </ul>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                <li class='dropdown pull-right'>
+                    <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a role="menuitem" href="../organizationProfile/organizationProfile.html"><i class='glyphicon glyphicon-user'></i> My Profile</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../myAccount/myAccount.html?owner=organization"><i class='fa fa-wrench'></i> My Account</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../changePassword/changePassword.html?owner=organization"><i class='glyphicon glyphicon-cog'></i> Change Password</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../notificationSettings/notificationSettings.html?owner=organization"><i class='fa fa-bell'></i> Notification Settings</a></li>
+                    </ul>
+                </li>
+                <li class='pull-right' ><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                <li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = false; organization = true">
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                    <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                        <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''"  href="../../organization/search/searchVol.html" id="tab-header-1" ng-class="addActive2"><img src="../../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''" href="../../volunteer/searchJob/searchJob.html" ng-class="addActive1"><img src="../../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" id="separate-highlight"> 
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="client == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="organization == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../login/login.html">Logout</a></span>
+                        </li>
+
+                    </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <!-- Page Header Section End-->
+    <div class="container1">
+        <div class="row" style="padding:0px">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-11">
+                <!-- Navigation back to page-->
+                <a href="../jobPost/jobPost.html" class="navigation" >
+                    <span class="fa fa-chevron-left black-arrow" style="float:left;margin-left:-15px;margin-top:-5px"></i><label class="blue-heading">Back to Job Postings</label>
+                </a>
+            </div>
+        </div>
+        <div class="row" style="padding-top:0px; padding-bottom:0px">
+            <div class="col-lg-1" style="padding-top:0px; padding-bottom:0px"></div>
+            <div class="col-lg-11" style="padding-top:0px; padding-bottom:0px">
+                <div class="panel-title padding-left-0" style="margin-left:-15px">
+                    <span ng-bind="jobTitle"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-9" style="margin-left:-15px">
+                <!--Outreach Volunteer-->
+                <div class="date-heading padding-left-0" >
+                    <span>
+                        Posted 13 days ago -
+                        <a href="#">View</a> or
+                        <a href="#">Edit</a> this job post
+                    </span>
+                </div>
+                <span class="number-applicant" style="padding-top: 10px;">
+                    <label ng-show="showApplicant" ng-bind="lengthOfApplicants"></label>
+                    <label ng-show="showHidden" ng-bind="lengthOfHiddenApplicants"></label>
+                    <label ng-show="showShortlisted" ng-bind="lengthOfshortlistedApplicants"></label>
+                    <label ng-show="showMessaged" ng-bind="lengthOfMessagedApplicants"></label>
+                    <label ng-show="showHired" ng-bind="lengthOfHiredApplicants"></label>
+                    Applicants
+                </span>
+                <div class="sort-applicant pull-right" style="padding-bottom:0px; margin-right:95px">
+                    <label>Sort By:</label>
+                    <span>
+                        <select class="form-control pull-right select-option">
+                            <option value="values" ng-repeat="values in sortByList" ng-bind="values"></option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-9" style="margin-left:-15px">
+                
+            </div>            
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-8" style="margin-left:-15px; padding-right:10px">
+                <!--show applicant with length grater than 0 -->
+                <div class="main-border1" ng-show="showApplicant && lengthOfApplicants !== 0" ng-init="showApplicant = true" style="padding:10px">
+                    <div class="applicants" ng-repeat="applicant in Applicants">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="glyphicon glyphicon-user font-size-4 " style="padding-left:28px"></i>
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="padding-top:5px; marging-top:5px;"></div>
+                                <a style="color:#00AEEC" href="../../volunteer/volunteerProfile/volunteerProfile.html?name={{applicant.Name}}&city={{applicant.city}}"><label ng-bind="applicant.Name"></label></a><br />
+                                <div style="padding-top:5px;marging-top:5px;"></div>
+                                <span ng-bind="applicant.city" class="city-detail"></span>
+                            </div>
+                            <div class="col-sm-5 pull-right">
+                                <span>
+                                    <a ng-click="moveApplicant(applicant, Applicants, hiddenApplicants)" id="removeIconHover" data-toggle="modal" data-target="#hiddenBig" ng-mouseenter="makeItRed='circle-red'; makeItWhite='icon-attr-white'" ng-mouseleave="makeItRed=''; makeItWhite='';" title="click to hide the applicant">
+                                        <div class="circle11 pull-right" ng-class="makeItRed">
+                                            <span class="fa fa-times font-size-18 icon-attr11" style="display:-webkit-inline-box!important;" ng-class="makeItWhite"> </i>
+                                        </div>
+                                    </a>
+                                </span>
+                                <button type="button" class="btn btn-success pull-right small-btn" ng-model="shortlisted" ng-click="moveApplicant(applicant, Applicants, shortlistedApplicants)" title="click to shortlist the applicant"><span class="fa fa-check"> </i>Shortlist</button>
+                                <br />
+                                <br />
+                                <span style="vertical-align:top" class="pull-right">
+                                    <span class="fa fa-exclamation-sign font-size-1-5" style="color:#b25a01;padding-right:7px;" ng-show="applicant.statusColor == 'red'" hover-popover title="diploma/certificate/skills" ></i>
+                                    <span class="fa fa-exclamation-sign font-size-1-5" style="color:#009e0f;padding-right:7px;" ng-show="applicant.statusColor == 'green'" hover-popover1 title="diploma/certificate/skills"></i>
+                                    {{applicant.status}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-1" style="padding-left:40px" >
+                                <div class="color-orange box-invited" ng-show="applicant.invited">
+                                    <span style="padding-left:10px">Invited</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div>
+                        <span ng-bind="applicant.bodyText" ng-show="!applicant.value"></span>
+                        <span ng-bind="applicant.bodyTextFull" ng-show="applicant.value"></span>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div> 
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3 col-md-3"></div>
+                            <div class="col-sm-8 col-lg-8 col-md-8" style="margin-left:-38px">
+                                <span ng-show="applicant.value" ng-model="applicant.value"><a title="click to view the full application">View Full Application</a> | <a title="click to send the message" ng-click="moveApplicant(applicant, Applicants, messagedApplicants)">Send Message</a> | <a ng-click="moveApplicant(applicant, Applicants, hiredApplicants)" title="click to hire the applicant">Hire</a></span>
+                            </div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=false" title="">Less</a></span></div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="!applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=true" title="click to show more">More</a></span></div>
+                        </div>
+                        <hr class="user-hr" ng-if="$index !== lengthOfApplicants-1" />
+                    </div>
+                </div>
+                <!--ends show applicant with length grater than 0 -->
+                <div class="" ng-show="showApplicant && lengthOfApplicants === 0">
+                    <div class="main-border1" style="text-align:center; width:auto; height:350px;padding-top:160px">
+                        <label>You don't have any applicant active</label>
+                    </div>
+                </div>
+                <!--ends show applicant with length equal to 0 -->
+                <!--show Hidden with length greater than 0-->
+                <div class="main-border1" ng-show="showHidden && lengthOfHiddenApplicants !== 0">
+                    <div class="applicants" ng-repeat="applicant in hiddenApplicants">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="glyphicon glyphicon-user font-size-4 " style="padding-left:28px"></i>
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="padding-top:5px; marging-top:5px;"></div>
+                                <a style="color:#00AEEC" href="../../volunteer/volunteerProfile/volunteerProfile.html?name={{applicant.Name}}&city={{applicant.city}}"><label ng-bind="applicant.Name"></label></a><br />
+                                <div style="padding-top:5px;marging-top:5px;"></div>
+                                <span ng-bind="applicant.city" class="city-detail"></span>
+
+                            </div>
+                            <div class="col-sm-5 pull-right">
+                                <span>
+                                    <a ng-click="moveApplicant(applicant, hiddenApplicants, Applicants)" title="click to unhide the applicant" ng-mouseenter="makeItRed='circle-red'; makeItWhite='icon-attr-white'" ng-mouseleave="makeItRed=''; makeItWhite='';" title="click to hide the applicant">
+                                        <div class="circle11 pull-right" ng-class="makeItRed">
+                                            <span class="fa fa-times font-size-18 icon-attr11" style="display:-webkit-inline-box!important;" ng-class="makeItWhite"> </i>
+                                        </div>
+                                    </a>
+                                </span>
+                                <br />
+                                <br />
+                                
+                                <span style="vertical-align:top" class="pull-right"><span class="fa fa-exclamation-sign font-size-1-5" style="color:#b25a01;padding-right:7px;" ng-show="applicant.statusColor == 'red'" hover-popover title="diploma/certificate/skills" ></i>
+                                <span class="fa fa-exclamation-sign font-size-1-5" style="color:#009e0f;padding-right:7px;" ng-show="applicant.statusColor == 'green'" hover-popover1 title="diploma/certificate/skills"></i> {{applicant.status}}</span>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-1" style="padding-left:40px" >
+                                <div class="color-orange box-invited" ng-show="applicant.invited">
+                                    <span style="padding-left:10px">Invited</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div>
+                        <span ng-bind="applicant.bodyText" ng-show="!applicant.value"></span>
+                        <span ng-bind="applicant.bodyTextFull" ng-show="applicant.value"></span>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div> 
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3 col-md-3"></div>
+                            <div class="col-sm-8 col-lg-8 col-md-8" style="margin-left:-38px">
+                                <span ng-show="applicant.value" ng-model="applicant.value"><a>View Full Application</a></span>
+                            </div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=false">Less</a></span></div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="!applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=true">More</a></span></div>
+                        </div>
+                        <hr class="user-hr" ng-if="$index !== lengthOfHiddenApplicants-1" />
+                    </div>
+                </div>
+                <!--ends show Hidden with length greater than 0-->
+                <!--show Hidden with length equal to 0-->
+                <div class="" ng-show="showHidden && lengthOfHiddenApplicants === 0">
+                    <div class="main-border1" style="text-align:center; width:auto; height:350px;padding-top:160px">
+                        <label>You don't have any applicant hidden</label>
+                    </div>
+                </div>
+                <!--ends show Hidden with length equal to 0-->
+                <!--show shortlisted applicant with length grater than 0 -->
+                <div class="main-border1" ng-show="showShortlisted && lengthOfshortlistedApplicants !== 0">
+                    <div class="applicants" ng-repeat="applicant in shortlistedApplicants">
+
+                        <div class="col-sm-3 pull-right">
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="glyphicon glyphicon-user font-size-4 " style="padding-left:28px"></i>
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="padding-top:5px; marging-top:5px;"></div>
+                                <a style="color:#00AEEC" href="../../volunteer/volunteerProfile/volunteerProfile.html?name={{applicant.Name}}&city={{applicant.city}}"><label ng-bind="applicant.Name"></label></a><br />
+                                <div style="padding-top:5px;marging-top:5px;"></div>
+                                <span ng-bind="applicant.city" class="city-detail"></span>
+                            </div>
+                            <div class="col-sm-5 pull-right">
+                                <span>
+                                    <a ng-click="moveApplicant(applicant, shortlistedApplicants, hiddenApplicants)"  id="removeIconHover" data-toggle="modal" data-target="#hiddenBig" ng-mouseenter="makeItRed='circle-red'; makeItWhite='icon-attr-white'" ng-mouseleave="makeItRed=''; makeItWhite='';" title="click to hide the applicant">
+                                        <div class="circle11 pull-right" ng-class="makeItRed">
+                                            <span class="fa fa-times font-size-18 icon-attr11" style="display:-webkit-inline-box!important;" ng-class="makeItWhite"> </i>
+                                        </div>
+                                    </a>
+                                    <a>
+                                        <div class="circle11 pull-right" style="background-color:#009e0f;cursor:default">
+                                            <span class="fa fa-check font-size-18 icon-attr11" style="color:white;display:-webkit-inline-box!important;" title="shortlisted applicant"> </i>
+                                        </div>
+                                    </a>
+                                </span>
+                                <br />
+                                <br />
+                                 
+                                <span style="vertical-align:top" class="pull-right"><span class="fa fa-exclamation-sign font-size-1-5" style="color:#b25a01;padding-right:7px;" ng-show="applicant.statusColor == 'red'" hover-popover title="diploma/certificate/skills" ></i>
+                                <span class="fa fa-exclamation-sign font-size-1-5" style="color:#009e0f;padding-right:7px;" ng-show="applicant.statusColor == 'green'" hover-popover1 title="diploma/certificate/skills"></i>{{applicant.status}}</span>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-1" style="padding-left:40px" >
+                                <div class="color-orange box-invited" ng-show="applicant.invited">
+                                    <span style="padding-left:10px">Invited</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div>
+                        <span ng-bind="applicant.bodyText" ng-show="!applicant.value"></span>
+                        <span ng-bind="applicant.bodyTextFull" ng-show="applicant.value"></span>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div> 
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3 col-md-3"></div>
+                            <div class="col-sm-8 col-lg-8 col-md-8" style="margin-left:-38px">
+                                <span ng-show="applicant.value" ng-model="applicant.value"><a>View Full Application</a> | <a ng-click="moveApplicant(applicant, shortlistedApplicants, messagedApplicants)" title="click to sent message to applicant">Send Message</a> | <a ng-click="moveApplicant(applicant, shortlistedApplicants, hiredApplicants)" title="click to hire the applicant">Hire</a></span>
+                            </div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=false">Less</a></span></div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="!applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=true">More</a></span></div>
+                        </div>
+                        <hr class="user-hr" ng-if="$index !== lengthOfshortlistedApplicants-1" />
+                    </div>
+                </div>
+                <!--ends show shortlisted applicant with length grater than 0 -->
+                <!--show shortlisted with length equal to 0-->
+                <div class="" ng-show="showShortlisted && lengthOfshortlistedApplicants === 0">
+                    <div class="main-border1" style="text-align:center; width:auto; height:350px;padding-top:160px">
+                        <label>You don't have any shortlisted applicant</label>
+                    </div>
+                </div>
+                <!--ends show shortlisted with length equal to 0-->
+                <!--show messaged applicant with length grater than 0 -->
+                <div class="main-border1" ng-show="showMessaged && lengthOfMessagedApplicants !== 0">
+                    <div class="applicants" ng-repeat="applicant in messagedApplicants">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="glyphicon glyphicon-user font-size-4 " style="padding-left:28px"></i>
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="padding-top:5px; marging-top:5px;"></div>
+                                <a style="color:#00AEEC" href="../../volunteer/volunteerProfile/volunteerProfile.html?name={{applicant.Name}}&city={{applicant.city}}"><label ng-bind="applicant.Name"></label></a><br />
+                                <div style="padding-top:5px;marging-top:5px;"></div>
+                                <span ng-bind="applicant.city" class="city-detail"></span>
+                            </div>
+                            <div class="col-sm-5 pull-right">
+                                <span>
+                                    <a ng-click="moveApplicant(applicant, messagedApplicants, hiddenApplicants)" id="removeIconHover" data-toggle="modal" data-target="#hiddenBig" ng-mouseenter="makeItRed='circle-red'; makeItWhite='icon-attr-white'" ng-mouseleave="makeItRed=''; makeItWhite='';" title="click to hide the applicant">
+                                        <div class="circle11 pull-right" ng-class="makeItRed">
+                                            <span class="fa fa-times font-size-18 icon-attr11" style="display:-webkit-inline-box!important;" ng-class="makeItWhite"> </i>
+                                        </div>
+                                    </a>
+                                </span>
+                                <br />
+                                <br />
+                                
+                                <span style="vertical-align:top" class="pull-right"><span class="fa fa-exclamation-sign font-size-1-5" style="color:#b25a01;padding-right:7px;" ng-show="applicant.statusColor == 'red'" hover-popover title="diploma/certificate/skills" ></i>
+                                <span class="fa fa-exclamation-sign font-size-1-5" style="color:#009e0f;padding-right:7px;" ng-show="applicant.statusColor == 'green'" hover-popover1 title="diploma/certificate/skills"></i> {{applicant.status}}</span>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-1" style="padding-left:40px" >
+                                <div class="color-orange box-invited" ng-show="applicant.invited">
+                                    <span style="padding-left:10px">Invited</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div>
+                        <span ng-bind="applicant.bodyText" ng-show="!applicant.value"></span>
+                        <span ng-bind="applicant.bodyTextFull" ng-show="applicant.value"></span>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div> 
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3 col-md-3"></div>
+                            <div class="col-sm-8 col-lg-8 col-md-8" style="margin-left:-38px">
+                                <span ng-show="applicant.value" ng-model="applicant.value" title="click to view full application"><a>View Full Application</a> | <a title="click to sent message to applicant" >Send Message</a> | <a ng-click="moveApplicant(applicant, messagedApplicants, hiredApplicants)" title="click to hire the applicant">Hire</a></span>
+                            </div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=false">Less</a></span></div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="!applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=true">More</a></span></div>
+                        </div>
+                        <hr class="user-hr" ng-if="$index !== lengthOfMessagedApplicants-1" />
+                    </div>
+                </div>
+                <!--ends show messaged applicant with length grater than 0 -->
+                <!--show messaged with length equal to 0-->
+                <div class="" ng-show="showMessaged && lengthOfMessagedApplicants === 0">
+                    <div class="main-border1" style="text-align:center; width:auto; height:350px;padding-top:160px">
+                        <label>You haven't messaged any applicant</label>
+                    </div>
+                </div>
+                <!--ends show shortlisted with length equal to 0-->
+                <!--show hired applicant with length grater than 0 -->
+                <div class="main-border1" ng-show="showHired && lengthOfHiredApplicants !== 0">
+                    <div class="applicants" ng-repeat="applicant in hiredApplicants">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="glyphicon glyphicon-user font-size-4 " style="padding-left:28px"></i>
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="padding-top:5px; marging-top:5px;"></div>
+                                <a style="color:#00AEEC" href="../../volunteer/volunteerProfile/volunteerProfile.html?name={{applicant.Name}}&city={{applicant.city}}"><label ng-bind="applicant.Name"></label></a><br />
+                                <div style="padding-top:5px;marging-top:5px;"></div>
+                                <span ng-bind="applicant.city" class="city-detail"></span>
+                            </div>
+                            <div class="col-sm-5 pull-right">
+                                <br />
+                                <br />
+                                
+                                <span style="vertical-align:top" class="pull-right"><span class="fa fa-exclamation-sign font-size-1-5" style="color:#b25a01;padding-right:7px;" ng-show="applicant.statusColor == 'red'" hover-popover title="diploma/certificate/skills" ></i>
+                                <span class="fa fa-exclamation-sign font-size-1-5" style="color:#009e0f;padding-right:7px;" ng-show="applicant.statusColor == 'green'" hover-popover1 title="diploma/certificate/skills"></i> {{applicant.status}}</span>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-1" style="padding-left:40px" >
+                                <div class="color-orange box-invited" ng-show="applicant.invited">
+                                    <span style="padding-left:10px">Invited</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div>
+                        <span ng-bind="applicant.bodyText" ng-show="!applicant.value"></span>
+                        <span ng-bind="applicant.bodyTextFull" ng-show="applicant.value"></span>
+                        <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div> 
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-3 col-md-3"></div>
+                            <div class="col-sm-8 col-lg-8 col-md-8" style="margin-left:-38px">
+                                <span ng-show="applicant.value" ng-model="applicant.value" title="click to view the full application"><a>View Full Application</a></span>
+                            </div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=false">Less</a></span></div>
+                            <div class="col-sm-1 col-lg-1 col-md-1" ng-show="!applicant.value" style="margin-left:30px"><span><a ng-model="more" ng-click="applicant.value=true">More</a></span></div>
+                        </div>
+                        <hr class="user-hr" ng-if="$index !== lengthOfHiredApplicants-1" />
+                    </div>
+                </div>
+                <!--ends show hired applicant with length grater than 0 -->
+                <!--show hired with length equal to 0-->
+                <div class="" ng-show="showHired && lengthOfHiredApplicants === 0">
+                    <div class="main-border1" style="text-align:center; width:auto; height:350px;padding-top:160px">
+                        <label>You haven't hired any applicant</label>
+                    </div>
+                </div>
+                <!--ends show hired with length equal to 0-->
+            </div>
+            <div class="col-lg-3" style="padding-left:2px;">
+                <div class="col-sm-12" style="padding-left:0px;">
+                    <div class="col-sm-11" style="padding-left:0px;">
+                        <div class="main-border1 status">
+                    <div class="wrap1"  ng-click="showApplicant = true; showHidden = false; showShortlisted = false; showMessaged=false;showHired=false; myVar1='circle-blue'; myVar11='icon-attr-white'; myVar2=''; myVar22=''; myVar3=''; myVar33=''; myVar4=''; myVar44=''; myVar5=''; myVar55=''">
+                        <div class="circle" ng-class="myVar1" ng-init="myVar1='circle-blue'">
+                            <span class="fa fa-user font-size-1-5 icon-attr" ng-class="myVar11" ng-init="myVar11='icon-attr-white'" title="click to see all the applicants"> </i>
+                        </div>
+                        <label style="padding-left:20px;cursor:pointer;" ng-model="ApplicantTab" title="click to see all the applicants">Applicants</label>
+                        <label style="padding-left:30px; margin-top:8px;cursor:pointer" title="click to see all the applicants">{{lengthOfApplicants}}</label>
+                    </div>
+                    <div class="wrap1"  ng-click="showApplicant = false; showHidden = false; showShortlisted = true; showMessaged=false;showHired=false; myVar2='circle-blue';myVar22='icon-attr-white'; myVar1=''; myVar11=''; myVar3=''; myVar33=''; myVar4=''; myVar44=''; myVar5=''; myVar55=''">
+                        <div class="circle"  ng-class="myVar2">
+                            <span class="fa fa-check font-size-1-5 icon-attr" ng-class="myVar22"  title="click to see the shortlisted applicants" > </i>
+                        </div>
+                        <label style="padding-left:20px;cursor:pointer;" title="click to see the shortlisted applicants">Shortlisted</label>
+                        <label style="padding-left:28px; margin-top:8px; cursor:pointer" title="click to see the shortlisted applicants">{{lengthOfshortlistedApplicants}}</label>
+                    </div>
+                    <div class="wrap1" style="cursor:pointer"  ng-click="showApplicant = false; showHidden = false; showShortlisted = false; showMessaged=true;showHired=false; myVar3='circle-blue'; myVar33='icon-attr-white'; myVar1=''; myVar11=''; myVar2='';  myVar22=''; myVar4=''; myVar44=''; myVar5=''; myVar55=''">
+                        <div class="circle"  ng-class="myVar3">
+                            <span class="fa fa-envelope font-size-1-5 icon-attr" ng-class="myVar33" title="click to see messaged applicants"> </i>
+                        </div>
+                        <label style="padding-left:20px;cursor:pointer" title="click to see messaged applicants">Messaged</label>
+                        <label style="padding-left:33px; margin-top:8px;cursor:pointer" title="click to see messaged applicants">{{lengthOfMessagedApplicants}}</label>
+                    </div>
+                    <div class="wrap1" ng-click="showApplicant = false; showHidden = true; showShortlisted = false; showMessaged=false;showHired=false; myVar4='circle-blue';myVar44='icon-attr-white'; myVar1=''; myVar11=''; myVar2='';  myVar22=''; myVar3=''; myVar33=''; myVar5=''; myVar55=''">
+                        <div class="circle"  ng-class="myVar4">
+                            <span class="fa fa-times font-size-1-5 icon-attr" ng-class="myVar44" title="click to see hidden applicants"> </i>
+                        </div>
+                        <label style="padding-left:20px;cursor:pointer" title="click to see hidden applicants">Hidden</label>
+                        <label style="padding-left:55px; margin-top:8px;cursor:pointer" ng-bind="lengthOfHiddenApplicants" title="click to see hidden applicants">{{lengthOfHiddenApplicants}}</label>
+                    </div>
+                    <div class="wrap1" ng-click="showApplicant = false; showHidden = false; showShortlisted = false; showMessaged=false;showHired=true;  myVar5='circle-blue';myVar55='icon-attr-white'; myVar1=''; myVar11=''; myVar2='';  myVar22=''; myVar3=''; myVar33=''; myVar4=''; myVar44=''">
+                        <div class="circle"  ng-class="myVar5">
+                            <span class="fa fa-envelope font-size-1-5 icon-attr" ng-class="myVar55" title="click to see hired applicants"> </i>
+                        </div>
+                        <label style="padding-left:20px;cursor:pointer" title="click to see hired applicants">Hired</label>
+                        <label style="padding-left:65px; margin-top:8px;cursor:pointer" title="click to see hired applicants">{{lengthOfHiredApplicants}}</label>
+                    </div>
+                    <div class="wrap1" style="padding-left:20px;">
+                        <span>
+                            <a> 1 Pending invitation</a><br />
+                            <a> 0 Withdrawn or Declined</a>
+                        </span>
+                    </div>
+                </div>
+                    </div>
+                    <divclass="col-sm-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap"  style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <span class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <span class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <span class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <span class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Hidden modal box-->
+    <div class="modal fade" id="hiddenBig" tabindex="-1" role="dialog" aria-labelledby="hiddenBig" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Hidden</h2>
+                </div>
+                <form role="form">
+                    <div class="modal-body">
+                        <div class="row" style="padding-left:50px;">
+                            <div class="wrap1 col-sm-12" ng-repeat="hiddenData in hiddenModalData">
+                                <div class="circle" ng-class="makeItRed" ng-mouseenter="makeItRed='circle-red'; makeItWhite='icon-attr-white'; textRed='text-red'" ng-mouseleave="makeItRed=''; makeItWhite=''; textRed=''" data-dismiss="modal">
+                                    <span class="fa fa-times font-size-1-5 icon-attr" ng-class="makeItWhite"> </i>
+                                </div>
+                                <label style="padding-left:30px; padding-top:9px;" ng-class="textRed">{{hiddenData}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10" style="color:#858383;text-align:center">
+                                The volunteer will not be notified. Your feedback helps to improve our volunteer recommendation.
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Hidden modal box-->
+
+    <script src="../../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../lib/angular/angular.min.js"></script>
+    <script src="../../js/app.js"></script>
+    <script src="controller.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+.container1{
+    width:1140px;
+    margin: 0 auto;
+}
+
+#heading-form{
+  font-size: 26px;
+  font-family: Roboto Slab;
+  color: #111111;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+}
+
+.ng-table-pager{
+  display: none;
+}
+.ng-table th.sortable {
+  cursor: pointer;
+}
+.ng-table th.sortable div {
+  position: relative;
+}
+thead{
+  background-color: #eee;
+}
+tr:nth-child(even) {
+    background-color: #fdfbfb;
+}
+.ng-table th.sortable div:after,
+.ng-table th.sortable div:before {
+  content: "";
+  border-width: 0 4px 4px;
+  border-style: solid;
+  border-color: #000 transparent;
+  visibility: visible;
+  right: 8px;
+  top: 50%;
+  position: absolute;
+  opacity: .3;
+  margin-top: -4px;
+}
+.ng-table th.sortable div:before {
+  margin-top: 2px;
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+}
+.ng-table th.sortable div:hover:after,
+.ng-table th.sortable div:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.ng-table th.sortable.sort-desc div:after,
+.ng-table th.sortable.sort-asc div:after {
+  margin-top: -2px;
+}
+.ng-table th.sortable.sort-desc div:before,
+.ng-table th.sortable.sort-asc div:before {
+  visibility: hidden;
+}
+.ng-table th.sortable.sort-asc div:after,
+.ng-table th.sortable.sort-asc div:hover:after {
+  visibility: visible;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+.ng-table th.sortable.sort-desc div:after {
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+  visibility: visible;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+
+.ng-table-pager .pagination{
+  float: left;
+}
+
+.ng-table-info {
+  float: left;
+}
+/*adjusting table header margin and arrow position*/
+table>thead:first-child>tr:first-child>th:first-child div{
+  width:73px;
+}
+
+table>thead:first-child>tr:first-child>th:last-child div{
+  width:61px;
+  margin-left:30px;
+}
+
+table>thead:first-child>tr:first-child>th:nth-child(2) div{
+  width:86px;
+  margin-left:55px;
+}
+
+table>thead:first-child>tr:first-child>th:nth-child(3) div{
+  width:83px;
+  margin-left:30px;
+}
+
+table>thead:first-child>tr:first-child>th:nth-child(4) div{
+  width:54px;
+  margin-left:30px;
+}
+
+table.dataTable tbody tr
+{
+  background: none !important;
+}
+
+tfoot td {
+  padding: 0 !important;
+  border-top: none !important;
+}
+
+.ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc
+{
+  background-color: transparent !important;
+}
+
+// Router Listsing
+.routerList {
+  background: #fff;
+  border-radius: 0 3px 3px 0;
+  //box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+  float: right;
+  padding: 15px 20px 0 20px;
+  position: relative;
+ //width: percentage(780px / 980px);
+  width:100%;
+  margin:20px 0;
+
+  &.roundCorn { border-radius: 3px; }
+
+  &.listView .dataTables_wrapper{
+    background: 0 none;
+    border: 0 none;
+    padding: 0;
+  }
+
+  table.dataTable {
+    float: left;
+    width: 100%;
+
+    .expandRow {
+      background: url(../images/expand_btn.png) no-repeat;
+      cursor: pointer;
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+    }
+  }
+
+  ul {
+    float: left;
+    list-style: none;
+    width: 100%;
+  }
+}
+
+.listView table.dataTable tbody td {
+    padding: 0;
+}
+
+
+.listView table tbody td .text-center{
+text-align:center;
+}
+
+//for static tables
+.table-static {
+  background: #fff;
+  padding: 0;
+  position: relative;
+  width:98%;
+  margin:10px;
+  text-transform:capitalize;
+}
+
+ .table-static thead {
+  border-bottom: 1px solid #DADADA;
+   -webkit-box-shadow: 0px 4px 4px #f6f6f6;
+-moz-box-shadow: 0px 4px 4px #f6f6f6;
+  box-shadow: 0px 4px 4px #f6f6f6;
+    color: #336699;
+    font: bold 13px/16px Arial,sans-serif;
+    height: 22px;
+    text-align: left !important;
+    vertical-align: middle;
+    padding: 0 5px;
+  }
+
+  .table-static td {
+   border-bottom: 1px dashed #C8CCD2;
+    color: #444444;
+    font-size: 12px;
+    height: 39px;
+    vertical-align: middle;
+    padding:11px 5px;
+    &.fixed-width {
+      width:150px;
+    }
+     &.guide-table-name {
+      width:190px;
+      font-size:12px;
+    }
+    &.guide-table-des {
+      width:150px;
+    }
+  }
+
+  .table-static .text-center {
+  text-align:center;
+  }
+
+  .ng-table th.sortable div {
+    color:#336699!important;
+}
+
+.table > thead > tr > th {
+    padding-bottom: 11px;
+    font-size:13px;
+}
+	
+th.table_content_head
+{
+  text-transform :uppercase;
+  font-size:12px;
+  font-weight:bold;
+  color: #444;
+  text-align:left;
+  padding:10px 10px 10px 0;
+  border-bottom:1px dashed #C8CCD2;
+}
+
+
+.accrd_table
+{
+  border-radius: 3px;
+	float: right;
+	position: relative;
+	width: 100%;
+	border:1px solid #e2e6e9;
+
+  table
+  {
+  float: left;
+  width: 100%;
+    
+    thead th
+      {
+      border-color: #DADADA;
+      color: #336699;
+      font: bold 13px/16px Arial,sans-serif;
+      border-bottom: 2px solid #dadada !important;
+      box-shadow: 0px 4px 4px #f6f6f6;
+      vertical-align: middle;
+      padding-bottom: 15px;
+      line-height:13px;
+      position:relative;
+      &.black-head {
+        color:#000!important;
+        }
+        &.name-head {
+        width:180px;
+        }
+        .text-center {
+          text-align:center;
+         }
+      }
+
+    thead span.head_border_left
+     {
+        background: #dadada;
+        height:1px;
+        width:100%;
+        display:block;
+        position:absolute;
+        left: -21px;
+        bottom: -1px;
+     }
+     thead span.head_border_right
+     {
+        background: #dadada;
+        height:1px;
+        width:100%;
+        display:block;
+        position:absolute;
+        right: -21px;
+        bottom: -1px;
+     }
+
+    th.sortable {
+    cursor: pointer;
+    }
+
+    tbody tr:last-child td
+    {
+      border-bottom: none;
+    }
+   
+    tbody td
+    { 
+      border-bottom: 10px dashed #444;
+      color: #444444;
+      font-size: 12px;
+      height: 39px;
+      vertical-align: middle;
+      text-transform: capitalize;
+      padding: 0;
+
+      input
+      {
+        border-radius: 2px;
+      }
+      .valign {
+        vertical-align:top!important;
+      }
+      .top-pad {
+        padding-top:10px;
+      }
+      .text-right {
+        text-align:right;
+      }
+      .text-center {
+        text-align:center;
+      }
+      span a{
+      	font-size:5px;
+      }
+    }
+
+    
+  }
+}
+.pagination{
+	display: '';
+	margin:0px;
+	float:left;
+}
+
+.panel-title{
+    font-size: 26px;
+    font-family: Roboto Slab;
+    color: #111111;
+    font-weight: 500;
+    text-align: left;
+}

@@ -1,0 +1,410 @@
+﻿<!doctype html>
+<html lang="en" ng-app="searchVolController">
+<head>
+    <meta charset="utf-8">
+    <title>OLYMPIA</title>
+    
+    <link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/organization/postJob/postJob.css"/>
+    <link rel="stylesheet" href="../../css/organization/searchVol/searchVol.css"/>
+    <link href="../../css/global.css" rel="stylesheet">
+    <link href="../../css/organization/viewApp/viewApp.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+
+</head>
+<body ng-controller="searchVolCtrl">
+    <!-- Page Header Section Start-->
+    <header>
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><img src="../../img/logo.png"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#"  class='menu-interval'>Search Volunteer</a></li>
+                <li><a href="../postJob/postjob.html"  class='menu-interval'>Post a Job</a></li>
+                <li><a href="../jobPost/jobPost.html" class='menu-interval'>Job Postings</a></li>
+                <li><a href="../../message/message.html?owner=organization" class='menu-interval'>Messages</a></li>
+              </ul>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                <li class='dropdown pull-right'>
+                    <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a role="menuitem" href="../organizationProfile/organizationProfile.html"><i class='glyphicon glyphicon-user'></i> My Profile</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../myAccount/myAccount.html?owner=organization"><i class='fa fa-wrench'></i> My Account</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../changePassword/changePassword.html?owner=organization"><i class='glyphicon glyphicon-cog'></i> Change Password</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="../../notificationSettings/notificationSettings.html?owner=organization"><i class='fa fa-bell'></i> Notification Settings</a></li>
+                    </ul>
+                </li>
+                <li class='pull-right' ><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                <li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = false; organization = true">
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                    <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                        <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''"  href="../../organization/search/searchVol.html" id="tab-header-1" ng-class="addActive2"><img src="../../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''" href="../../volunteer/searchJob/searchJob.html" ng-class="addActive1"><img src="../../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" id="separate-highlight"> 
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="client == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="organization == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../login/login.html">Logout</a></span>
+                        </li>
+
+                    </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <!-- Page Header Section End-->
+    <div class="container" ng-init="showrecent = true;hideIt = false" >
+        <div class="row">
+            <div class="col-sm-3 padding-left-0">
+                <span class="small-box">
+                    <span class="fa fa-heart"></span>
+                    <a href="" ng-click="showfavourite = true; showrecent = false">Your favourite volunteer</a>
+                </span>
+                <span class="small-box"><span class="fa fa-search"></span><a href="" ng-click="showrecent = true; showfavourite = false">Your recent search</a></span>
+
+                <div class="box">
+                    <div class="data-box">
+                        <div class="box-heading">
+                            <b>Categories</b>
+                        </div>
+                        <div class="box-content">
+                            <div class="checkbox" ng-repeat="category in categories">
+                                <label>
+                                  <input type="checkbox" value="{{category}}"> {{category }} ({{$index + $index%4}})
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-box">
+                        <div class="box-heading">
+                            <b>Skills</b>
+                        </div>
+                        <div class="box-content">
+                            <div class="checkbox" ng-repeat="skill in skills">
+                                <label>
+                                  <input type="checkbox" value="{{skill}}"> {{skill}} ({{($index + $index)%8}})
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-box">
+                        <div class="box-heading">
+                            <b>Diploma/Certificates</b>
+                        </div>
+                        <div class="box-content">
+                            <div class="checkbox" ng-repeat="diploma in diplomas">
+                                <label>
+                                  <input type="checkbox" value="{{diploma}}"> {{diploma}} ({{($index * $index + 1)%9}})
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-box">
+                        <div class="box-heading">
+                            <b>Working time preference</b>
+                        </div>
+                        <div class="box-content">
+                            <div class="checkbox" ng-repeat="time in timePreference">
+                                <label>
+                                    <input type="checkbox" value="{{time}}"> {{ time }} ({{($index * $index + 5)%9}})
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-box">
+                        <div class="box-heading">
+                            <b>Languages</b>
+                        </div>
+                        <div class="box-content">
+                            <div class="checkbox" ng-repeat="language in languages">
+                                <label>
+                                    <input type="checkbox" value="{{language}}"> {{ language }} ({{($index * $index + 2)%7}})
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 padding-rl-0">
+                <div class="row margin-rl-0">
+                    <div class="col-sm-5 padding-left-0">
+                        <span class="text-center" id='heading-form' >Search Volunteers</span>
+                    </div>
+                    <div class="col-sm-7 padding-left-0 padding-right-0 hidden" style="text-align:right">
+                        <span>If you like this search, you can</span>
+                        <button type="button" class="btn btn-default"><span class="fa fa-plus-sign plus-sign"></i>&nbsp;Save your search</button>
+                    </div>
+                </div>
+                <div class="row margin-rl-0">
+                    <div class="col-sm-4 padding-left-0">
+                        <span class="clear-search">
+                            <b ng-show="showrecent">{{lengthOfApplicants}}</b> 
+                            <b ng-show="showfavourite">{{lengthOfFavouriteApplicants}}</b> 
+                            Volunteers found &nbsp;&nbsp;<a href="" title="Clear Search" ng-click="clearSearch(); showClearSearch = true">Clear Search</a>
+                        </span>
+                    </div>
+                    <div class="col-sm-5 align-center">
+                        <span>
+                            <label>Sort By: </label>
+                            <select class="form-control select-option">
+                                <option value="values" ng-repeat="values in sortByList" ng-bind="values"></option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="col-sm-3 padding-left-0 padding-right-0 align-right">
+                        <ul class="pagination" ng-hide="showClearSearch || showfavourite">
+                            <li ng-class="{disabled: currentPage == 0}"><span ng-click="prevPage()"> Previous </span></li>
+                            <li ng-repeat="n in range(pagedItems.length)" ng-class="{active: n == currentPage}" ng-click="setPage()"><span>{{n+1}}</span></li>
+                            <li ng-class="{disabled: currentPage == pagedItems.length - 1}"><span ng-click="nextPage()"> Next </span></li>
+                         </ul>
+                    </div>
+                </div>
+
+                <!--pasted -->
+                <div class="row margin-rl-0">
+                    <div class="main-border" ng-show="showrecent" style="width:100%">
+                        <div class="applicants" ng-repeat="applicant in pagedItems[currentPage]" ng-init="autoScroll = false">
+                            <div class="row margin-rl-0">
+                                <div class="col-sm-2 padding-rl-0">
+                                    <i class="glyphicon glyphicon-user font-size-4"></i>
+                                </div>
+                                <div class="col-sm-3 padding-rl-0">
+                                    <div style="padding-top:5px; marging-top:10px;"></div>
+                                    <a style="color:#2c9044" href="../../volunteer/volunteerProfile/volunteerProfile.html?name={{applicant.Name}}&city={{applicant.city}}"><label ng-bind="applicant.Name"></label></a><br />
+                                    <div style="padding-top:5px;marging-top:10px;"></div>
+                                    <span ng-bind="applicant.joined" class="city-detail"></span>
+                                </div>
+
+                                <div class="col-sm-4 padding-rl-0 pull-right">
+                                    <span>
+                                        <button type="button" class="btn btn-primary pull-right small-btn" ng-model="shortlisted" ng-class="{active:$index==2}" data-toggle="modal" data-target="#contactApplicantModal" ng-click="openModal(applicant)" title="click to shortlist the applicant"><span class="fa fa-circle green-yellow"></span>&nbsp;Contact</button>
+                                        <a id="removeIconHover" ng-if="!(applicant.selected || removeIt)" title="mark as favourite">
+                                            <div class="circle pull-right star-icon" ng-click="copyApplicant(applicant, Applicants, favouriteApplicants)">
+                                                <span class="fa fa-heart font-size-1-3 icon-attr"></i>
+                                            </div>
+                                        </a>
+                                        <a id="removeIconHover" ng-if="applicant.selected || removeIt" title="remove from favourite" ng-click="copyApplicant(applicant, Applicants, favouriteApplicants)" >
+                                            <div class="circle pull-right star-icon circle-white">
+                                                <span class="fa fa-heart font-size-1-3 icon-attr star-yellow"> </i>
+                                            </div>
+                                        </a>
+                                    </span>
+                                    <span ng-bind="applicant.city" class="city-detail pull-right"></span>
+                                </div>
+                            </div>
+                            <div class="row padding-left-15">
+                                <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div>
+                                <span ng-bind="applicant.bodyText" ng-show="!applicant.value"></span>
+                                <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div> 
+                                <hr class="user-hr" ng-if="$index !== lengthOfApplicantsPerPage - 1" />
+                            </div>
+                        </div>
+                        <div class="align-center show-clear" ng-show="showClearSearch">
+                            <label>Cleared all search results, <br />Please search again to find the Volunteers</label>
+                        </div>
+                    </div>
+                    <div class="main-border" ng-show="showfavourite"  style="width:100%">
+                        <div class="applicants" ng-repeat="applicant in favouriteApplicants">
+                            <div class="row margin-rl-0">
+                                <div class="col-sm-2 padding-rl-0">
+                                    <i class="glyphicon glyphicon-user font-size-4"></i>
+                                </div>
+                                <div class="col-sm-3 padding-rl-0">
+                                    <div style="padding-top:5px; marging-top:10px;"></div>
+                                    <a style="color:#2c9044" href="../../volunteer/volunteerProfile/volunteerProfile.html?name={{applicant.Name}}&city={{applicant.city}}"><label ng-bind="applicant.Name"></label></a><br />
+                                    <div style="padding-top:5px;marging-top:10px;"></div>
+                                    <span ng-bind="applicant.joined" class="city-detail"></span>
+                                </div>
+                                <div class="col-sm-4 pull-right padding-rl-0">
+                                    <span>
+                                        <button type="button" class="btn btn-primary pull-right small-btn" data-toggle="modal" ng-class="{active:$index==2}" data-target="#contactApplicantModal" title="click to shortlist the applicant" ng-click="openModal(applicant)"><span class="fa fa-circle green-yellow"></span>&nbsp;Contact</button>
+                                        <a id="removeIconHover" title="remove from favourite" ng-click="deleteApplicant(applicant, favouriteApplicants, Applicants);removeIt = false" >
+                                            <div class="circle pull-right star-icon circle-white" ng-class="makeItWhite">
+                                                <span class="fa fa-heart font-size-1-3 icon-attr star-yellow" ng-class="makeItYellow"> </i>
+                                            </div>
+                                        </a>
+                                    </span>
+                                    <span ng-bind="applicant.city" class="city-detail pull-right"></span>
+                                </div>
+                            </div>
+                            <div class="row padding-left-15">
+                                <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div>
+                                <span ng-bind="applicant.bodyText" ng-show="!applicant.value"></span>
+                                <div style="padding-top:5px;marging-top:5px;margin-right: 0px;margin-left: 0px;"></div> 
+                                <hr class="user-hr" ng-if="$index !== lengthOfFavouriteApplicants - 1" />
+                            </div>
+                        </div>
+                        <div class="align-center show-clear" ng-show="lengthOfFavouriteApplicants == 0">
+                            <label>No favourite applicant available</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-sm-9 padding-left-0 padding-right-0">
+                
+            </div>
+            
+        </div>
+    </div>
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap"  style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <span class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <span class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <span class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <span class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- contact applicant modal box-->
+    <div ng-controller="modalVolCtrl" class="modal fade" id="contactApplicantModal" tabindex="-1" role="dialog" aria-labelledby="contactApplicantModal" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" ng-click="dismissModal()" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Invite Volunteer to Discuss Job</h2>
+                </div>
+                <form role="form" class="padding-container-12">
+                    <div class="modal-body">
+                        <div class="applicants">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <i class="glyphicon glyphicon-user font-size-4"></i>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a style="color:#2c9044" href="#"><label ng-bind="modalApplicant.Name"></label></a><br />
+                                    <div style="padding-top:5px;marging-top:10px;"></div>
+                                    <span ng-bind="modalApplicant.city" class="city-detail"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 margin-top-5">
+                                    <label>Job Posting &nbsp;</label>
+
+                                    <span id="optional-text">(NOTE: Please select job to invite volunteer)</span>
+                                </div>
+                            </div>
+                            <div class="row padding-left-15" >
+                                <select class="form-control select-option">
+                                    <option value="{{values.jobTitle}}" ng-repeat="values in jobPost" ng-bind="values.jobTitle" ng-if="values.status == 'Open'"></option>
+                                </select>
+                            </div>
+                            <div class="row padding-left-15 margin-top-10" >
+                                <label>Message &nbsp;</label>
+                            </div>
+                            <div class="row padding-left-15" >
+                                <textarea class="text-area" cols="88" rows="7" id="modalMessage"></textarea>
+                            </div>
+                            <div class="row padding-left-15 margin-top-10" >
+                                <button type="submit" class="btn btn-success" data-dismiss="modal">Send Invitation</button>
+                                <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                            <div class="row padding-left-15 margin-top-10" >
+                                <p>Already now this volunteer?&nbsp;<span><a href="#">Hire now</a></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- contact applicant modal box-->
+
+    <script src="../../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../lib/angular/angular.min.js"></script>
+    <script src="../../js/app.js"></script>
+    <script src="controller.js"></script>
+
+
+</body>
+</html>

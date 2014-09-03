@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" ng-app="submitConformationcontroller">
+<head>
+	<meta charset="utf-8">
+	<title>OLYMPIA</title>
+	<link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+	<!-- fornt for heading -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+	<!-- font for main content -->
+	<link href="//fonts.googleapis.com/css?family=PT+Sans:400italic,400,700italic,700"/>
+	<link href="../../lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+	<link href="../../css/font-awesome.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="../../css/organization/viewApp/viewApp.css"/>
+	
+	<link rel="stylesheet" href="../../css/global.css"/>
+	<link rel="stylesheet" href="../../css/organization/postjob/postjob.css"/>
+</head>
+<body ng-controller="confirmationCtrl">
+
+	<header>
+		<div class=''>
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#"><img src="../../img/logo.png"></a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li ><a href="../search/searchVol.html" class='menu-interval'>Search Volunteer</a></li>
+				<li class="active"><a href="../postJob/postJob.html"  class='menu-interval'>Post a Job</a></li>
+				<li><a href="../jobPost/jobPost.html" class='menu-interval'>Job Postings</a></li>
+				<li><a href="../../message/message.html?owner=organization" class='menu-interval'>Messages</a></li>
+		      </ul>
+		      
+		      <ul class="nav navbar-nav navbar-right">
+		        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                <li class='dropdown pull-right'>
+                    <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+		        	<ul class="dropdown-menu">
+		        		<li role="presentation"><a role="menuitem" href="../organizationProfile/organizationProfile.html"><i class='glyphicon glyphicon-user'></i> My Profile</a></li>
+			            <li role="presentation" class="divider"></li>
+			            <li role="presentation"><a role="menuitem" href="../../myAccount/myAccount.html?owner=organization"><i class='fa fa-wrench'></i> My Account</a></li>
+			            <li role="presentation" class="divider"></li>
+			            <li role="presentation"><a role="menuitem" href="../../changePassword/changePassword.html?owner=organization"><i class='glyphicon glyphicon-cog'></i> Change Password</a></li>
+			            <li role="presentation" class="divider"></li>
+			            <li role="presentation"><a role="menuitem" href="../../notificationSettings/notificationSettings.html?owner=organization"><i class='fa fa-bell'></i> Notification Settings</a></li>
+		          	</ul>
+		        </li>
+		        <li class='pull-right' ><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+				<li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = false; organization = true">
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                    <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                        <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''"  href="../../organization/search/searchVol.html" id="tab-header-1" ng-class="addActive2"><img src="../../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''" href="../../volunteer/searchJob/searchJob.html" ng-class="addActive1"><img src="../../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" id="separate-highlight"> 
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="client == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="organization == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../login/login.html">Logout</a></span>
+                        </li>
+
+                    </ul>
+                </li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+	</header>
+	<div class="container1">
+		<div class='row' style="margin-left:0px;">
+			<span class="text-center" id='heading-form' >Success! Your job was submitted.</span>
+		</div>
+		<hr />
+		<div class='row' style="margin-left:0px;">
+			<div class='col-sm-5' style="padding-left:0px;">
+				<label  style="color: #00AEEC;"><span><a ng-bind="jobTitle"></a></span></label>
+				<br/>
+				<label ng-hide="jobType == ''">Job Type - &nbsp;</label><span ng-bind="jobType"></span>
+				<br />
+				<label ng-hide="describeWork == ''">Describe Work - &nbsp;</label><span ng-bind="describeWork"></span>
+			</div>
+		</div>
+		<hr />
+		<div class="row" style="margin-left:0px;">
+			<label>
+				The top 10 recommended volunteers for your job - <label  style="color: #00AEEC;"><span><a ng-bind="jobTitle"></a></span></label>
+			</label>
+		</div>
+		<div class="row" style="margin-left:0px;">
+			<div style="padding-left:0px;display: inline" ng-repeat="user in volunteerList" ng-mouseenter="makeItBlue='rectangle-blue'; makeBlue='color-Blue'" ng-mouseleave="makeItBlue=''; makeBlue='';">
+				<div class="main-border" ng-class="makeItBlue">
+					<i class="glyphicon glyphicon-user" style="font-size:2em" ></i>
+					<label ng-bind="user" style="vertical-align:text-bottom;margin-left:10px" ng-class="makeBlue"></label>
+				</div>
+			</div>
+		</div>
+		<div class='row' style="margin-left:0px;">
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+		</div>
+	</div>
+
+	<footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights'>
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+	<!-- Scripts -->
+	<script src="../../lib/jquery/dist/jquery.min.js"></script>
+	<script src="../../lib/bootstrap/dist/js/bootstrap.min.js"></script>	
+	<script src="../../lib/angular/angular.min.js"></script>
+    
+    <script src="../../js/app.js"></script>
+	<script src="confirmationController.js"></script>	
+</body>
+</html>

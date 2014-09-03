@@ -1,0 +1,2370 @@
+﻿<!DOCTYPE html>
+<html ng-app="landingController">
+<head>
+    <meta charset="utf-8">
+    <title>OLYMPIA</title>
+    
+    <link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="../../css/olympia-icons.css"/>
+    <link rel="stylesheet" href="../../css/bootstrap-tagsinput/bootstrap-tagsinput.css"/>
+    <link rel="stylesheet" href="../../lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+    <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/organization/postJob/postJob.css"/>
+    <link href="../../css/global.css" rel="stylesheet">
+    <link href="../../css/organization/viewApp/viewApp.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <link href="../../css/volunteer/createProfileForm/createProfileForm.css" rel="stylesheet" />
+</head>
+
+<body ng-controller="landingPage">
+    <!-- Page Header Section Start-->
+    <header>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="../../img/logo.png"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!-- Volunteer Menu Start-->
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#" class='menu-interval'>Search Job</a></li>
+                        <li><a href="../jobApplication/jobApplication.html" class='menu-interval'>Job Applications</a></li>
+                        <li><a href="#" class='menu-interval'>Recommendations</a></li>
+                        <li><a href="../../message/message.html?owner=volunteer" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- Volunteer Menu end here-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                        <li class='dropdown pull-right'>
+                            <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation"><a role="menuitem" href="#"><i class='glyphicon glyphicon-user'></i> My Profile</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" href="../../myAccount/myAccount.html?owner=volunteer"><i class='glyphicon glyphicon-user'></i> My Account</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" href="../../changePassword/changePassword.html?owner=volunteer"><i class='glyphicon glyphicon-cog'></i> Change Password</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" href="../../notificationSettings/notificationSettings.html?owner=volunteer"><i class='fa fa-bell'></i> Notification Settings</a></li>
+                            </ul>
+                        </li>
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                        <li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = true; organization = false">
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                            <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive1 = 'make-it-white'">
+                                <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''" href="../../organization/search/searchVol.html" id="tab-header-1" ng-class="addActive2"><img src="../../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''"  href="../../volunteer/searchJob/searchJob.html" ng-class="addActive1"><img src="../../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" id="separate-highlight"> 
+                                    <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=volunteer" ng-if="client == true">sander_mrbrown</a></span>
+                                    <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=volunteer" ng-if="organization == true">sander_mrbrown</a></span>
+                                    <span><a role="menuitem"  href="../../login/login.html">Logout</a></span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </header>
+
+    <div class="container-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel-title">
+                    <span>Create your Profile</span>
+                </div>
+                <p>
+                    Create your volunteer profile so we can show you the best matching jobs.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pill margin-top-10">
+                    <h5 class="font-size-16"><strong>Basic information</strong></h5>
+                </div> 
+                <div class="row margin-rl-0 margin-top-10">
+                    <div class="col-sm-1">
+                        <i class="glyphicon glyphicon-user font-size-4"></i>
+                    </div>
+                    <div class="col-sm-3">
+                        <div>
+                            <i class="glyphicon glyphicon-pencil pointer"></i>
+                            <h4 class="inline-block padding-left-5 bold">Sandy Noteborn</h4>
+                        </div>
+                        <div>
+                            <i class="glyphicon glyphicon-pencil pointer"></i>
+                            <span class="padding-left-5">Amsterdan, Noord Holland</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  margin-rl-0 margin-top-5">
+                    <div class="circle-green pointer">
+                        <i class="fa fa-plus icon-white-plus" title="Add a image"> </i>
+                    </div>
+                    <span title="Add a image"><a href="#">Add photo</a></span>
+                </div>
+                <div class="col-sm-8 padding-rl-0">
+                    <div class="row margin-rl-0">
+                        <label class="bold">About me</label>
+                    </div>
+                    <textarea class="text-area" cols="106" rows="7" maxlength="5000" id="question1"></textarea>
+                    <p id="optional-text" class="number-max">5000 characters left</p>
+                    <p id="optional-text">Make a brief description of yourself. Include a short summary of your volunteer goals and relevant experience. This is your oppotunity to sell yourself.</p>
+                </div>
+                <div class="col-sm-8 padding-rl-0">
+                    <div class="row margin-rl-0">
+                        <label class="bold">I'm looking for</label>
+                    </div>
+                    <textarea class="text-area" cols="106" rows="7" maxlength="5000" id="question1"></textarea>
+                    <p id="optional-text" class="pull-right">5000 characters left</p>
+                    <p id="optional-text">Say a bit about your availability, willingness to travel, skills etc</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pill margin-top-10">
+                    <h5 class="font-size-16"><strong>Customise your profile</strong></h5>
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-sm-11">
+                <div class='col-sm-1  font-size-4 '>
+                    <span class="fa fa-cogs"></span>                  
+                </div>
+                <div class="col-sm-6">
+                    <label class="font-size-15">Your Work Interests</label>
+                </div>
+                <div class='col-sm-11' >
+                    <span>
+                        Specify your work interest, categories and concerned area.
+                    </span>
+
+                    <div class='row'>
+                        <div class='margin-top-10'>
+                        </div>
+                    </div>
+                    <button type="button"  class="btn btn-primary" id="work">Add Work Interests</button>
+                     <ul class="ishidden" id="group-skills">
+                        <!-- <li style="list-style-type:none; padding-bottom:30px;" id="skills-popover"> -->
+                        <li style="list-style-type:none; padding-bottom:30px;">                             
+                            <label >What categories best fit your skills?</label>
+                            <span id="optional-text">(optional) </span>
+                            <div  id='form-component-arrangement-input'>
+                                <input type="text" class='form-control' id='volunteer-work-tag' placeholder="Add categories" />
+                            </div>
+                            <div class="col-sm-12">
+                                <span style="margin-left:-13px;"><a href="#" id="zoomTextarea" id="modal-skill" onclick="updateValueVolunteerWorkText()" title="Click to Zoom" data-toggle="modal" data-target="#VolunteerWork">Add categories</a>
+                                </span>
+                            </div>
+                        </li>
+                        <!-- <li style="list-style-type:none" id="diploma-popover"> -->
+                        <li style="list-style-type:none">
+                            <label >What is your Volunteer work area?</label>
+                            <span id="optional-text">(optional) </span>
+                            <div  id='form-component-arrangement-input'>
+                                <input type="text" class='input-text' id='volunteer-tag' placeholder="Add volunteer work area" />
+                            </div>
+                            <div class="col-sm-12">
+                                <span style="margin-left:-13px;"><a href="#" id="zoomTextarea" id="modal-diploma" onclick="updateValueVolunteerInterestText()" title="Click to Zoom" data-toggle="modal" data-target="#VolunteerWorkBox">Add your work area</a>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>  
+        </div>
+        <div class="row margin-top-10">
+            <div class="col-sm-11">
+                <div class='col-sm-1  font-size-4 '>
+                    <span class="glyphicon glyphicon-list-alt"></span>                  
+                </div>
+                <div class="col-sm-6">
+                    <label class="font-size-15">Preferred Skills and Diplomas</label>
+                </div>
+                <div class='col-sm-11' >
+                    <span>
+                        Specify your skills and diplomas/certificates.
+                    </span>
+
+                    <div class='row'>
+                        <div class='margin-top-10'>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="button" id="skills" value="Add Skills / Certificates" name="Add Skills / Certificates">Add Skills / Certificates</button>
+                    <ul class="ishidden" id="group-skills">
+                        <!-- <li style="list-style-type:none; padding-bottom:30px;" id="skills-popover"> -->
+                        <li style="list-style-type:none; padding-bottom:30px;">                             
+                            <label >Add skills you would like to offer as volunteer work</label>
+                            <span id="optional-text">(optional) </span>
+                            <div  id='form-component-arrangement-input'>
+                                <input type="text" class='form-control' id='skill-tag' placeholder="Add skills" />
+                            </div>
+                            <div class="col-sm-12">
+                                <span style="margin-left:-13px;"><a href="#" id="zoomTextarea" id="modal-skill" onclick="updateValueSkillText()" title="Click to Zoom" data-toggle="modal" data-target="#skillBox">Add skills</a>
+                                </span>
+                            </div>
+                        </li>
+                        <!-- <li style="list-style-type:none" id="diploma-popover"> -->
+                        <li style="list-style-type:none">
+                            <label >Add your Diploma/Certificates to your Profile</label>
+                            <span id="optional-text">(optional) </span>
+                            <div  id='form-component-arrangement-input'>
+                                <input type="text" class='input-text' id='diploma-tag' placeholder="Add Diploma/Certificates" />
+                            </div>
+                            <div class="col-sm-12">
+                                <span style="margin-left:-13px;"><a href="#" id="zoomTextarea" id="modal-diploma" onclick="updateValueDiplomaText()" title="Click to Zoom" data-toggle="modal" data-target="#diplomaBox">Add Diploma/Certificates</a>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-sm-11">
+                <div class='col-sm-1  font-size-4 '>
+                    <span class="glyphicon glyphicon-time"></span>                  
+                </div>
+                <div class="col-sm-6">
+                    <label class="font-size-15">Working Time Preferences</label>
+                </div>
+                <div class='col-sm-11' >
+                    <span>
+                        Specify your working time preferences, schedule and days of week as per your availability.
+                    </span>
+
+                    <div class='row'>
+                        <div class='margin-top-10'>
+                        </div>
+                    </div>
+                    <button type="button"  class="btn btn-primary" id="time">Add Time Preferences</button>
+                    <ul class="ishidden" id="group-skills">
+                    
+                        <li style="list-style-type:none" class="check-label">
+                            <div class="row">
+                                <label class="margin-left-28">Time Preferences</label>
+                                <a>
+                                    <i class="glyphicon glyphicon-question-sign blue" id="time-checkbox"></i>
+                                </a>
+                                <span id="optional-text">(optional) </span>
+                                
+                            </div>
+                            <!-- <label class="margin">Time Comittment</label> -->
+                            <div class="col-sm-6 ">
+
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="wt1" value="All Weekdays - Late Night"> Occasional(weekly or monthly)
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="wt2" value="All Weekdays - Late Night"> A lot(10+ hours/week)
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="wt3" value="All Weekdays - Late Night"> Full time(30-40 hours/week)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="wt4" value="All Weekdays - Late Night"> One time
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="wt5" value="All Weekdays - Late Night"> For few hours
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="wt6" value="All Weekdays - Late Night"> Less than 1 hour
+                                    </label>
+                                </div>
+                                
+                            </div>
+                        </li>
+                        <li style="list-style-type:none">
+                            <label id='form-component-arrangement-label'>Days of Week</label>
+                            <span id="optional-text">(optional) </span>
+                            <div  id='form-component-arrangement-input' style="margin-bottom:-10px;">
+                                <input type="text" class='form-control' id='dow-tag' placeholder="Add days of week" />
+                            </div>
+                            <div class="col-sm-12">
+                                <span style="margin-left:-13px;"><a href="#" id="zoomTextarea1" onclick="updateValueDowText()" title="Click to Zoom" data-toggle="modal" data-target="#dowBox">Add preferred days of week to your profile</a>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row ishidden">
+            <div class="col-sm-12">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>  
+        </div>
+        <div class="row ishidden">
+            <div class="col-sm-11">
+                <div class='col-sm-1  font-size-4 '>
+                    <span class="glyphicon glyphicon-globe"></span>                 
+                </div>
+                <div class="col-sm-6">
+                    <label class="font-size-15">Volunteer Job Location</label>
+                </div>
+                <div class='col-sm-11' >
+                    <span>
+                        Specify the Volunteer Job Location, where job is located.
+                    </span>
+
+                    <div class='row'>
+                        <div class='margin-top-10'>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="location">Add Address</button>
+                    <ul class="ishidden" id="address" style="padding-left: 0px;">
+                        <li style="list-style-type:none" style="margin-left:-50px;" >   
+                            <div class="margin-top-15"></div>       
+                            <label>Address</label>
+                            <span id="optional-text">(optional) </span>
+                            <div class="row"></div>                 
+                            <div class='border-address col-sm-7' id="address-block">
+                                <label >City</label>
+                                <input type='text' class='form-control' id='form-control-weight' for='city' id='form-text-control'>
+                                <div class='row'>
+                                    <div id='extra-space-label'>
+                                    </div>
+                                </div>
+
+                                <label >Country</label>
+                                <select class='form-control'>
+                                    <option value='Ipsum'>Afghanistan</option>
+                                    <option value='Consectetur'>Akrotiri</option>
+                                    <option value='Ipsum'>Albania</option>
+                                    <option value='Consectetur'>Algeria</option>
+                                    <option value='Ipsum'>Angola</option>
+                                    <option value='Consectetur'>Antarctica</option>
+                                    <option value='Ipsum'>Antigua and Barbuda</option>
+                                    <option value='Consectetur'>Argentina</option>
+                                    <option value='Ipsum'>Australia</option>
+                                    <option value='Consectetur'>Austria</option>
+                                    <option value='Ipsum'>Bahamas, The</option>
+                                    <option value='Consectetur'>Bangladesh</option>
+                                    <option value='Ipsum'>Bassas da India</option>
+                                    <option value='Consectetur'>Belarus</option>
+                                    <option value='Ipsum'>Belgium</option>
+                                    <option value='Consectetur'>Bermuda</option>
+                                    <option value='Ipsum'>Bhutan</option>
+                                    <option value='Consectetur'>Brazil</option>
+                                    <option value='Ipsum'>British Indian Ocean Territory</option>
+                                    <option value='Consectetur'>British Virgin Islands</option>
+                                    <option value='Ipsum'>Bulgaria</option>
+                                    <option value='Consectetur'>Burma</option>
+                                    <option value='Ipsum'>Burundi</option>
+                                    <option value='Consectetur'>Cambodia</option>
+                                    <option value='Ipsum'>Cameroon</option>
+                                    <option value='Consectetur'>Canada</option>
+                                    <option value='Ipsum'>China</option>
+                                    <option value='Consectetur'>Cocos (Keeling) Islands</option>
+                                    <option value='Ipsum'>Colombia</option>
+                                    <option value='Consectetur'>Comoros</option>
+                                    <option value='Ipsum'>Congo, Democratic Republic of the</option>
+                                    <option value='Consectetur'>Congo, Republic of the</option>
+                                    <option value='Ipsum'>Cook Islands</option>
+                                    <option value='Consectetur'>Cuba</option>
+                                    <option value='Ipsum'>Cyprus</option>
+                                    <option value='Consectetur'>Denmark</option>
+                                    <option value='Ipsum'>Dominican Republic</option>
+                                    <option value='Consectetur'>Ecuador</option>
+                                    <option value='Ipsum'>Egypt</option>
+                                    <option value='Consectetur'>Ethiopia</option>
+                                    <option value='Ipsum'>Finland</option>
+                                    <option value='Consectetur'>France</option>
+                                    <option value='Ipsum'>Georgia</option>
+                                    <option value='Consectetur'>Germany</option>
+                                    <option value='Ipsum'>Greece</option>
+                                    <option value='Consectetur'>Greenland</option>
+                                    <option value='Ipsum'>Guinea</option>
+                                    <option value='Consectetur'>Holy See (Vatican City)</option>
+                                    <option value='Ipsum'>Hong Kong</option>
+                                    <option value='Consectetur'>Iceland</option>
+                                    <option value='Ipsum'>India</option>
+                                    <option value='Consectetur'>Indonesia</option>
+                                    <option value='Ipsum'>Iran</option>
+                                    <option value='Consectetur'>Iraq</option>
+                                    <option value='Ipsum'>Ireland</option>
+                                    <option value='Consectetur'>Israel</option>
+                                    <option value='Ipsum'>Italy</option>
+                                    <option value='Consectetur'>Jamaica</option>
+                                    <option value='Ipsum'>Japan</option>
+                                    <option value='Consectetur'>Jersey</option>
+                                    <option value='Ipsum'>Kazakhstan</option>
+                                    <option value='Consectetur'>Kenya</option>
+                                    <option value='Ipsum'>Korea</option>
+                                    <option value='Consectetur'>Kuwait</option>
+                                    <option value='Ipsum'>Laos</option>
+                                    <option value='Consectetur'>Lebanon</option>
+                                    <option value='Ipsum'>Liberia</option>
+                                    <option value='Consectetur'>Macau</option>
+                                    <option value='Ipsum'>Malaysia</option>
+                                    <option value='Consectetur'>Maldives</option>
+                                    <option value='Ipsum'>Mauritius</option>
+                                    <option value='Consectetur'>Mexico</option>
+                                    <option value='Ipsum'>Mozambique</option>
+                                    <option value='Consectetur'>Namibia</option>
+                                    <option value='Ipsum'>Nepal</option>
+                                    <option value='Consectetur' selected="selected">Netherlands</option>
+                                    <option value='Ipsum'>New Zealand</option>
+                                    <option value='Consectetur'>Norway</option>
+                                    <option value='Ipsum'>Oman</option>
+                                    <option value='Consectetur'>Pakistan</option>
+                                    <option value='Ipsum'>Peru</option>
+                                    <option value='Consectetur'>Philippines</option>
+                                    <option value='Ipsum'>Poland</option>
+                                    <option value='Consectetur'>Portugal</option>
+                                    <option value='Ipsum'>Qatar</option>
+                                    <option value='Consectetur'>Romania</option>
+                                    <option value='Ipsum'>Russia</option>
+                                    <option value='Consectetur'>Saudi Arabia</option>
+                                    <option value='Ipsum'>Sierra Leone</option>
+                                    <option value='Consectetur'>Singapore</option>
+                                    <option value='Ipsum'>Solomon Islands</option>
+                                    <option value='Consectetur'>Somalia</option>
+
+                                    <option value='Ipsum'>South Africa</option>
+                                    <option value='Consectetur'>Spain</option>
+                                    <option value='Ipsum'>Sri Lanka</option>
+                                    <option value='Consectetur'>Sweden</option>
+                                    <option value='Ipsum'>Switzerland</option>
+                                    <option value='Consectetur'>Syria</option>
+                                    <option value='Ipsum'>Taiwan</option>
+                                    <option value='Consectetur'>Thailand</option>
+                                    <option value='Ipsum'>Turkey</option>
+                                    <option value='Consectetur'>Uganda</option>
+                                    <option value='Ipsum'>Ukraine</option>
+                                    <option value='Consectetur'>United Arab Emirates</option>
+                                    <option value='Ipsum'>United Kingdom</option>
+                                    <option value='Consectetur'>United States</option>
+                                    <option value='Ipsum'>Venezuela</option>
+                                    <option value='Consectetur'>Vietnam</option>
+                                    <option value='Ipsum'>Yemen</option>
+                                    <option value='Consectetur'>Zambia</option>
+                                    <option value='Ipsum'>Zimbabwe</option>
+                                </select>
+                                <div class='row'>
+                                    <div id='extra-space-label'>
+                                    </div>
+                                </div>
+
+                                <label >Zipcode</label>
+                                <input type='text' class='form-control' id='form-control-weight' for='inserting address' id='form-text-control' placeholder='Zipcode'>
+                                <div class='row'>
+                                    <div id='extra-space-label'>
+                                    </div>
+                                </div>
+                                <span ><a style='text-align:right; cursor: pointer;' onclick="addNewAddress()">+Add another address</a></span>
+                            </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>  
+        </div>
+
+        <div class="row margin-top-10" ng-init="showSocialAccount=true">
+            <div class="col-sm-11">
+                <div class='col-sm-1 padding-right-0 padding-left-25  font-size-4 '>
+                    <span class="fa fa-linkedin-square vertical-align-top"></span>                  
+                </div>
+                <div class="col-sm-6">
+                    <label class="font-size-15">Your Social networks</label>
+                </div>
+                <div class='col-sm-11' >
+                    <span>
+                        Specify your social accounts.
+                    </span>
+
+                    <div class='row'>
+                        <div class='margin-top-10'>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="button" ng-click="showSocialAccount = !showSocialAccount" ng-show="showSocialAccount">Add Social Account</button>
+                    <button class="btn btn-danger" type="button"  ng-click="showSocialAccount = !showSocialAccount" ng-hide="showSocialAccount">Hide Social Account</button>
+                    <ul id="group-skills" ng-show="!showSocialAccount">
+                        <!-- <li style="list-style-type:none; padding-bottom:30px;" id="skills-popover"> -->
+                        <li style="list-style-type:none; padding-bottom:10px;">                             
+                            <div class="row">
+                                <div class='col-sm-1 align-right'>
+                                    <span class="fa fa-facebook font-size-2"></span>  
+                                </div>
+                                <div class="col-sm-2 padding-right-0">
+                                    <span><a href="" class="font-size-20">facebook</a></label>
+                                </div>
+                                <div class='col-sm-9 padding-rl-0'><i class="glyphicon glyphicon-pencil pointer pencil-icon"></i></div>
+                            </div>
+                            <div class="row">
+                                <div class='col-sm-1 align-right'>
+                                    <span class="fa fa-linkedin font-size-2"></span>  
+                                </div>
+                                <div class="col-sm-2">
+                                    <span><a href="" class="font-size-20">linkedin</a></label>
+                                </div>
+                                <div class='col-sm-9 padding-rl-0'><i class="glyphicon glyphicon-pencil pointer pencil-icon"></i></div>
+                            </div>
+                            <div class="row">
+                                <div class='col-sm-1 align-right'>
+                                    <span class="fa fa-twitter font-size-2"></span>  
+                                </div>
+                                <div class="col-sm-2">
+                                    <span><a href="" class="font-size-20">twitter</a></label>
+                                </div>
+                                <div class='col-sm-9 padding-rl-0'><i class="glyphicon glyphicon-pencil pointer pencil-icon"></i></div>
+                            </div>      
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="height:1px; background-color:#DDDDDD;">
+            </div>  
+        </div>
+        <div class="row margin-top-10" ng-init="showSocialAccount=true">
+            <div class='col-sm-1 padding-right-0 padding-left-25 font-size-4 '>
+                    <span class="fa fa-eye-slash vertical-align-top"></span>                  
+                </div>
+                <div class="col-sm-6">
+                    <label class="font-size-15">Profile Visibility</label>
+                </div>
+                <div class='col-sm-11' >
+                    <span>
+                        Specify who can view your profile and who else cannot.
+                    </span>
+                    <ul>
+                        <!-- <li style="list-style-type:none; padding-bottom:30px;" id="skills-popover"> -->
+                        <li style="list-style-type:none; padding-bottom:10px;">                             
+                            <div class="radio">
+                                <label>
+                                  <input type="radio" id="rv1" name="profileVisibility" checked=""> &nbsp;Everyone - Anyone can see your profile whether they are logged into Volunteer platform.
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                  <input type="radio" id="rv1" name="profileVisibility"> &nbsp;Volunteer Users only - Only users who are logged into Volunteer platform can see your profile.
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                  <input type="radio" id="rv1" name="profileVisibility"> &nbsp;Hidden - Organization can see your profile only if you have applied to their job.
+                                </label>
+                            </div>
+                        </li>
+                </div>
+        </div>
+        <!-- Part 2-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pill margin-top-10">
+                    <h5 class="font-size-16"><strong>School Information</strong></h5>
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 margin-top-20">
+                <div class="main-border1">
+                    <div class="row  margin-rl-0 pull-right">
+                        <div class="circle-green pointer">
+                            <i class="fa fa-plus icon-white-plus" title="Add School/Education"> </i>
+                        </div>
+                        <span><a href="#" id="zoomTextarea1" title="Click to add school" data-toggle="modal" data-target="#addSchool" ng-click="schoolCancel()">Add School</a></span>
+                    </div>
+                    <div class="margin-top-35" ng-if="lengthOfSchools == 0">
+                        <p class="align-center bold italic">No School information has been inserted yet</p>
+                        <p class="align-center italic">Please click on "Add School" to add information about your school/education</p>
+                    </div>
+                    
+                    <div class="margin-top-35" ng-if="lengthOfSchools != 0">
+                        <div ng-repeat="school in listOfSchools track by $index">
+                            <div class='padding-rl-0'>
+                                <label ng-bind="school.name" class="margin-right-15"></label>
+                                <span ng-click="updateSchoolDetails(job, 2, $index)">
+                                    <i class="glyphicon glyphicon-pencil pointer"></i>
+                                    <a href="">Edit</a>
+                                </span>
+                            </div>
+                            <p class="margin-bottom-0"><label class="margin-bottom-0">Degree - </label>&nbsp;<span ng-bind="school.degree"></span></p>
+                            <p class="margin-bottom-0"><label class="margin-bottom-0">Area Of Study - </label>&nbsp;<span ng-bind="school.areaOfStudy"></span></p>
+                            <p class="margin-bottom-0"><label class="margin-bottom-0">From - </label>&nbsp;<span ng-bind="school.startDate"></span>&nbsp;&nbsp;<label class="margin-bottom-0">To - </label>&nbsp;<span ng-bind="school.endDate"></span></p>
+                            <div class="row" ng-if="$index !== lengthOfSchools-1">
+                                <div class="col-sm-12 padding-right-5">
+                                    <div class="hr1"></div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 3-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pill margin-top-10">
+                    <h5 class="font-size-16"><strong>Job Information</strong></h5>
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 margin-top-20">
+                <div class="main-border1">
+                    <div class="row  margin-rl-0 pull-right">
+                        <div class="circle-green pointer">
+                            <i class="fa fa-plus icon-white-plus" title="Add a image"> </i>
+                        </div>
+                        <span><a href="#" id="zoomTextarea1" title="Click to add Job" data-toggle="modal" data-target="#addJob" ng-click="jobCancel()">Add a Volunteer Experience</a></span>
+                    </div>
+                    <div class="margin-top-35" ng-if="lengthOfJobs == 0">
+                        <p class="align-center bold italic">No Job/Volunteer Experience has been shared yet</p>
+                        <p class="align-center italic">Please click on "Add a Volunteer Experience" to add information about your Job/Volunteer Experience</p>
+                    </div>
+
+                    <div class="margin-top-35" ng-if="lengthOfJobs != 0">
+                        <div ng-repeat="job in listOfJobs track by $index">
+                            <p class="margin-bottom-0"><label ng-bind="job.title"></label></p>
+                            <p class="margin-bottom-0"><label class="margin-bottom-0">Organization - </label>&nbsp;<span ng-bind="job.name"></span></p>
+                            <p class="margin-bottom-0"><label class="margin-bottom-0">Location - </label>&nbsp;<span ng-bind="job.city"></span> &nbsp;<span ng-bind="job.country"></span></p>
+                            <p class="margin-bottom-0"><label class="margin-bottom-0">From - </label>&nbsp;<span ng-bind="job.month1"></span>, &nbsp;<span ng-bind="job.startDate"></span>&nbsp;&nbsp;<label class="margin-bottom-0">To - </label>&nbsp;<span ng-bind="job.month2"></span>, &nbsp;<span ng-bind="job.endDate"></span></p>
+                            <div class="row" ng-if="$index !== lengthOfJobs-1">
+                                <div class="col-sm-12 padding-right-5">
+                                    <div class="hr1"></div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 margin-top-30">
+                <div class="col-sm-4"></div>
+                <div class="form-group col-sm-5 complete-profile">
+                    <button class="btn btn-success" onclick="window.location.href = '../volunteerProfile/volunteerProfile.html'">Save Profile and Continue</button>
+                    <button class="btn btn-danger" >Cancel</button>
+                </div>
+            </div>
+        </div>  
+
+    </div>
+
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap" style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Volunteer work categories Modal -->
+    <div class="modal fade" id="VolunteerWork" tabindex="-1" role="dialog" aria-labelledby="VolunteerWork" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Which categories best fits your skills? </h2>
+                </div>
+                <form role="form">
+                    <div class="modal-body">
+                        <p>Select upto 10 categories that match your professional experience. Choosing carefully helps clients find you in the marketplace.</p>
+                        <p id="optional-text">You have 10 categories remaining to select</p>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk1" value="Unskilled volunteering"> Unskilled volunteering
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk2" value="Environmental volunteering"> Environmental volunteering
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk3" value="Skills-based volunteering"> Skills-based volunteering
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk4" value="Volunteering in an emergency"> Volunteering in an emergency
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk5" value="Program Coordination"> Volunteering in developing countries
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk6" value="Volunteering in schools"> Volunteering in schools
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk7" value="Virtual Volunteering"> Virtual Volunteering
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk8" value="Micro-volunteering"> Micro-volunteering
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk9" value="Community voluntary work"> Community voluntary work
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk10" value="International work-camps"> International work-camps</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="volunteerWrk11" value="Corporate volunteering" /> Corporate volunteering</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                            </div>
+                            <div class="col-sm-6">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueVolunteerWork()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+     <!-- Volunteer work area Modal-->
+    <div class="modal fade" id="VolunteerWorkBox" tabindex="-1" role="dialog" aria-labelledby="VolunteerWorkBox" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">What is your Volunteer work area?</h2>
+                </div>
+                <form role="form">
+                    <div class="modal-body">
+                        <p>Select area of Volunteer work that applies to you.</p>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v1" value="Agriculture"> Agriculture
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v2" value="Animals"> Animals
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v3" value="Arts"> Arts
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v4" value="Civic engegement"> Civic engegement
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v5" value="Communications access"> Communications access
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v6" value="Community development"> Community development
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v7" value="Conflict resolution"> Conflict resolution
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v8" value="Consumer protection"> Consumer protection
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v9" value="Crime & Safety"> Crime & Safety
+                                    </label>
+                                </div>
+                                
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v10" value="Disability"> Disability
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v11" value="Disaster relief"> Disaster relief
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v12" value="Drug abuse"> Drug abuse
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v13" value="Economic development"> Economic development
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v14" value="Education"> Education
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v15" value="Energy conservation"> Energy conservation
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v16" value="Environment"> Environment
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v17" value="Family"> Family
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v18" value="Government reform"> Government reform
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v19" value="Health & Medicine"> Health & Medicine
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v20" value="Housing and homelessness"> Housing and homelessness
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v21" value="Human rights"> Human rights
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v22" value="Human services"> Human services
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v23" value="Immigration"> Immigration
+                                    </label>
+                                </div>
+                                
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v24" value="International cooperation"> International cooperation
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v25" value="International relations"> International relations
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v26" value="Job & workplace"> Job & workplace
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v27" value="Legal assistance"> Legal assistance
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v28" value="LGBT"> LGBT
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v29" value="Library or resource center"> Library or resource center
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v30" value="Media"> Media
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v31" value="Men"> Men
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v32" value="Mental health"> Mental health
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v33" value="Microedit"> Microedit
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v34" value="Multi-service agency"> Multi-service agency
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v35" value="Museums and history"> Museums and history
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v36" value="Network of nonprofits"> Network of nonprofits
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v37" value="Personal finance"> Personal finance
+                                    </label>
+                                </div>
+                                
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v38" value="Philanthropy"> Philanthropy
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v39" value="Politics"> Politics
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v40" value="Poverty and hunger"> Poverty and hunger
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v41" value="Prison reform"> Prison reform
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v42" value="Professional association"> Professional association
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v43" value="Race and ethnicity"> Race and ethnicity
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v44" value="Religion and spirituality"> Religion and spirituality
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v45" value="Research and science"> Research and science
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v46" value="Rural"> Rural
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v47" value="Social enterprise"> Social enterprise
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v48" value="Sports and recreation"> Sports and recreation
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v49" value="Technology"> Technology
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v50" value="Travel and transportation"> Travel and transportation
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v51" value="Urban"> Urban
+                                    </label>
+                                </div>
+                                
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v52" value="Veterans"> Veterans
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v53" value="Victim support"> Victim support
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v54" value="Volunteering"> Volunteering
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v55" value="Women"> Women
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="v56" value="Youth"> Youth
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                            </div>
+                            <div class="col-sm-6">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueVolunteerInterest()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Volunteer School Modal -->
+    <div class="modal fade" id="addSchool" tabindex="-1" role="dialog" aria-labelledby="addSchool" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Add School</h2>
+                </div>
+                <form role="form" name="schoolForm" id="schoolForm" novalidate>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-sm-1"></div>
+                                <div class="alert alert-danger col-sm-10" id="errorMsg">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4 class="text-center margin-top-0">Please fix the following issues</h4>
+                                    <ul id="errorList" class="errorList" style="margin-bottom:35px"></ul>
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                        </div>
+                        <div class="row margin-left--15">
+                            <div class="col-sm-12">
+                                <label>School</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="col-sm-12" ng-model="school.name" id="schoolAns1" ng-required/>
+                            </div>
+                            <div class="col-sm-12 margin-top-10">
+                                <label>Date Attended</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select class="col-sm-12" ng-model="school.startDate" ng-init="school.startDate = 0" id="schoolAns4" ng-required>
+                                    <option value="0" select="selected">From</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                    <option value="1989">1989</option>
+                                    <option value="1988">1988</option>
+                                    <option value="1987">1987</option>
+                                    <option value="1986">1986</option>
+                                    <option value="1985">1985</option>
+                                    <option value="1984">1984</option>
+                                    <option value="1983">1983</option>
+                                    <option value="1982">1982</option>
+                                    <option value="1981">1981</option>
+                                    <option value="1980">1980</option>
+                                    <option value="1979">1979</option>
+                                    <option value="1978">1978</option>
+                                    <option value="1977">1977</option>
+                                    <option value="1976">1976</option>
+                                    <option value="1975">1975</option>
+                                    <option value="1974">1974</option>
+                                    <option value="1973">1973</option>
+                                    <option value="1972">1972</option>
+                                    <option value="1971">1971</option>
+                                    <option value="1970">1970</option>
+                                    <option value="1969">1969</option>
+                                    <option value="1968">1968</option>
+                                    <option value="1967">1967</option>
+                                    <option value="1966">1966</option>
+                                    <option value="1965">1965</option>
+                                    <option value="1964">1964</option>
+                                    <option value="1963">1963</option>
+                                    <option value="1962">1962</option>
+                                    <option value="1961">1961</option>
+                                    <option value="1960">1960</option>
+                                    <option value="1959">1959</option>
+                                    <option value="1958">1958</option>
+                                    <option value="1957">1957</option>
+                                    <option value="1956">1956</option>
+                                    <option value="1955">1955</option>
+                                    <option value="1954">1954</option>
+                                    <option value="1953">1953</option>
+                                    <option value="1952">1952</option>
+                                    <option value="1951">1951</option>
+                                    <option value="1950">1950</option>
+                                    <option value="1949">1949</option>
+                                    <option value="1948">1948</option>
+                                    <option value="1947">1947</option>
+                                    <option value="1946">1946</option>
+                                    <option value="1945">1945</option>
+                                    <option value="1944">1944</option>
+                                    <option value="1943">1943</option>
+                                    <option value="1942">1942</option>
+                                    <option value="1941">1941</option>
+                                    <option value="1940">1940</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <select class="col-sm-12" ng-model="school.endDate" ng-init="school.endDate = 0" id="schoolAns5" ng-required>
+                                    <option value="0" select="selected">To</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                    <option value="1989">1989</option>
+                                    <option value="1988">1988</option>
+                                    <option value="1987">1987</option>
+                                    <option value="1986">1986</option>
+                                    <option value="1985">1985</option>
+                                    <option value="1984">1984</option>
+                                    <option value="1983">1983</option>
+                                    <option value="1982">1982</option>
+                                    <option value="1981">1981</option>
+                                    <option value="1980">1980</option>
+                                    <option value="1979">1979</option>
+                                    <option value="1978">1978</option>
+                                    <option value="1977">1977</option>
+                                    <option value="1976">1976</option>
+                                    <option value="1975">1975</option>
+                                    <option value="1974">1974</option>
+                                    <option value="1973">1973</option>
+                                    <option value="1972">1972</option>
+                                    <option value="1971">1971</option>
+                                    <option value="1970">1970</option>
+                                    <option value="1969">1969</option>
+                                    <option value="1968">1968</option>
+                                    <option value="1967">1967</option>
+                                    <option value="1966">1966</option>
+                                    <option value="1965">1965</option>
+                                    <option value="1964">1964</option>
+                                    <option value="1963">1963</option>
+                                    <option value="1962">1962</option>
+                                    <option value="1961">1961</option>
+                                    <option value="1960">1960</option>
+                                    <option value="1959">1959</option>
+                                    <option value="1958">1958</option>
+                                    <option value="1957">1957</option>
+                                    <option value="1956">1956</option>
+                                    <option value="1955">1955</option>
+                                    <option value="1954">1954</option>
+                                    <option value="1953">1953</option>
+                                    <option value="1952">1952</option>
+                                    <option value="1951">1951</option>
+                                    <option value="1950">1950</option>
+                                    <option value="1949">1949</option>
+                                    <option value="1948">1948</option>
+                                    <option value="1947">1947</option>
+                                    <option value="1946">1946</option>
+                                    <option value="1945">1945</option>
+                                    <option value="1944">1944</option>
+                                    <option value="1943">1943</option>
+                                    <option value="1942">1942</option>
+                                    <option value="1941">1941</option>
+                                    <option value="1940">1940</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 margin-top-10">
+                                <label>Degree</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="col-sm-6" ng-model="school.degree" id="schoolAns2" ng-required/>
+                            </div>
+                            <div class="col-sm-12 margin-top-10 check-label">
+                                <label>Area of Study</label>
+                                <a>
+                                    <i class="glyphicon glyphicon-question-sign blue pointer" id="areaOfStudy"></i>
+                                </a>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="col-sm-6" ng-model="school.areaOfStudy" id="schoolAns3" ng-required/>
+                            </div>
+                            <div class="col-sm-12 margin-top-10 check-label">
+                                <label>Description</label>
+                                <a>
+                                    <i class="glyphicon glyphicon-question-sign blue pointer" id="descriptionSchool"></i>
+                                </a>
+                                <span id="optional-text">(optional) </span> 
+                            </div>
+                            <div class="col-sm-12">
+                                <textarea class="col-sm-12 text-area" rows="5" cols="60" ng-model="school.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">&nbsp;</div>
+                            <div class="col-sm-9">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger" ng-click="schoolCancel()" aria-hidden="true" >Cancel</button>
+                                <button style="margin: 20px 10px 30px 0;" type="submit" class="btn btn-success" ng-click="updateSchoolDetails(school, 0, null)" ng-disabled="schoolForm.$invalid">Save and Add More</button>
+                                <button style="margin: 20px 0 30px 0;" type="submit" class="btn btn-success" ng-click="updateSchoolDetails(school, 1, null)" ng-disabled="schoolForm.$invalid">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Volunteer Job Modal -->
+    <div class="modal fade" id="addJob" tabindex="-1" role="dialog" aria-labelledby="addJob" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" ng-click="jobCancel()" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Add Job</h2>
+                </div>
+                <form role="form" name="jobForm" id="jobForm" novalidate>
+                    <div class="modal-body">
+                        <div class="row" id="errorMsg1">
+                            <div class="col-lg-12">
+                                <div class="col-sm-1"></div>
+                                <div class="alert alert-danger col-sm-10">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4 class="text-center margin-top-0">Please fix the following issues</h4>
+                                    <ul id="errorList1" class="errorList" style="margin-bottom:35px"></ul>
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                        </div>
+                        <div class="row margin-left--15">
+                            <div class="col-sm-12">
+                                <label>Organization</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="col-sm-12" ng-model="job.name" id="jobAns1" ng-required/>
+                            </div>
+                            <div class="col-sm-12 margin-top-10 check-label">
+                                <label>Location</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <div  class="col-sm-6 padding-left-0">
+                                    <input type="text" ng-model="job.city" class="col-sm-12" id="jobAns2" ng-required placeholder="City"/>
+                                </div>
+                                <div class="col-sm-6 padding-right-0">
+                                    <select class='col-sm-12' ng-model="job.country" ng-init="job.country = 'Netherlands'">
+                                        <option value='Afghanistan'>Afghanistan</option>
+                                        <option value='Akrotiri'>Akrotiri</option>
+                                        <option value='Albania'>Albania</option>
+                                        <option value='Algeria'>Algeria</option>
+                                        <option value='Angola'>Angola</option>
+                                        <option value='Antarctica'>Antarctica</option>
+                                        <option value='Antigua and Barbuda'>Antigua and Barbuda</option>
+                                        <option value='Argentina'>Argentina</option>
+                                        <option value='Australia'>Australia</option>
+                                        <option value='Austria'>Austria</option>
+                                        <option value='Bahamas, The'>Bahamas, The</option>
+                                        <option value='Bangladesh'>Bangladesh</option>
+                                        <option value='Bassas da India'>Bassas da India</option>
+                                        <option value='Belarus'>Belarus</option>
+                                        <option value='Belgium'>Belgium</option>
+                                        <option value='Bermuda'>Bermuda</option>
+                                        <option value='Bhutan'>Bhutan</option>
+                                        <option value='Brazil'>Brazil</option>
+                                        <option value='British Indian Ocean Territory'>British Indian Ocean Territory</option>
+                                        <option value='British Virgin Islands'>British Virgin Islands</option>
+                                        <option value='Bulgaria'>Bulgaria</option>
+                                        <option value='Burma'>Burma</option>
+                                        <option value='Burundi'>Burundi</option>
+                                        <option value='Cambodia'>Cambodia</option>
+                                        <option value='Cameroon'>Cameroon</option>
+                                        <option value='Canada'>Canada</option>
+                                        <option value='China'>China</option>
+                                        <option value='Cocos (Keeling) Islands'>Cocos (Keeling) Islands</option>
+                                        <option value='Colombia'>Colombia</option>
+                                        <option value='Comoros'>Comoros</option>
+                                        <option value='Congo, Democratic Republic of the'>Congo, Democratic Republic of the</option>
+                                        <option value='Congo, Republic of the'>Congo, Republic of the</option>
+                                        <option value='Cook Islands'>Cook Islands</option>
+                                        <option value='Cuba'>Cuba</option>
+                                        <option value='Cyprus'>Cyprus</option>
+                                        <option value='Denmark'>Denmark</option>
+                                        <option value='Dominican Republic'>Dominican Republic</option>
+                                        <option value='Ecuador'>Ecuador</option>
+                                        <option value='Egypt'>Egypt</option>
+                                        <option value='Ethiopia'>Ethiopia</option>
+                                        <option value='Finland'>Finland</option>
+                                        <option value='France'>France</option>
+                                        <option value='Georgia'>Georgia</option>
+                                        <option value='Germany'>Germany</option>
+                                        <option value='Greece'>Greece</option>
+                                        <option value='Greenland'>Greenland</option>
+                                        <option value='Guinea'>Guinea</option>
+                                        <option value='Holy See (Vatican City)'>Holy See (Vatican City)</option>
+                                        <option value='Hong Kong'>Hong Kong</option>
+                                        <option value='Iceland'>Iceland</option>
+                                        <option value='India'>India</option>
+                                        <option value='Indonesia'>Indonesia</option>
+                                        <option value='Iran'>Iran</option>
+                                        <option value='Iraq'>Iraq</option>
+                                        <option value='Ireland'>Ireland</option>
+                                        <option value='Israel'>Israel</option>
+                                        <option value='Italy'>Italy</option>
+                                        <option value='Jamaica'>Jamaica</option>
+                                        <option value='Japan'>Japan</option>
+                                        <option value='Jersey'>Jersey</option>
+                                        <option value='Kazakhstan'>Kazakhstan</option>
+                                        <option value='Kenya'>Kenya</option>
+                                        <option value='Korea'>Korea</option>
+                                        <option value='Kuwait'>Kuwait</option>
+                                        <option value='Laos'>Laos</option>
+                                        <option value='Lebanon'>Lebanon</option>
+                                        <option value='Liberia'>Liberia</option>
+                                        <option value='Macau'>Macau</option>
+                                        <option value='Malaysia'>Malaysia</option>
+                                        <option value='Maldives'>Maldives</option>
+                                        <option value='Mauritius'>Mauritius</option>
+                                        <option value='Mexico'>Mexico</option>
+                                        <option value='Mozambique'>Mozambique</option>
+                                        <option value='Namibia'>Namibia</option>
+                                        <option value='Nepal'>Nepal</option>
+                                        <option value='Netherlands' selected="selected">Netherlands</option>
+                                        <option value='New Zealand'>New Zealand</option>
+                                        <option value='Norway'>Norway</option>
+                                        <option value='Oman'>Oman</option>
+                                        <option value='Pakistan'>Pakistan</option>
+                                        <option value='Peru'>Peru</option>
+                                        <option value='Philippines'>Philippines</option>
+                                        <option value='Poland'>Poland</option>
+                                        <option value='Portugal'>Portugal</option>
+                                        <option value='Qatar'>Qatar</option>
+                                        <option value='Romania'>Romania</option>
+                                        <option value='Russia'>Russia</option>
+                                        <option value='Saudi Arabia'>Saudi Arabia</option>
+                                        <option value='Sierra Leone'>Sierra Leone</option>
+                                        <option value='Singapore'>Singapore</option>
+                                        <option value='Solomon Islands'>Solomon Islands</option>
+                                        <option value='Somalia'>Somalia</option>
+
+                                        <option value='South Africa'>South Africa</option>
+                                        <option value='Spain'>Spain</option>
+                                        <option value='Sri Lanka'>Sri Lanka</option>
+                                        <option value='Sweden'>Sweden</option>
+                                        <option value='Switzerland'>Switzerland</option>
+                                        <option value='Syria'>Syria</option>
+                                        <option value='Taiwan'>Taiwan</option>
+                                        <option value='Thailand'>Thailand</option>
+                                        <option value='Turkey'>Turkey</option>
+                                        <option value='Uganda'>Uganda</option>
+                                        <option value='Ukraine'>Ukraine</option>
+                                        <option value='United Arab Emirates'>United Arab Emirates</option>
+                                        <option value='United Kingdom'>United Kingdom</option>
+                                        <option value='United States'>United States</option>
+                                        <option value='Venezuela'>Venezuela</option>
+                                        <option value='Vietnam'>Vietnam</option>
+                                        <option value='Yemen'>Yemen</option>
+                                        <option value='Zambia'>Zambia</option>
+                                        <option value='Zimbabwe'>Zimbabwe</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 margin-top-10">
+                                <label>Title</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="col-sm-12" ng-model="job.title" id="jobAns3" ng-required/>
+                            </div>
+                            <div class="col-sm-12 margin-top-10">
+                                <label>Period</label>
+                            </div>
+                            <div class="col-sm-6 padding-right-0">
+                                <select class="col-sm-6"  id="jonAns4" ng-init="job.month1 = 0" ng-model="job.month1">
+                                    <option value="0" select="selected">Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">Maarch</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <label class="pull-right"> &nbsp;&nbsp;&nbsp;_ </label>
+                                <select class="col-sm-5 pull-right" ng-model="job.startDate" ng-init="job.startDate = 0" id="jobAns5" ng-required>
+                                    <option value="0" select="selected">Year</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                    <option value="1989">1989</option>
+                                    <option value="1988">1988</option>
+                                    <option value="1987">1987</option>
+                                    <option value="1986">1986</option>
+                                    <option value="1985">1985</option>
+                                    <option value="1984">1984</option>
+                                    <option value="1983">1983</option>
+                                    <option value="1982">1982</option>
+                                    <option value="1981">1981</option>
+                                    <option value="1980">1980</option>
+                                    <option value="1979">1979</option>
+                                    <option value="1978">1978</option>
+                                    <option value="1977">1977</option>
+                                    <option value="1976">1976</option>
+                                    <option value="1975">1975</option>
+                                    <option value="1974">1974</option>
+                                    <option value="1973">1973</option>
+                                    <option value="1972">1972</option>
+                                    <option value="1971">1971</option>
+                                    <option value="1970">1970</option>
+                                    <option value="1969">1969</option>
+                                    <option value="1968">1968</option>
+                                    <option value="1967">1967</option>
+                                    <option value="1966">1966</option>
+                                    <option value="1965">1965</option>
+                                    <option value="1964">1964</option>
+                                    <option value="1963">1963</option>
+                                    <option value="1962">1962</option>
+                                    <option value="1961">1961</option>
+                                    <option value="1960">1960</option>
+                                    <option value="1959">1959</option>
+                                    <option value="1958">1958</option>
+                                    <option value="1957">1957</option>
+                                    <option value="1956">1956</option>
+                                    <option value="1955">1955</option>
+                                    <option value="1954">1954</option>
+                                    <option value="1953">1953</option>
+                                    <option value="1952">1952</option>
+                                    <option value="1951">1951</option>
+                                    <option value="1950">1950</option>
+                                    <option value="1949">1949</option>
+                                    <option value="1948">1948</option>
+                                    <option value="1947">1947</option>
+                                    <option value="1946">1946</option>
+                                    <option value="1945">1945</option>
+                                    <option value="1944">1944</option>
+                                    <option value="1943">1943</option>
+                                    <option value="1942">1942</option>
+                                    <option value="1941">1941</option>
+                                    <option value="1940">1940</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <select class="col-sm-6 width-140" id="jobAns6" ng-init="job.month2 = 0" ng-model="job.month2">
+                                    <option value="0" select="selected">Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">Maarch</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <select class="col-sm-5 pull-right width-121" ng-model="job.endDate" ng-init="job.endDate = 0" id="jobAns7" ng-required>
+                                    <option value="0" select="selected">Year</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                    <option value="1989">1989</option>
+                                    <option value="1988">1988</option>
+                                    <option value="1987">1987</option>
+                                    <option value="1986">1986</option>
+                                    <option value="1985">1985</option>
+                                    <option value="1984">1984</option>
+                                    <option value="1983">1983</option>
+                                    <option value="1982">1982</option>
+                                    <option value="1981">1981</option>
+                                    <option value="1980">1980</option>
+                                    <option value="1979">1979</option>
+                                    <option value="1978">1978</option>
+                                    <option value="1977">1977</option>
+                                    <option value="1976">1976</option>
+                                    <option value="1975">1975</option>
+                                    <option value="1974">1974</option>
+                                    <option value="1973">1973</option>
+                                    <option value="1972">1972</option>
+                                    <option value="1971">1971</option>
+                                    <option value="1970">1970</option>
+                                    <option value="1969">1969</option>
+                                    <option value="1968">1968</option>
+                                    <option value="1967">1967</option>
+                                    <option value="1966">1966</option>
+                                    <option value="1965">1965</option>
+                                    <option value="1964">1964</option>
+                                    <option value="1963">1963</option>
+                                    <option value="1962">1962</option>
+                                    <option value="1961">1961</option>
+                                    <option value="1960">1960</option>
+                                    <option value="1959">1959</option>
+                                    <option value="1958">1958</option>
+                                    <option value="1957">1957</option>
+                                    <option value="1956">1956</option>
+                                    <option value="1955">1955</option>
+                                    <option value="1954">1954</option>
+                                    <option value="1953">1953</option>
+                                    <option value="1952">1952</option>
+                                    <option value="1951">1951</option>
+                                    <option value="1950">1950</option>
+                                    <option value="1949">1949</option>
+                                    <option value="1948">1948</option>
+                                    <option value="1947">1947</option>
+                                    <option value="1946">1946</option>
+                                    <option value="1945">1945</option>
+                                    <option value="1944">1944</option>
+                                    <option value="1943">1943</option>
+                                    <option value="1942">1942</option>
+                                    <option value="1941">1941</option>
+                                    <option value="1940">1940</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">&nbsp;</div>
+                                <div  class="col-sm-6">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="setCurrentDate" ng-model="setCurrentDate" ng-change="setDate()"> I currently work here
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12 margin-top-10 check-label">
+                                <label>Description</label>
+                                <a>
+                                    <i class="glyphicon glyphicon-question-sign blue pointer" id="descriptionSchool"></i>
+                                </a>
+                                <span id="optional-text">(optional) </span> 
+                            </div>
+                            <div class="col-sm-12">
+                                <textarea class="col-sm-12 text-area" rows="5" cols="60" ng-model="job.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">&nbsp;</div>
+                            <div class="col-sm-9">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger" ng-click="jobCancel()" aria-hidden="true" >Cancel</button>
+                                <button style="margin: 20px 10px 30px 0;" type="submit" class="btn btn-success" ng-click="updateJobDetails(job, 0)">Save and Add More</button>
+                                <button style="margin: 20px 0 30px 0;" type="submit" class="btn btn-success" ng-click="updateJobDetails(job, 1)">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Modal-->
+    <div class="modal fade" id="skillBox" tabindex="-1" role="dialog" aria-labelledby="skillBox" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Choose skills</h2>
+                </div>
+                <form role="form">
+                    <div class="modal-body">
+                        <p>Please choose upto 10 categories. Choosing carefully helps clients find you in the marketplace.</p>
+                        <p id="optional-text">You have 10 skills remaining to select</p>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill1" value="Answering Telephones"> Answering Telephones
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill2" value="Accounting"> Accounting
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill3" value="Administration"> Administration
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill4" value="Business Correspondence"> Business Correspondence
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill5" value="Client Relations"> Client Relations
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill6" value="Communication"> Communication
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill7" value="Crowd Control"> Crowd Control
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill8" value="Crime & Safety"> Crime & Safety
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill9" value="Customer Service"> Customer Service
+                                    </label>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill10" value="Clerical"> Clerical
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill11" value="Document Management"> Document Management
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill12" value="Disaster Relief"> Disaster Relief
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill13" value="Document Management"> Document Management
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill14" value="Event Coordination"> Event Coordination
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill15" value="Employee Relations"> Employee Relations
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill16" value="Legal Familiarity"> Legal Familiarity
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill17" value="Meeting Planning"> Meeting Planning
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill18" value="Office Administration"> Office Administration
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill19" value="Organizational Skills"> Organizational Skills
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill20" value="Public Relations"> Public Relations
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill21" value="Public Speaking"> Public Speaking
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill22" value="People Management"> People Management
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill23" value="Receptionist"> Receptionist
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill24" value="Stenography"> Stenography
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill25" value="Travel Arrangements"> Travel Arrangements
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill26" value="Word Processing"> Word Processing
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="skill27" value="Written Communication"> Written Communication
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                            </div>
+                            <div class="col-sm-6">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueSkillCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Diploma Modal -->
+    <div class="modal fade" id="diplomaBox" tabindex="-1" role="dialog" aria-labelledby="diplomaBox" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Choose Diplomas/Certificates </h2>
+                </div>
+                <form role="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma1" value="First Aid Diploma"> First Aid Diploma
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma2" value="Football Referee License"> Football Referee License
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma3" value="Active Volunteering"> Active Volunteering
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma4" value="Training and Assessmement"> Training and Assessmement
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma5" value="Program Coordination"> Program Coordination
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma6" value="Community Service Coordination"> Community Service Coordination
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma7" value="Effective Communication"> Effective Communication
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma8" value="Negotiation"> Negotiation
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma9" value="Customer Service"> Customer Service
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" id="diploma10" value="Risk Management"> Risk Management
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                            </div>
+                            <div class="col-sm-6">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueDiplomaCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- days of week -->
+    <div class="modal fade" id="dowBox" tabindex="-1" role="dialog" aria-labelledby="dowBox" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="myModalLabel">Days of week</h2>
+                </div>
+                <form role="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Full day</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Morning</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Afternoon</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Evening</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Late Night</label>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;margin-bottom:5px;">
+                                <div class="col-sm-12 margin-left-5">
+                                    <hr style="height:1px; background-color:#DDDDDD;margin-top:5px;margin-bottom:5px;">
+                                </div>  
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow1" value="All Weekdays - Full day"> All Weekdays
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow2" value="Weekends - Full day"> Weekends
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow10" value="All Weekdays - Morning"> All Weekdays
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow11" value="Weekends - Morning"> Weekends
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow21" value="All Weekdays - Afternoon"> All Weekdays
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow22" value="Weekends - Afternoon"> Weekends
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow31" value="All Weekdays - Evening"> All Weekdays
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow32" value="Weekends - Evening"> Weekends
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow41" value="All Weekdays - Late Night"> All Weekdays
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow42" value="Weekends - Late Night"> Weekends
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;margin-bottom:5px;">
+                                <div class="col-sm-12 margin-left-5">
+                                    <hr style="height:1px; background-color:#DDDDDD;margin-top:5px;margin-bottom:5px;">
+                                </div>  
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow3" value="Monday - Full day"> Monday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow4" value="Tuesday - Full day"> Tuesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow5" value="Wednesday - Full day"> Wednesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow6" value="Thursday - Full day"> Thursday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow7" value="Friday - Full day"> Friday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow8" value="Saturday - Full day"> Saturday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow9" value="Sunday - Full day"> Sunday
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow13" value="Monday - Morning"> Monday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow14" value="Tuesday - Morning"> Tuesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow15" value="Wednesday - Morning"> Wednesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow16" value="Thursday - Morning"> Thursday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow17" value="Friday - Morning"> Friday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow18" value="Saturday - Morning"> Saturday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow19" value="Sunday - Morning"> Sunday
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow23" value="Monday - Afternoon"> Monday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow24" value="Tuesday - Afternoon"> Tuesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow25" value="Wednesday - Afternoon"> Wednesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow26" value="Thursday - Afternoon"> Thursday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow27" value="Friday - Afternoon"> Friday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow28" value="Saturday - Afternoon"> Saturday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow29" value="Sunday - Afternoon"> Sunday
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow33" value="Monday - Evening"> Monday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow34" value="Tuesday - Evening"> Tuesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow35" value="Wednesday - Evening"> Wednesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow36" value="Thursday - Evening"> Thursday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow37" value="Friday - Evening"> Friday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow38" value="Saturday - Evening"> Saturday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow39" value="Sunday - Evening"> Sunday
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-2">
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow43" value="Monday - Late Night"> Monday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow44" value="Tuesday - Late Night"> Tuesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow45" value="Wednesday - Late Night"> Wednesday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow46" value="Thursday - Late Night"> Thursday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow47" value="Friday - Late Night"> Friday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow48" value="Saturday - Late Night"> Saturday
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          <input type="checkbox" id="dow49" value="Sunday - Late Night"> Sunday
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                            </div>
+                            <div class="col-sm-6">
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueDowCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+                                <button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    
+    <script src="../../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../lib/angular/angular.min.js"></script>
+    <!-- date picker Scripts -->
+    <script src="../../lib/moment/moment.js"></script>
+    <script src="../../lib/moment/min/moment.min.js"></script>
+    <script src="../../lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!--tag inputs -->
+    <script src="../../lib/bootstrap.taginput.js"></script>
+    <script src="../../lib/bootstrap3-typeahead.js"></script>
+    <script src="../../js/app.js"></script>
+    <script src="../../organization/postJob/controller.js"></script>
+    <script src="control.js"></script>
+    <script src="controller.js"></script>
+    <script src="validation.js"></script>
+    <script src="../../lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+</body>
+</html>

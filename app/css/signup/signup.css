@@ -1,0 +1,249 @@
+﻿.container{
+    width:960px;
+}
+
+/* Header */
+.navbar{
+    border-radius:0;
+}
+.navbar-default{
+    background:#00aeec;
+    border:0;
+}
+.navbar-brand{
+    height:80px;
+    padding-top:24px;
+}
+.wrap-login-text{
+    padding-top:26px;
+    color:#fff;
+}
+.wrap-login-text span{
+    display:block;
+    font-size:13px;
+}
+.wrap-login-text span a{
+    color:#fff;
+    font-size:13px;
+}
+.wrap-login-text span a:hover{
+    color:#fff;
+    font-size:13px;
+    font-weight:bold;
+}
+.wrap-login-text span.text-bold{
+    text-align:right;
+}
+
+/* Body */
+.wrapper-form{
+    padding:20px;
+    margin-top:10px;
+    border:3px solid #F0F0ED;
+    margin-bottom:30px;
+    border-radius:5px;
+}
+.wrapper-form h2{
+    margin-top:0;
+    margin-bottom:30px;
+}
+.wrapper-form .center-block{
+    float:none;
+}
+.need-wrapper{
+    float:left;
+    width:50%;
+    margin-top:18px;
+    padding-left:20px;
+}
+.need-wrapper h2{
+ margin-bottom:0;   
+ font-weight:bold;
+ margin-top:5px;
+}
+.need-wrapper .need{
+    float:right;
+    width:77%;
+    padding-left:5px;
+    padding-right:30px;
+}
+.need-wrapper .need p{
+    margin-bottom:20px;
+    font-size:13px;
+}
+a.user-wrapper{
+    display:block;
+    float:left;
+    background:#32becd;
+    border-radius:5px;
+    padding:10px 15px 7px 15px;
+    border:1px solid #61a8b1;
+    border-bottom:2px solid #ccc;
+}
+a.user-wrapper:hover {
+    text-decoration:none
+}
+a.user-wrapper span{
+    font-size:45px;
+    color:#fff;
+    padding-top:3px;
+    display:block;
+}
+a.orange{
+    background:#ffbc1c;
+    border:1px solid #fea75c;
+    border-bottom:2px solid #ccc;
+}
+.need-staff{
+    text-align:center;
+    font-size:13px;
+    margin-top:165px;
+}
+
+
+/* Sing up Form*/
+.look-Hire{
+    position:absolute;
+    right:5%;
+    font-size:13px;
+}
+.look-Hire p{
+    text-align:right;
+    margin-bottom:0;
+}
+.look-Hire a{
+    
+}
+.sign-up-form{
+    text-align:center;
+}
+.sign-up-form .social-text{
+    font-size:11px;
+}
+.sign-up-form .social-text a{
+    text-decoration:underline;
+}
+.sign-up-form .social-text .fa-facebook-square{
+    color:#3b5998;
+    font-size:20px;
+    vertical-align:-2px;
+    padding-right:4px;
+}
+.sign-up-form .social-text .fa-linkedin-square{
+    color:#1777b1;
+    font-size:20px;
+    vertical-align:-2px;
+}
+.sign-up-form .social-text .fa-google-plus-square{
+    color:#d93c39;
+    font-size:20px;
+    vertical-align:-2px;
+    margin-left:5px;
+    margin-right:3px;
+}
+.sign-up-form .center-block{
+    text-align:left;
+}
+.form-group select{
+    width:100%;
+    padding:6px 0 6px 5px;
+    border:3px solid #d2d2cd ;
+    color:#999;
+}
+.form-group select:focus{
+    border-color:#33ccff;
+}
+.form-group label{
+    font-size:13px;
+}
+.form-group .form-control{
+    border-radius:2px;
+    border:3px solid #d2d2cd;
+    box-shadow:none;
+    padding-top:15px;
+    padding-bottom:15px;
+}
+.form-group .form-control:focus{
+    border-color:#33ccff;
+}
+.checkbox{
+    margin-top:20px;
+}
+.checkbox label{
+    font-size:13px;
+}
+.btn-signup{
+    width:100%;
+    font-weight:bold;
+    padding:10px;
+}
+.agree-text{
+    text-align:center;
+    font-size:11px;
+    padding-top:10px;
+    color:#999;
+}
+.agree-text a{
+    text-decoration:underline;
+}
+.form-group .captchaImg{
+    float:left;
+    width:65%;
+    border:3px solid #d2d2cd;
+    height:68px;
+    text-align:center;
+    font-size:12px;
+}
+.form-group .captchTxt{
+    display:inline-block;
+    width:35%;
+    font-size:11px;
+    padding-left:21px;
+}
+
+
+
+/* Footer */
+footer{
+    padding-top:42px;
+    padding-bottom:22px;
+    background:#666666;
+}
+p.footer-copyrights{
+    color:#a5a5a4;
+	font-size: 12px;
+	font-weight: 700;
+	margin-top:-2px; 
+    text-align:center;
+}
+
+/* Error */
+#errorMsg{
+    float:left;
+}
+#errorMsg h2{ 
+    margin-bottom:15px;
+}
+#errorList li{
+    text-align:left;
+}
+.has-error{
+
+}
+.has-error select{
+    border-color:#C70909;
+}
+.has-error select:focus{
+    border-color:#C70909;
+    box-shadow:none;
+}
+.has-error label{
+    color:#C70909;
+}
+.has-error .form-control, .has-error.well{
+    border-color:#C70909;
+}
+.has-error .form-control:focus{
+    border-color:#C70909;
+    box-shadow:none;
+}

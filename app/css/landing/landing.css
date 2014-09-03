@@ -1,0 +1,95 @@
+﻿/*Common*/
+.container {
+    width:1055px;
+}
+/*####Header####*/
+.navbar{
+    margin-bottom:0;
+    border:0;
+}
+/*Navigation*/
+nav{
+    width:100%;
+    padding:10px 0;
+    box-shadow:0 1px 2px rgba(0,0,0,.3);
+    -moz-box-shadow:0 1px 2px rgba(0,0,0,.3);
+    -webkit-box-shadow:0 1px 2px rgba(0,0,0,.3);
+    position:relative;
+}
+.form-group{
+    margin-bottom:0;
+}
+.form-group select.search{
+    width:100%;
+    padding:3px 0 4px 1px;
+    border:3px solid #d2d2cd ;
+    color:#999;
+}
+.form-group .form-control.search{
+    padding-top:3px;
+    padding-bottom:3px;
+    height:auto;
+}
+.btn-search{
+    padding:5px 12px;
+}
+/* Body */
+.profile-heading{
+    margin-bottom:15px;
+}
+.col-lg-3.center-block, .col-lg-6.center-block{
+    float:none;
+}
+.complete-profile{
+    padding:30px 0 50px 0;
+}
+.add-text{
+    font-size:15px;
+    color:#999;
+    margin-top:15px;
+    margin-top:15px;
+}
+hr{
+    margin:0;
+}
+.profile-wrapper{
+    margin:10px;
+    min-height:120px;
+    border:1px solid #d2d2d2;
+    border-radius:5px;
+    box-shadow:0 0px 6px rgba(0,0,0,0.1);
+    padding-top:15px;
+    padding-left:15px;
+    background-color: #f5f4f0;
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#f5f4f0), to(#fff)); /* Chrome, Safari 4+ */
+	background-image: -webkit-linear-gradient(top, #f5f4f0, #fff); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+	background-image:    -moz-linear-gradient(top, #f5f4f0, #fff); /* Firefox 3.6-15 */
+	background-image:      -o-linear-gradient(top, #f5f4f0, #fff); /* Opera 11.10-12.00 */
+	background-image:         linear-gradient(to top, #f5f4f0, #fff); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+    margin-bottom:25px;
+}
+.profile-wrapper img{
+    float:left;
+}
+.profile-wrapper label{
+    font-size:22px;
+    color:#7c7c7c;
+    font-weight:normal;
+    padding-left:10px;
+    margin-bottom:0;
+}
+.profile-wrapper p{
+    font-size:16px;
+    color:#7c7c7c;
+    font-weight:normal;
+    padding-left:59px;
+}
+h1.coming-soon{
+    font-size:70px;
+    margin-top:20%;
+}
+footer{
+    margin-top:17px;
+    position:absolute;
+    bottom:0;
+}

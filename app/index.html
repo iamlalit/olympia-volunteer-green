@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>Olympia Volunteer</title>
+    <link href="img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/index.css"/>
+	<link rel="stylesheet" href="css/global.css"/>
+    <!-- fornt for heading -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- font for main content -->
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400italic,400,700italic,700"/>
+</head>
+<body>
+
+	<header>
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><img src="img/logo.png"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="active" ><a href="#"  class='menu-interval'>Search Volunteer</a></li>
+                <li ><a href="postJob/postjob.html"  class='menu-interval'>Post a Job</a></li>
+                <li ><a href="jobPost/jobPost.html" class='menu-interval'>Job Postings</a></li>
+                <li><a href="#" class='menu-interval'>Messages</a></li>
+              </ul>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class='pull-right'><a href="#" id="icons-header-right" ><span class="glyphicon glyphicon-question-sign"></a></li>
+                <li class='dropdown pull-right'>
+                    <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='glyphicon glyphicon-cog'></i></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a role="menuitem" href="#"><i class='glyphicon glyphicon-user blue'></i> My Account</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="#"><i class='glyphicon glyphicon-cog blue'></i> Change Password</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" href="#"><i class='glyphicon glyphicon-cog blue'></i> Notification Settings</a></li>
+                    </ul>
+                </li>
+                <li class='pull-right' ><a href="#" id="icons-header-right"><span class="glyphicon glyphicon-exclamation-sign"></a></li>
+                <li class="dropdown pull-right" style="margin-top:5px;" id="username">
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown">Course_Agency &nbsp;<b class="caret green"></b></a>
+                    <ul class="dropdown-menu header-right-dropdown" >
+                        <li role="presentation" ><a role="menuitem" ng-model="Client" href="#" id="tab-header-1"><img src="img/client-icon.png">&nbsp;&nbsp;&nbsp;Course_Agency</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" ><a role="menuitem" ng-model="Client" href="#"  ><img src="img/client-icon.png">&nbsp;&nbsp;&nbsp;course_client</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" ><a role="menuitem" ng-model="Client" href="#" ><img src="img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Sandy Sharma</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" id="separate-highlight" disabled> 
+                                <a role="menuitem" style="text-align:right;">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+	
+    <div class="container">
+        <h2 class="blue underline" style="">Headings</h2>  
+        <h1>Heading 1</h1>
+        <h2>Heading 2 - Used for heading - Font Roboto Slab</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+	</div><!-- /content section -->
+
+    <div class="container">
+        <h2 class="blue underline">Buttons</h2>
+        <h3>General Buttons: </h3>
+        <button type="submit" class="btn btn-primary ">Blue Button</button>
+        <button type="submit" class="btn btn-success">Green Button</button>
+        <button type="submit" class="btn btn-danger">Red Button</button>
+        <button type="submit" class="btn btn-link">Link Button</button>
+    </div>
+    <p>&nbsp;</p>
+    
+    <div class="container">
+        <h3>Different size buttons: </h3>
+        <button type="button" class="btn btn-primary btn-lg">1.Large button</button>
+        <button type="button" class="btn btn-primary">2.Default button</button>
+        <button type="button" class="btn btn-primary btn-sm">3.Small button</button>
+        <button type="button" class="btn btn-primary btn-xs">4.Extra small button</button>
+    </div>
+    <p>&nbsp;</p>
+    
+    <div class="container">
+        <h3>Block level buttons: </h3>
+        <div class="col-sm-5 padding-left-0">
+            <button type="button" class="btn btn-success btn-lg btn-block">col-5</button>
+        </div>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-success btn-lg btn-block">col-4</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-success btn-lg btn-block">col-3</button>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="blue underline"> Brand Colors</h2>
+        <div style="background-color:#000000" class="color-palette">1</div>
+        <div style="background-color:#111111" class="color-palette">2</div>
+        <div style="background-color:#444444" class="color-palette">3</div>
+        <div style="background-color:#ffffff" class="color-palette">4</div>
+        <div style="background-color:#d2d2d2" class="color-palette">5</div>
+        <div style="background-color:#00aeec" class="color-palette">6</div>
+        <div style="background-color:#3276b1" class="color-palette">7</div>
+        <div style="background-color:#a5a5a4" class="color-palette">8</div>
+        <div style="background-color:#f5f5f2" class="color-palette">9</div>
+    </div>
+
+    <p>&nbsp;</p>
+    
+    <div class="container">
+        <h3>Textbox: </h3>
+        <div class="col-sm-4 padding-left-0">
+            <input type="text" class="col-sm-10" value="Normal state"/>
+        </div>
+        <div class="col-sm-4 padding-left-0">
+            <input type="text" disabled="disabled" class="col-sm-10" value="disabled state"/>
+        </div>
+        <div class="col-sm-4 padding-left-0">
+            <input type="text" class="col-sm-10 error" value="Error State"/>
+        </div>
+    </div>
+
+    <p>&nbsp;</p>
+    
+    <div class="container">
+        <h3>Textarea: </h3>
+        <div class="col-sm-6 padding-left-0">
+            <textarea rows="6" cols="70" class="col-sm-10 text-area"></textarea>
+        </div>
+        <div class="col-sm-6 padding-left-0">
+            <textarea rows="6" cols="70" class="col-sm-10 text-area error"></textarea>
+        </div>
+    </div>
+    <p>&nbsp;</p>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights'>
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+	<!-- Scripts Begins -->
+	<script src="lib/jquery/dist/jquery.min.js"></script>
+	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Scripts ends here -->
+</body>
+</html>

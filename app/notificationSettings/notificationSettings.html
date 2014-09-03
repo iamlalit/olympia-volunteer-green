@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html ng-app="changePasswordController">
+<head>
+    <meta charset="utf-8">
+    <title>Notification Settings</title>
+    <link href="../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.css" rel="stylesheet">
+    <link href="../css/organization/postJob/postJob.css" rel="stylesheet"/>
+    <link href="../css/organization/viewApp/viewApp.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <link href="../css/global.css" rel="stylesheet">
+</head>
+
+<body ng-controller="changePasswordCntrl">
+    <!-- Page Header Section Start-->
+    <header>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="../img/logo.png"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <!-- Volunteer Menu Start-->
+                    <ul class="nav navbar-nav" ng-if="typeOfOwner == 'volunteer'">
+                        <li><a href="../Volunteer/searchJob/searchJob.html" class='menu-interval'>Search Job</a></li>
+                        <li><a href="../Volunteer/jobApplication/jobApplication.html" class='menu-interval'>Job Applications</a></li>
+                        <li><a href="#" class='menu-interval'>Recommendations</a></li>
+                        <li><a href="../message/message.html?owner=volunteer" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- Volunteer Menu end here-->
+                    <!-- organization Menu start-->
+                    <ul class="nav navbar-nav" ng-if="typeOfOwner == 'organization'">
+                        <li ><a href="../organization/search/searchVol.html" class='menu-interval'>Search Volunteer</a></li>
+                        <li><a href="../organization/postJob/postJob.html"  class='menu-interval'>Post a Job</a></li>
+                        <li><a href="../organization/jobPost/jobPost.html" class='menu-interval'>Job Postings</a></li>
+                        <li><a href="../message/message.html?owner=organization" class='menu-interval'>Messages</a></li>
+                    </ul>
+                    <!-- organization ends here start-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                        <li class='dropdown pull-right'>
+                            <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation">
+                                    <a role="menuitem" href="../volunteer/createProfileForm/createProfile.html" ng-if="typeOfOwner == 'volunteer'"><i class='glyphicon glyphicon-user'></i> My Profile</a>
+                                    <a role="menuitem" href="../organization/organizationProfile/organizationProfile.html" ng-if="typeOfOwner == 'organization'"><i class='glyphicon glyphicon-user'></i> My Profile</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../myAccount/myAccount.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='fa fa-wrench'></i> My Account</a>
+                                    <a role="menuitem" href="../myAccount/myAccount.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='fa fa-wrench'></i> My Account</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="../changePassword/changePassword.html?owner=organization" ng-if="typeOfOwner == 'organization'"><i class='glyphicon glyphicon-cog'></i> Change Password</a>
+                                    <a role="menuitem" href="../changePassword/changePassword.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'"><i class='glyphicon glyphicon-cog'></i> Change Password</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="#"><i class='fa fa-bell'></i> Notification Settings</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+                        <li class="dropdown pull-right" style="margin-top:5px;" id="username">
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="typeOfOwner == 'organization'">Organization &nbsp;<b class="caret green"></b></a>
+                            <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="typeOfOwner == 'volunteer'">Volunteer &nbsp;<b class="caret green"></b></a>
+                            <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                                <li role="presentation" ><a role="menuitem" href="../organization/search/searchVol.html" id="tab-header-1" ng-class="{'make-it-white':typeOfOwner == 'organization'}"><img src="../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" ><a role="menuitem" href="../volunteer/searchJob/searchJob.html"  ng-class="{'make-it-white':typeOfOwner == 'volunteer'}"><img src="../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" id="separate-highlight"> 
+                                    <span><a role="menuitem" href="../myAccount/myAccount.html?owner=volunteer" ng-if="typeOfOwner == 'volunteer'">sander_mrbrown</a></span>
+                                    <span><a role="menuitem" href="../myAccount/myAccount.html?owner=organization" ng-if="typeOfOwner == 'organization'">sander_mrbrown</a></span>
+                                    <span><a role="menuitem"  href="../login/login.html">Logout</a></span>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </header>
+
+    <div class="container">
+        <form>
+            <div class="row">
+                <div class="panel-title padding-left-0">
+                    <span>Notification Settings</span>
+                </div>
+            </div>
+            <div class="row margin-top-20">
+                <span>Send email notification to <label>abc@email.com</label> when ...</span>
+            </div>
+            <div class="row">
+                <div class="pill margin-top-20 padding-top-10 padding-bottom-10">
+                    <span class="font-size-20 ">Message Center</span>
+                    <span class="font-size-20 pull-right">Email</span>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>Someone sends me a message</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="pill margin-top-20 padding-top-10 padding-bottom-10">
+                    <span class="font-size-20 ">Organization</span>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>A job is posted or modified</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>A job application is received</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>An interview invite is declined or application withdrawn</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>A job posting will expire soon</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>A job posting expired</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="pill margin-top-20 padding-top-10 padding-bottom-10">
+                    <span class="font-size-20 ">Volunteer and Volunteer Organisation Job Applications</span>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>A job application is submitted</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>An interview is initiated</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>An interview invitation is withdrawn</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>A job application is declined</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>A job I applied to is modified or cancelled</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="pill margin-top-20 padding-top-10 padding-bottom-10">
+                    <span class="font-size-20 ">Groups & Invitations</span>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>Groups membership events occur</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>Someone forwards me a volunteer's profile</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>Someone sends me an invitation</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="checkbox padding-left-0 padding-right-22">
+                    <label>
+                        <span>Team access is revoked</span> <input class="pull-right" type="checkbox">
+                    </label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="margin-top-30 align-center col-sm-12">
+                    <button class="btn btn-success" type="submit" ng-click="changePassword()">Save Changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap"  style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <i class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <i class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <i class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <i class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/angular/angular.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="controller.js"></script>
+</body>
+</html>

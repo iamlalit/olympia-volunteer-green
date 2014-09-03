@@ -1,0 +1,1789 @@
+﻿<!doctype html>
+<html lang="en" ng-app="postJobcontroller">
+<head>
+	<meta charset="utf-8">
+	<title>OLYMPIA</title>
+	<link href="../../img/olympia-fav.ico" rel="shortcut icon" type="image/x-icon" />
+	<link rel="stylesheet" href="../../css/olympia-icons.css"/>
+	<link rel="stylesheet" href="../../css/bootstrap-tagsinput/bootstrap-tagsinput.css"/>
+	<link rel="stylesheet" href="../../lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+	<!-- fornt for heading -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700&subset=latin,cyrillic-ext,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+	<!-- font for main content -->
+	<link href="//fonts.googleapis.com/css?family=PT+Sans:400italic,400,700italic,700"/>
+	<link href="../../lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+	<link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="../../css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../css/organization/postjob/postjob.css"/>
+    <link rel="stylesheet" href="../../css/organization/jobPost/jobPost.css"/>
+    <link rel="stylesheet" href="../../css/organization/viewApp/viewApp.css"/>
+    <link href="../../css/global.css" rel="stylesheet">
+</head>
+<body ng-controller="postJobCntrl">
+
+	<header>
+		<div class=''>
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#"><img src="../../img/logo.png"></a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li><a href="../search/searchVol.html" class='menu-interval'>Search Volunteer</a></li>
+				<li class="active"><a href="#"  class='menu-interval'>Post a Job</a></li>
+				<li><a href="../jobPost/jobPost.html" class='menu-interval'>Job Postings</a></li>
+				<li><a href="../../message/message.html?owner=organization" class='menu-interval'>Messages</a></li>
+		      </ul>
+		      
+		      <ul class="nav navbar-nav navbar-right">
+		        <li class='pull-right'><a href="#" id="icons-header-right"><span class="fa fa-question"></a></li>
+                <li class='dropdown pull-right'>
+                    <a href="#" class="dropdown-toggle" id="icons-header-right" data-toggle="dropdown"><i class='fa fa-cog'></i></a>
+		        	<ul class="dropdown-menu">
+		        		<li role="presentation"><a role="menuitem" href="../organizationProfile/organizationProfile.html"><i class='glyphicon glyphicon-user'></i> My Profile</a></li>
+			            <li role="presentation" class="divider"></li>
+			            <li role="presentation"><a role="menuitem" href="../../myAccount/myAccount.html?owner=organization"><i class='fa fa-wrench'></i> My Account</a></li>
+			            <li role="presentation" class="divider"></li>
+			            <li role="presentation"><a role="menuitem" href="../../changePassword/changePassword.html?owner=organization"><i class='glyphicon glyphicon-cog'></i> Change Password</a></li>
+			            <li role="presentation" class="divider"></li>
+			            <li role="presentation"><a role="menuitem" href="../../notificationSettings/notificationSettings.html?owner=organization"><i class='fa fa-bell'></i> Notification Settings</a></li>
+		          	</ul>
+		        </li>
+		        <li class='pull-right' ><a href="#" id="icons-header-right"><span class="fa fa-exclamation"></a></li>
+				<li class="dropdown pull-right" style="margin-top:5px;" id="username" ng-init="client = false; organization = true">
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown"  ng-if="organization == true">Organization &nbsp;<b class="caret green"></b></a>
+                    <a href="#" class="dropdown-toggle"  id="hover-header-right" data-toggle="dropdown" ng-if="client == true">Volunteer &nbsp;<b class="caret green"></b></a>
+                    <ul class="dropdown-menu header-right-dropdown" ng-init=" addActive2 = 'make-it-white'">
+                        <li role="presentation" ><a role="menuitem" ng-model="organization" ng-click="organization = true; client = false; addActive2 = 'make-it-white';addActive1=''"  href="../../organization/search/searchVol.html" id="tab-header-1" ng-class="addActive2"><img src="../../img/client-icon.png">&nbsp;&nbsp;&nbsp;Organization</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" ><a role="menuitem" ng-model="client" ng-click="organization = false; client = true; addActive1 = 'make-it-white';addActive2=''" href="../../volunteer/searchJob/searchJob.html" ng-class="addActive1"><img src="../../img/user-icon.svg" height="25" width="25">&nbsp;&nbsp;&nbsp;Volunteer</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" id="separate-highlight"> 
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="client == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../myAccount/myAccount.html?owner=organization" ng-if="organization == true">sander_mrbrown</a></span>
+                            <span><a role="menuitem"  href="../../login/login.html">Logout</a></span>
+                        </li>
+
+                    </ul>
+                </li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+	</header>
+	<div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-9 margin-left-71">
+        	<div class="col-sm-2"></div>
+            <div class="alert alert-danger col-sm-8" id="errorMsg">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h2 class="text-center margin-top-0">Please fix the following issues</h2>
+                <ul id="errorList" class="errorList" style="margin-bottom:35px"></ul>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+	<div class="row">
+		<div class="row margin-top-15" ></div>
+		<div class="col-sm-1">
+		</div>
+		<form  id="postJobForm" role="form">
+			<div class="col-sm-10">
+				<div class='row  margin-left-71'>
+					<span id='heading-form'>Post a Job</span>
+				</div>
+				<div class='row'>
+					<div class='margin-top-15'>
+					</div>
+				</div>
+				<div class="row margin-left-57" id="jobs">
+					<div class="col-sm-8">
+						<label >Job Types</label>
+						<select class='form-control' id="job-type" style="width:400px;" required ng-model="jobType" ng-init="jobType='job'">
+							<option value='job'>Job</option>
+							<option value='Internship'>Internship</option>
+							<option value='Event'>Event</option>
+						</select>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='margin-top-10'>
+					</div>
+				</div>
+				<div class="row margin-left-57" id="title">
+					<div class="col-sm-10" >
+						<label>Give your job a title</label>
+						<input type='text' ng-model="jobTitle" style="width:690px;" class='form-control' id='form-control-weight' for='inserting job title' id='form-text-control' placeholder='Title' id="job-title" >
+					</div>
+				</div>
+				<div class='row'>
+					<div class='margin-top-10'>
+					</div>
+				</div>
+				<div class="row margin-left-57" id="describe-work">
+					<div class="form-group">
+						<div class='col-sm-8'>
+						<label >Describe the work to be done</label>
+							<a href="#" id="zoomTextarea" class="pull-right" title="Click to Zoom" data-toggle="modal" data-target="#textBoxBig">Expand <i class="olympia-expand2"></i></a>
+							<textarea id="text-content" maxlength="5000" class="form-control" rows="5" ng-model="describeWork"></textarea>
+							<p>Number of characters <span id="text-content-count">0</span> (max 5000 characters)</p>
+						</div>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='margin-top-10'>
+					</div>
+				</div>
+				<div class='row margin-left-57'>
+					<div class="col-sm-9">
+						<label >Attach a document </label><span id='optional-text'> (optional)</span>
+						<input type="file" name="CV" accept="text/*" />
+					</div>
+				</div>
+				<div class='row'>
+					<div id='margin-top-10'>
+					</div>
+				</div>
+				<div class='row margin-left-57'>
+					<div class='col-sm-8' for='first content'>
+						<span id='optional-text'> Less than 5mb</span>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='margin-top-10'>
+					</div>
+				</div>
+				<div class='row margin-left-57' >
+					<div class='col-sm-11'>
+						<div class='border-heading'>
+							<label class="font-size-16" style='vertical-align:middle;' >Customize your application requirements</label>
+						</div>
+					</div>
+				</div>
+
+				<div class='row'>
+					<div class='margin-top-15'>
+					</div>
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<div class='col-sm-1  font-size-4 '>
+							<span class="glyphicon glyphicon-list-alt"></span>			    	
+					    </div>
+					    <div class="col-sm-6">
+					    	<label class="font-size-15">Preferred Skills and Diplomas</label>
+					    </div>
+					    <div class='col-sm-11' >
+					    	<span>
+								Specify the skills and diplomas/certificates you are looking for in a successful application. Volunteers may still apply if they do not meet your preferences, but they will be clearly notified that they are at a disadvantage.
+							</span>
+
+							<div class='row'>
+								<div class='margin-top-10'>
+								</div>
+							</div>
+							<button class="btn btn-primary" type="button" id="skills" value="Add Skills / Certificates" name="Add Skills / Certificates">Add Skills / Certificates</button>
+							<ul class="ishidden" id="group-skills">
+								<!-- <li style="list-style-type:none; padding-bottom:30px;" id="skills-popover"> -->
+								<li style="list-style-type:none; padding-bottom:30px;">								
+									<label >What Skills are needed?</label>
+									<span id="optional-text">(optional) </span>
+									<div  id='form-component-arrangement-input' style="margin-bottom:-10px;">
+										<input type="text" class='form-control' id='skill-tag' placeholder="Add skills" />
+									</div>
+									<div class="col-sm-12">
+										<span style="margin-left:-13px;"><a href="#" id="zoomTextarea" id="modal-skill" onclick="updateValueSkillText()" title="Click to Zoom" data-toggle="modal" data-target="#skillBox">Add skills requirements to your job posting</a>
+										</span>
+									</div>
+								</li>
+								<!-- <li style="list-style-type:none" id="diploma-popover"> -->
+								<li style="list-style-type:none">
+									<label >What Diploma/Certificates are needed?</label>
+									<span id="optional-text">(optional) </span>
+									<div  id='form-component-arrangement-input' style="margin-bottom:-10px;">
+										<input type="text" class='form-control' id='diploma-tag' placeholder="Add Diploma/Certificates" />
+									</div>
+									<div class="col-sm-12">
+										<span style="margin-left:-13px;"><a href="#" id="zoomTextarea" id="modal-diploma" onclick="updateValueDiplomaText()" title="Click to Zoom" data-toggle="modal" data-target="#diplomaBox">Add Diploma/Certificates requirements to your job posting</a>
+										</span>
+									</div>
+								</li>
+							</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<hr style="height:1px; background-color:#DDDDDD;">
+					</div>	
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<div class='col-sm-1  font-size-4 '>
+							<span class="glyphicon glyphicon-time"></span>			    	
+					    </div>
+					    <div class="col-sm-6">
+					    	<label class="font-size-15">Preferred Time commitments</label>
+					    </div>
+					    <div class='col-sm-11' >
+					    	<span>
+								Specify the time commitments, schedule and days of week you're looking for in a successful application. Volunteers may still apply if they do not meet your requirement preferences, but they will be clearly notified that they are at a disadvantage.
+							</span>
+
+							<div class='row'>
+								<div class='margin-top-10'>
+								</div>
+							</div>
+							<button type="button"  class="btn btn-primary" id="time">Add Time Comittments</button>
+							<ul class="ishidden" id="group-skills">
+							
+								<li style="list-style-type:none; margin-left:-16px;" id="datepicker">
+									<div class='col-sm-6'>
+			            				<div class="form-group" >
+							                <label>Start date</label>
+							                <div class='input-group date' id='datetimepicker8' style="max-width:330px;">
+							                    <input type='text' class="form-control" id='datepicker1'/>
+							                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+							                    </span>
+							                </div>
+							            </div>
+							        </div>
+									<div class='col-sm-6'>
+							            <div class="form-group">
+							            	<label>End date</label>
+							                <div class='input-group date' id='datetimepicker9'  style="max-width:330px;">
+							                    <input type='text' class="form-control" id='datepicker2'/>
+							                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+							                    </span>
+							                </div>
+							            </div>
+							        </div>
+								</li>
+
+								<li style="list-style-type:none" class="check-label">
+									<div class="row">
+										<label class="margin-left-28">Time Comittment</label>
+										<a>
+											<i class="glyphicon glyphicon-question-sign blue" id="time-checkbox"></i>
+										</a>
+										<span id="optional-text">(optional) </span>
+										
+									</div>
+									<!-- <label class="margin">Time Comittment</label> -->
+									<div class="col-sm-6 ">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Occasional(weekly or monthly)</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>A lot(10+ hours/week)</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Full time(30-40 hours/week)</a>
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>One time</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" > <a>For few hours</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Less than 1 hour </a>
+											</label>
+										</div>
+									</div>
+								</li>
+								<!-- <li style="list-style-type:none">
+									<label id='form-component-arrangement-label'>Estimated Duration</label>
+									<div  id='form-component-arrangement-input'>
+										<input type="text" class='form-control' id='form-text-control' placeholder="Add Estimated duration" />
+									</div>
+								</li> -->
+								<li style="list-style-type:none" class="check-label">
+									<div class="row">
+										<label class="margin-left-28">Schedule</label>
+										<a>
+											<i class="glyphicon glyphicon-question-sign blue"  id="schedule-checkbox"></i>
+										</a>
+
+										<span id="optional-text">(optional) </span>
+										
+									</div>
+									<div class="col-sm-12 ">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Flexible schedule</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Fixed schedule</a>
+											</label>
+										</div>
+									</div>
+								</li>
+								<!-- <li style="list-style-type:none" id="dow-popover"> -->
+								<li style="list-style-type:none">
+									<label id='form-component-arrangement-label'>Days of Week</label>
+									<span id="optional-text">(optional) </span>
+									<div  id='form-component-arrangement-input' style="margin-bottom:-10px;">
+										<input type="text" class='form-control' id='dow-tag' placeholder="Add days of week" />
+									</div>
+									<div class="col-sm-12">
+										<span style="margin-left:-13px;"><a href="#" id="zoomTextarea"id="modal-dow" onclick="updateValueDowText()" title="Click to Zoom" data-toggle="modal" data-target="#dowBox">Add days of week requirements to your job posting</a>
+										</span>
+									</div>
+								</li>
+							</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<hr style="height:1px; background-color:#DDDDDD;">
+					</div>	
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<div class='col-sm-1  font-size-4 '>
+							<span class="glyphicon glyphicon-tasks"></span>			    	
+					    </div>
+					    <div class="col-sm-6">
+					    	<label class="font-size-15">Extra Preferences</label>
+					    </div>
+					    <div class='col-sm-11' >
+					    	<span>
+								Specify the International volunter option, language and other extra details you're looking for in a successful application. Volunteers may still apply if they do not meet your preferences, but they will be clearly notified that they are at a disadvantage.
+							</span>
+							<div class='row'>
+								<div class='margin-top-10'>
+								</div>
+							</div>
+							<button type="button"  class="btn btn-primary" id="miscleaneous">Add Extra Preferences</button>
+							<ul class="ishidden" id="group-skills">
+								<li style="list-style-type:none" class="check-label">
+									<div class="row">
+										<label class="margin-left-28">Appropriate for</label>
+										<a>
+											<i class="glyphicon glyphicon-question-sign blue"  id="appropriate-checkbox"></i>
+										</a>
+										<span id="optional-text">(optional) </span>
+										
+									</div>
+									<!-- <label class="margin">Time Comittment</label> -->
+									<div class="col-sm-12">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Families</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Groups</a>
+											</label>
+										</div>
+									</div>
+								</li>
+								<li style="list-style-type:none" class="check-label">
+									<div class="row">
+										<label class="margin-left-28">International volunteer option</label>
+										<a>
+											<i class="glyphicon glyphicon-question-sign blue"  id="IVO-checkbox"></i>
+										</a>
+										<span id="optional-text">(optional) </span>
+										
+									</div>
+									<!-- <label class="margin">Time Comittment</label> -->
+									<div class="col-sm-6">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Housing available</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>International volunteers welcome</a>
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Language/cultural support available</a>
+											</label>
+										</div>
+										<div class="checkbox">
+										</div>
+									</div>
+								</li>
+								<li style="list-style-type:none" class="check-label">
+									<div class="row">
+										<label class="margin-left-28 ">Extra Details</label>
+										<a>
+											<i class="glyphicon glyphicon-question-sign blue"  id="extra-checkbox"></i>
+										</a>
+										<span id="optional-text">(optional) </span>
+									</div>
+									
+									<div class="col-sm-6">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Training provided</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Fee required</a>
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> <a>Stipend provided</a>
+											</label>
+										</div>
+										<div class="checkbox">
+										</div>
+									</div>
+								</li>
+								<li style="list-style-type:none" >								
+									<label>Language</label>
+									<span id="optional-text">(optional) </span>								
+									<div  id='form-component-arrangement-input' style="margin-bottom:-10px;">
+										<input type="text" class='form-control' id="language-tag" placeholder="Add Languages" />
+									</div>
+
+									<div class="col-sm-12" >
+										<span style="margin-left:-13px;"><a href="#" id="zoomTextarea" onclick="updateValueLanText()" title="Click to Zoom" data-toggle="modal" data-target="#languageBox">Add language requirements to your job posting</a>
+										</span>
+									</div>
+								</li>
+							</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<hr style="height:1px; background-color:#DDDDDD;">
+					</div>	
+				</div>
+
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<div class='col-sm-1  font-size-4 '>
+							<span class="glyphicon glyphicon-globe"></span>			    	
+					    </div>
+					    <div class="col-sm-6">
+					    	<label class="font-size-15">Volunteer Job Location</label>
+					    </div>
+					    <div class='col-sm-11' >
+					    	<span>
+								Specify the Volunteer Job Location, where job is located.
+							</span>
+
+						    <div class='row'>
+								<div class='margin-top-10'>
+								</div>
+							</div>
+							<button type="button" class="btn btn-primary" id="location">Add job Location</button>
+							<ul class="ishidden" id="address" style="padding-left: 0px;">
+								<li style="list-style-type:none" style="margin-left:-50px;" >	
+									<div class="margin-top-15"></div>		
+									<label>Address</label>
+									<span id="optional-text">(optional) </span>
+									<div class="row"></div>					
+									<div class='border-address col-sm-7' id="address-block">
+										<label >City</label>
+										<input type='text' class='form-control' id='form-control-weight' for='city' id='form-text-control'>
+										<div class='row'>
+											<div id='extra-space-label'>
+											</div>
+										</div>
+
+										<label >Country</label>
+										<select class='form-control'>
+											<option value='Ipsum'>Afghanistan</option>
+											<option value='Consectetur'>Akrotiri</option>
+											<option value='Ipsum'>Albania</option>
+											<option value='Consectetur'>Algeria</option>
+											<option value='Ipsum'>Angola</option>
+											<option value='Consectetur'>Antarctica</option>
+											<option value='Ipsum'>Antigua and Barbuda</option>
+											<option value='Consectetur'>Argentina</option>
+											<option value='Ipsum'>Australia</option>
+											<option value='Consectetur'>Austria</option>
+											<option value='Ipsum'>Bahamas, The</option>
+											<option value='Consectetur'>Bangladesh</option>
+											<option value='Ipsum'>Bassas da India</option>
+											<option value='Consectetur'>Belarus</option>
+											<option value='Ipsum'>Belgium</option>
+											<option value='Consectetur'>Bermuda</option>
+											<option value='Ipsum'>Bhutan</option>
+											<option value='Consectetur'>Brazil</option>
+											<option value='Ipsum'>British Indian Ocean Territory</option>
+											<option value='Consectetur'>British Virgin Islands</option>
+											<option value='Ipsum'>Bulgaria</option>
+											<option value='Consectetur'>Burma</option>
+											<option value='Ipsum'>Burundi</option>
+											<option value='Consectetur'>Cambodia</option>
+											<option value='Ipsum'>Cameroon</option>
+											<option value='Consectetur'>Canada</option>
+											<option value='Ipsum'>China</option>
+											<option value='Consectetur'>Cocos (Keeling) Islands</option>
+											<option value='Ipsum'>Colombia</option>
+											<option value='Consectetur'>Comoros</option>
+											<option value='Ipsum'>Congo, Democratic Republic of the</option>
+											<option value='Consectetur'>Congo, Republic of the</option>
+											<option value='Ipsum'>Cook Islands</option>
+											<option value='Consectetur'>Cuba</option>
+											<option value='Ipsum'>Cyprus</option>
+											<option value='Consectetur'>Denmark</option>
+											<option value='Ipsum'>Dominican Republic</option>
+											<option value='Consectetur'>Ecuador</option>
+											<option value='Ipsum'>Egypt</option>
+											<option value='Consectetur'>Ethiopia</option>
+											<option value='Ipsum'>Finland</option>
+											<option value='Consectetur'>France</option>
+											<option value='Ipsum'>Georgia</option>
+											<option value='Consectetur'>Germany</option>
+											<option value='Ipsum'>Greece</option>
+											<option value='Consectetur'>Greenland</option>
+											<option value='Ipsum'>Guinea</option>
+											<option value='Consectetur'>Holy See (Vatican City)</option>
+											<option value='Ipsum'>Hong Kong</option>
+											<option value='Consectetur'>Iceland</option>
+											<option value='Ipsum'>India</option>
+											<option value='Consectetur'>Indonesia</option>
+											<option value='Ipsum'>Iran</option>
+											<option value='Consectetur'>Iraq</option>
+											<option value='Ipsum'>Ireland</option>
+											<option value='Consectetur'>Israel</option>
+											<option value='Ipsum'>Italy</option>
+											<option value='Consectetur'>Jamaica</option>
+											<option value='Ipsum'>Japan</option>
+											<option value='Consectetur'>Jersey</option>
+											<option value='Ipsum'>Kazakhstan</option>
+											<option value='Consectetur'>Kenya</option>
+											<option value='Ipsum'>Korea</option>
+											<option value='Consectetur'>Kuwait</option>
+											<option value='Ipsum'>Laos</option>
+											<option value='Consectetur'>Lebanon</option>
+											<option value='Ipsum'>Liberia</option>
+											<option value='Consectetur'>Macau</option>
+											<option value='Ipsum'>Malaysia</option>
+											<option value='Consectetur'>Maldives</option>
+											<option value='Ipsum'>Mauritius</option>
+											<option value='Consectetur'>Mexico</option>
+											<option value='Ipsum'>Mozambique</option>
+											<option value='Consectetur'>Namibia</option>
+											<option value='Ipsum'>Nepal</option>
+											<option value='Consectetur' selected="selected">Netherlands</option>
+											<option value='Ipsum'>New Zealand</option>
+											<option value='Consectetur'>Norway</option>
+											<option value='Ipsum'>Oman</option>
+											<option value='Consectetur'>Pakistan</option>
+											<option value='Ipsum'>Peru</option>
+											<option value='Consectetur'>Philippines</option>
+											<option value='Ipsum'>Poland</option>
+											<option value='Consectetur'>Portugal</option>
+											<option value='Ipsum'>Qatar</option>
+											<option value='Consectetur'>Romania</option>
+											<option value='Ipsum'>Russia</option>
+											<option value='Consectetur'>Saudi Arabia</option>
+											<option value='Ipsum'>Sierra Leone</option>
+											<option value='Consectetur'>Singapore</option>
+											<option value='Ipsum'>Solomon Islands</option>
+											<option value='Consectetur'>Somalia</option>
+
+											<option value='Ipsum'>South Africa</option>
+											<option value='Consectetur'>Spain</option>
+											<option value='Ipsum'>Sri Lanka</option>
+											<option value='Consectetur'>Sweden</option>
+											<option value='Ipsum'>Switzerland</option>
+											<option value='Consectetur'>Syria</option>
+											<option value='Ipsum'>Taiwan</option>
+											<option value='Consectetur'>Thailand</option>
+											<option value='Ipsum'>Turkey</option>
+											<option value='Consectetur'>Uganda</option>
+											<option value='Ipsum'>Ukraine</option>
+											<option value='Consectetur'>United Arab Emirates</option>
+											<option value='Ipsum'>United Kingdom</option>
+											<option value='Consectetur'>United States</option>
+											<option value='Ipsum'>Venezuela</option>
+											<option value='Consectetur'>Vietnam</option>
+											<option value='Ipsum'>Yemen</option>
+											<option value='Consectetur'>Zambia</option>
+											<option value='Ipsum'>Zimbabwe</option>
+										</select>
+										<div class='row'>
+											<div id='extra-space-label'>
+											</div>
+										</div>
+
+										<label >Zipcode</label>
+										<input type='text' class='form-control' id='form-control-weight' for='inserting address' id='form-text-control' placeholder='Zipcode'>
+										<div class='row'>
+											<div id='extra-space-label'>
+											</div>
+										</div>
+										<span ><a style='text-align:right; cursor: pointer;' onclick="addNewAddress()">+Add another address</a></span>
+									</div>
+								</li>
+							</ul>
+					    </div>
+					</div>
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<hr style="height:1px; background-color:#DDDDDD;">
+					</div>	
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<div class='col-sm-1  font-size-4 '>
+							<span class="glyphicon glyphicon-edit"></span>			    	
+					    </div>
+					    <div class="col-sm-6">
+					    	<label class="font-size-15">Cover Letter</label>
+					    </div>
+					    <div class='col-sm-9' >
+					    	<span>Ask applicants to write a cover letter introducing themselves.</span>
+					    	<div class="checkbox">
+						      <input type="checkbox" id='checkbox-cover'><span style='font-weight:700;'> Yes, require a cover letter</span>
+						  	</div>
+					    </div>
+					    <div class='col-sm-9 margin-left-80' >
+					    	<span>Ask applicants to complete the profile before applying to the job.</span>
+					    	<div class="checkbox">
+						      <input type="checkbox" id='checkbox-profile'> <span style='font-weight:700;'>Yes, complete their profile</span>
+						    </div>
+						</div>
+					</div>
+				</div>
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<hr style="height:1px; background-color:#DDDDDD;">
+					</div>	
+				</div>
+				<!--screening questions -->
+
+				<div class="row margin-left-57">
+					<div class="col-sm-11">
+						<div class='col-sm-1  font-size-4 '>
+							<span class="glyphicon glyphicon-th-list"></span>			    	
+					    </div>
+					    <div class="col-sm-6">
+					    	<label class="font-size-15">Screening Questions</label>
+					    </div>
+
+					    <div class='col-sm-9' id="screening-popover">
+					    	<span>Add a few question that youd like to ask your candidates to answer when applying to your job</span>
+					    	<div class="margin-top-10"></div>
+					    	<input type="text" class='form-control' id='screening-tag' placeholder="Add Questions"/>
+					    </div>
+				    	<div class="col-sm-11">
+				    		<div class="col-sm-1">
+				    		</div>
+							<span style="margin-left:5px;"><a href="#" id="zoomTextarea" onclick="updateValueScreeningText()" title="Click to Zoom" data-toggle="modal" data-target="#screeningBox">Add from suggested or recent questions to your job posting</a>
+							</span>
+							<span class="pull-right" style="margin-right:80px;"><a style="cursor: pointer;" onclick="addNewTextScreening()">Create my own question</a>
+							</span>
+						</div>
+						<div id="screening-questions">
+						</div>
+								
+					</div>
+				</div>
+				<div style="margin-bottom:50px;">
+				</div>
+				<!-- buttons at the bottom -->
+				<div class='row'>
+					<div class='col-sm-4'>
+					</div>
+					<div class='col-sm-4'>
+						<button class='btn btn-primary' type="button" style='padding:5px 15px 5px 15px; font-size:15px;'>Preview</button>
+						<button class='btn btn-success' type="submit" style='padding:5px 15px 5px 15px; font-size:15px;' ng-click="saveData()">Post a Job</button>
+						<button class='btn btn-danger' type="button" style='padding:5px 15px 5px 15px; font-size:15px;'>Cancel</button>
+					</div>
+				</div>
+				<div style="margin-bottom:50px;">
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<footer>
+        <div class="container1">
+            <div class="row">
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:80px">
+                        <li>
+                            <a href="#" class="footer-text">About Us </a>
+                        </li>
+                        <li><a href="#" class="footer-text">Blog </a></li>
+                        <li><a href="#" class="footer-text">Feedback </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:40px">
+                        <li>
+                            <a href="#" class="footer-text">Comunnity</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Trust & Safety </a></li>
+                        <li><a href="#" class="footer-text">Help & Support </a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Enterprise Solution</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Terms of Services </a></li>
+                        <li><a href="#" class="footer-text">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="footer-link-list" style="padding-left:30px">
+                        <li>
+                            <a href="#" class="footer-text">Tools</a>
+                        </li>
+                        <li><a href="#" class="footer-text">Client Resources</a></li>
+                        <li><a href="#" class="footer-text">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="social-network-icon-wrap"  style="padding-right:60px">
+                        <a href="#" class="footer-select social-network-icons">
+                            <span class="footer-circle footer-circle-linkedin pull-right">
+                                <span class="fa fa-linkedin font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-facebook pull-right">
+                                <span class="fa fa-facebook font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-twitter pull-right">
+                                <span class="fa fa-twitter font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                        <a href="#" class="social-network-icons">
+                            <span class="footer-circle footer-circle-google pull-right">
+                                <span class="fa fa-google-plus font-size-20 icon-attr1"> </i>
+                            </span>
+                        </a>
+                    </div>
+                    <span class="footer-copyrights" id='footer-copyrights' style="padding-right:60px">
+                        <span>&#169;&nbsp;Olympia Volunteer Corporation</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+	</div>
+		<div class="col-sm-1">
+		</div>
+	</div>
+
+
+	<!-- Some modals -->
+	<!-- Describe the work to be done data modal-->
+	<div class="modal fade" id="textBoxBig" tabindex="-1" role="dialog" aria-labelledby="textBoxBig" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">Describe the work to be done</h2>
+				</div>
+				<form role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<textarea id="text-content-pop" maxlength="4000" class="form-control" rows="15"></textarea>
+						</div>
+						<div class="form-group text-left">
+							<p>Number of characters: <span id="text-content-count-pop">0</span> (max 4000 characters)</p>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-left">
+							</div>
+							<div class="col-sm-6">
+								<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+								<button style="margin: 0 10px 0 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- language modal box -->
+	<div class="modal fade" id="languageBox" tabindex="-1" role="dialog" aria-labelledby="languageBox" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">Choose languages</h2>
+				</div>
+				<form role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan1" value="Afrikaans"> Afrikaans
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan2" value="Albanian"> Albanian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan3" value="Arabic"> Arabic
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan4" value="Armenian"> Armenian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan5" value="Azerbaijani"> Azerbaijani
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan6" value="Basque"> Basque
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan7" value="Belarusian"> Belarusian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan8" value="Bengali"> Bengali
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan9" value="Bosnian"> Bosnian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan10" value="Bulgarian"> Bulgarian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan11" value="Catalan"> Catalan
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan12" value="Cebuano"> Cebuano
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan13" value="Chinese"> Chinese
+								    </label>
+								</div>
+							    
+							</div>
+							<div class="col-sm-3">
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan14" value="Danish"> Danish
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan15" value="Dutch"> Dutch
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan16" value="English"> English
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan17" value="Esperanto"> Esperanto
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan18" value="Estonian"> Estonian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan19" value="Filipino"> Filipino
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan20" value="French"> French
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan21" value="Georgian"> Georgian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan22" value="German"> German
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan23" value="Greek"> Greek
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan24" value="Hausa"> Hausa
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan25" value="Hebrew"> Hebrew
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan26" value="Hindi"> Hindi
+								    </label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan27" value="Hungarian"> Hungarian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan28" value="Indonesian"> Indonesian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan29" value="Irish"> Irish
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan30" value="Italian"> Italian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan31" value="Japanese"> Japanese
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan32" value="Korean"> Korean
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan33" value="Lao"> Lao
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan34" value="Latin"> Latin
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan35" value="Mongolian"> Mongolian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan36" value="Norwegian"> Norwegian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan37" value="Persian"> Persian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan38" value="Portuguese"> Portuguese
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan39" value="Punjabi"> Punjabi
+								    </label>
+								</div>
+							</div>
+							
+							<div class="col-sm-3">
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan40" value="Romanian"> Romanian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan41" value="Russian"> Russian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan42" value="Serbian"> Serbian
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan43" value="Spanish"> Spanish
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan44" value="Swedish"> Swedish
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan45" value="Thai"> Thai
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan46" value="Turkish"> Turkish
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan47" value="Ukrainian"> Ukrainian
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan48" value="Urdu"> Urdu
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan49" value="Vietnamese"> Vietnamese
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan50" value="Welsh"> Welsh
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan51" value="Yoruba"> Yoruba
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="lan52" value="Zulu"> Zulu
+								    </label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-left">
+							</div>
+							<div class="col-sm-6">
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="updateValueLanCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- days of week -->
+	<div class="modal fade" id="dowBox" tabindex="-1" role="dialog" aria-labelledby="dowBox" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">Days of week</h2>
+				</div>
+				<form role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-1">
+								</div>
+								<div class="col-sm-2">
+									<label>Full day</label>
+								</div>
+								<div class="col-sm-2">
+									<label>Morning</label>
+								</div>
+								<div class="col-sm-2">
+									<label>Afternoon</label>
+								</div>
+								<div class="col-sm-2">
+									<label>Evening</label>
+								</div>
+								<div class="col-sm-2">
+									<label>Late Night</label>
+								</div>
+							</div>
+							<div class="row" style="margin-top:5px;margin-bottom:5px;">
+								<div class="col-sm-12 margin-left-5">
+									<hr style="height:1px; background-color:#DDDDDD;margin-top:5px;margin-bottom:5px;">
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-sm-1">
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow1" value="All Weekdays - Full day"> All Weekdays
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow2" value="Weekends - Full day"> Weekends
+									    </label>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow10" value="All Weekdays - Morning"> All Weekdays
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow11" value="Weekends - Morning"> Weekends
+									    </label>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow21" value="All Weekdays - Afternoon"> All Weekdays
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow22" value="Weekends - Afternoon"> Weekends
+									    </label>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow31" value="All Weekdays - Evening"> All Weekdays
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow32" value="Weekends - Evening"> Weekends
+									    </label>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow41" value="All Weekdays - Late Night"> All Weekdays
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow42" value="Weekends - Late Night"> Weekends
+									    </label>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="margin-top:5px;margin-bottom:5px;">
+								<div class="col-sm-12 margin-left-5">
+									<hr style="height:1px; background-color:#DDDDDD;margin-top:5px;margin-bottom:5px;">
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-sm-1">
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow3" value="Monday - Full day"> Monday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow4" value="Tuesday - Full day"> Tuesday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow5" value="Wednesday - Full day"> Wednesday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow6" value="Thursday - Full day"> Thursday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow7" value="Friday - Full day"> Friday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow8" value="Saturday - Full day"> Saturday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow9" value="Sunday - Full day"> Sunday
+									    </label>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow13" value="Monday - Morning"> Monday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow14" value="Tuesday - Morning"> Tuesday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow15" value="Wednesday - Morning"> Wednesday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow16" value="Thursday - Morning"> Thursday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow17" value="Friday - Morning"> Friday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow18" value="Saturday - Morning"> Saturday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow19" value="Sunday - Morning"> Sunday
+									    </label>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow23" value="Monday - Afternoon"> Monday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow24" value="Tuesday - Afternoon"> Tuesday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow25" value="Wednesday - Afternoon"> Wednesday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow26" value="Thursday - Afternoon"> Thursday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow27" value="Friday - Afternoon"> Friday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow28" value="Saturday - Afternoon"> Saturday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow29" value="Sunday - Afternoon"> Sunday
+									    </label>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow33" value="Monday - Evening"> Monday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow34" value="Tuesday - Evening"> Tuesday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow35" value="Wednesday - Evening"> Wednesday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow36" value="Thursday - Evening"> Thursday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow37" value="Friday - Evening"> Friday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow38" value="Saturday - Evening"> Saturday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow39" value="Sunday - Evening"> Sunday
+									    </label>
+									</div>
+								</div>
+								
+								<div class="col-sm-2">
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow43" value="Monday - Late Night"> Monday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow44" value="Tuesday - Late Night"> Tuesday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow45" value="Wednesday - Late Night"> Wednesday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow46" value="Thursday - Late Night"> Thursday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow47" value="Friday - Late Night"> Friday
+									    </label>
+									</div>
+								    <div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow48" value="Saturday - Late Night"> Saturday
+									    </label>
+									</div>
+									<div class="checkbox">
+									    <label>
+									      <input type="checkbox" id="dow49" value="Sunday - Late Night"> Sunday
+									    </label>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-left">
+							</div>
+							<div class="col-sm-6">
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueDowCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Screening questions -->
+	<div class="modal fade" id="screeningBox" tabindex="-1" role="dialog" aria-labelledby="screeningBox" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">Screening questions</h2>
+				</div>
+				<form role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="col-sm-11">
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening1" value="Have you taken any Volunteer tests and done well on them that you think are relevant to this job?"> Have you taken any Volunteer tests and done well on them that you think are relevant to this job?
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening2" value="Why did you apply to this particular job?"> Why did you apply to this particular job?
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening3" value="Which part of the project do you think will take the most time?"> Which part of the project do you think will take the most time?
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening4" value="Do you have any questions about the job description?"> Do you have any questions about the job description?
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening5" value="Do you have any suggestions to make this project run successfully?"> Do you have any suggestions to make this project run successfully?
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening6" value="Why do you think you are a good fit for this particular project?"> Why do you think you are a good fit for this particular project?
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening7" value="What challenging part of this job are you most experienced in?"> What challenging part of this job are you most experienced in?
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening8" value="Which of the required job skills do you feel you you are strongest at?"> Which of the required job skills do you feel you you are strongest at?
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="screening9" value="What questions do you have about the project?"> What questions do you have about the project?
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="dow10" value="What past project or job have you had that is most like this one and why?"> What past project or job have you had that is most like this one and why?
+								    </label>
+								</div>
+							    
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-left">
+							</div>
+							<div class="col-sm-6">
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueScreeningCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Skills Modal-->
+	<div class="modal fade" id="skillBox" tabindex="-1" role="dialog" aria-labelledby="skillBox" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">Choose skills</h2>
+				</div>
+				<form role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="col-sm-4">
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill1" value="Answering Telephones"> Answering Telephones
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill2" value="Accounting"> Accounting
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill3" value="Administration"> Administration
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill4" value="Business Correspondence"> Business Correspondence
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill5" value="Client Relations"> Client Relations
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill6" value="Communication"> Communication
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill7" value="Crowd Control"> Crowd Control
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill8" value="Crime & Safety"> Crime & Safety
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill9" value="Customer Service"> Customer Service
+								    </label>
+								</div>
+							    
+							</div>
+							<div class="col-sm-4">
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill10" value="Clerical"> Clerical
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill11" value="Document Management"> Document Management
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill12" value="Disaster Relief"> Disaster Relief
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill13" value="Document Management"> Document Management
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill14" value="Event Coordination"> Event Coordination
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill15" value="Employee Relations"> Employee Relations
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill16" value="Legal Familiarity"> Legal Familiarity
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill17" value="Meeting Planning"> Meeting Planning
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill18" value="Office Administration"> Office Administration
+								    </label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill19" value="Organizational Skills"> Organizational Skills
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill20" value="Public Relations"> Public Relations
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill21" value="Public Speaking"> Public Speaking
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill22" value="People Management"> People Management
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill23" value="Receptionist"> Receptionist
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill24" value="Stenography"> Stenography
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill25" value="Travel Arrangements"> Travel Arrangements
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill26" value="Word Processing"> Word Processing
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="skill27" value="Written Communication"> Written Communication
+								    </label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-left">
+							</div>
+							<div class="col-sm-6">
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueSkillCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Diploma Modal -->
+	<div class="modal fade" id="diplomaBox" tabindex="-1" role="dialog" aria-labelledby="diplomaBox" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close big-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">Choose Diplomas/Certificates </h2>
+				</div>
+				<form role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="col-sm-6">
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma1" value="First Aid Diploma"> First Aid Diploma
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma2" value="Football Referee License"> Football Referee License
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma3" value="Active Volunteering"> Active Volunteering
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma4" value="Training and Assessmement"> Training and Assessmement
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma5" value="Program Coordination"> Program Coordination
+								    </label>
+								</div>
+							</div>
+							<div class="col-sm-6">
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma6" value="Community Service Coordination"> Community Service Coordination
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma7" value="Effective Communication"> Effective Communication
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma8" value="Negotiation"> Negotiation
+								    </label>
+								</div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma9" value="Customer Service"> Customer Service
+								    </label>
+								</div>
+							    <div class="checkbox">
+								    <label>
+								      <input type="checkbox" id="diploma10" value="Risk Management"> Risk Management
+								    </label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-left">
+							</div>
+							<div class="col-sm-6">
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-success pull-right" data-dismiss="modal" onclick="updateValueDiplomaCheck()">OK <i class="glyphicon glyphicon-arrow-right"></i></button>
+								<button style="margin: 20px 10px 30px 0;" type="button" class="btn btn-default btn-danger pull-right" data-dismiss="modal" aria-hidden="true" >Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="../../lib/jquery/dist/jquery.min.js"></script>
+	<script src="../../lib/bootstrap/dist/js/bootstrap.min.js"></script>	
+	<script src="../../lib/angular/angular.min.js"></script>
+    <!-- date picker Scripts -->
+	<script src="../../lib/moment/moment.js"></script>
+	<script src="../../lib/moment/min/moment.min.js"></script>
+	<script src="../../lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+	<!--tag inputs -->
+	<script src="../../lib/bootstrap.taginput.js"></script>
+	<script src="../../lib/bootstrap3-typeahead.js"></script>
+	<script src="../../js/app.js"></script>
+    <script src="controller.js"></script>
+	<script src="control.js"></script>
+	<script src="validation.js"></script>
+</body>
+</html>
